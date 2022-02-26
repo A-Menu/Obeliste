@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>L'Obéliste {%block titre %}{%endblock%}</title>
+        {% include "partials/css.html" %}
+        {% include "partials/metadata.html" %}
+        <style type="text/css">
+            .hero  {
+                background-position: center center;
+                padding:10vh;
+                background-image: url({{url_for("static", filename="images/gallica_btv1b55007071f.jpeg")}});
+            }
+            .container .hero {
+                background-image: none;
+            }
+            .foot {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .logo {
+                text-align: center;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+            .logo_top {
+                margin-bottom: 6px;
+            }
+            .banniere_sol {
+                color:#868e96;
+                margin-bottom: 12px;
+            }
+            .row {
+                text-align: justify;
+                margin-left: 150px;
+                margin-right: 150px;
+            }
+        </style>
+    </head>
+    <body>
+     <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="{{ url_for('accueil') }}"><img class="logo_top" src="{{url_for('static', filename='images/obeliste_logo_light.png')}}" alt="L'Obéliste" height="25"/></a>
+
+        <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for("browse")}}">Navigation</a>
+              </li>
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for("inscription")}}">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for("connexion")}}">Connexion</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
+              </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
+          <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
+          <button class="btn btn-info" type="submit">Rechercher</button>
+        </form>
+      </nav>
+      {% block afternav %}{%endblock%}
+      <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="row">
+              <div class="col">
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+                {% endfor %}
+              </div>
+          </div>
+          {% endif %}
+        {% endwith %}
+        <div class="row">
+            <div class="col">
+            {% block corps %}{% endblock %}
+            </div>
+        </div>
+      </div>
+    </body>
+    <footer class="foot">
+        <img class="logo" src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="30" />
+        <br/>
+        <p class="banniere_sol">©Ariane Menu, 2022</p>
+    </footer>
+
+</html>
