@@ -45,7 +45,6 @@ class Erige(db.Model):
 class Image(db.Model):
     image_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     image_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
-    image_chemin = db.Column(db.Text)
-    image_legende = db.Column(db.Text)
+    image_nom = db.Column(db.Text)
     image_auteur = db.Column(db.Text)
     image_droits = db.Column(db.Text)

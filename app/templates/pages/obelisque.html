@@ -2,140 +2,207 @@
 
 {% block titre %}
     {{obelisque.obelisque_nom}}
-<br>
+    <br>
 {% endblock %}
 
 {% block corps %}
-<script type="text/javascript">
-    var slideIndex = 1;
-showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+    <style type="text/css">
+        /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+        #map{
+            height:400px;
+        }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-  slides[slideIndex-1].style.display = "block";
-}
-
-</script>
-
-<style type="text/css">
-
-          .box {
+        .box {
             display: flex;
-          }
+        }
 
- /* Slideshow container */
-.slideshow-container {
-  position: relative;
-  background: #f1f1f1f1;
-}
+         /* Slideshow container */
+        .slideshow-container {
+            position: relative;
+            background: #f1f1f1f1;
+        }
 
-/* Slides */
-.mySlides {
-  display: none;
-  padding: 30px 50px 30px 50px;
-  text-align: left;
-}
+        /* Slides */
+        .mySlides {
+            display: none;
+            padding: 30px 50px 30px 50px;
+            text-align: left;
+        }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -30px;
-  padding: 16px;
-  color: #888;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-}
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -30px;
+            padding: 16px;
+            color: #888;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
 
-/* Position the "next button" to the right */
-.next {
-  position: absolute;
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
+        /* Position the "next button" to the right */
+        .next {
+            position: absolute;
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-  color: white;
-}
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+            color: white;
+        }
 
-            .illustration  {
-                text-align: center;
-                font-style: italic;
+        /* The dot/bullet/indicator container */
+        .dot-container {
+            text-align: center;
+            background: #f1f1f1f1;
+        }
+
+        /* The dots/bullets/indicators */
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        /* Add a background color to the active dot/circle */
+        .active {
+            background-color: #717171;
+        }
+
+        .illustration  {
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var slideIndex = 0;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("dot");
+              if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+              slides[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " active";
             }
-</style>
-<br>
-        <h1>{{obelisque.obelisque_nom}}</h1>
-<br>
-        <div class="illustration">
-            <img src="{{image.image_chemin}}" height="500" alt="Illustration"/>
-            <br>
-            {{image.image_auteur}}, {{image.image_droits}}
-        </div>
+
+        window.onload = function(){
+            plusSlides(n);
+            currentSlide(n);
+            showSlides(n);
+        };
+    </script>
+
+    <br>
+    <h1>{{obelisque.obelisque_nom}}</h1>
+    <br>
+    <div class="illustration">
+        <img src="../../static/images/img_obelisques/{{image.image_nom}}" height="500" alt="Illustration"/>
         <br>
-        {{obelisque.obelisque_notice}}
+        {{image.image_auteur}}, {{image.image_droits}}
+    </div>
+    <br>
+    {{obelisque.obelisque_notice}}
+    <br>
+    <dl>
         <br>
-        <dl>
-            <br>
-            <dt>Matériau</dt><dd>{{obelisque.obelisque_materiau}}</dd>
-            <dt>Hauteur (en mètres)</dt><dd>{{obelisque.obelisque_hauteur}}</dd>
-            <dt>Hauteur avec base (en mètres)</dt><dd>{{obelisque.obelisque_hauteur_avec_base}}</dd>
-            <dt>Type de commande</dt><dd>{{obelisque.obelisque_type_commande}}</dd>
-        </dl>
-        <br>
-<dt>Emplacements successifs :</dt>
- <!-- Slideshow container -->
+        <dt>Matériau</dt><dd>{{obelisque.obelisque_materiau}}</dd>
+        <dt>Hauteur (en mètres)</dt><dd>{{obelisque.obelisque_hauteur}}</dd>
+        <dt>Hauteur avec base (en mètres)</dt><dd>{{obelisque.obelisque_hauteur_avec_base}}</dd>
+        <dt>Type de commande</dt><dd>{{obelisque.obelisque_type_commande}}</dd>
+    </dl>
+    <br>
+    <dt>Élévations successives :</dt>
+    <!-- Slideshow container -->
     <div class="slideshow-container">
         <div class="slideshow-content">
           <!-- Full-width slides/quotes -->
             {% for erige in erige %}
-          <div class="mySlides">
-                <dt>Localisation : </dt> {{erige.erige_lieu}} ({{erige.erige_ville}}, {{erige.erige_pays}})<br/>
-                <dt>Coordonnées (longitude / latitude) : </dt>{{erige.erige_longitude}},{{erige.erige_latitude}}<br/>
-                <dt>Date : </dt>{{erige.erige_date}}<br/>
-                <dt>Commanditaire : </dt>{{personne.personne_nom}} ({{personne.personne_fonction}} {{personne.personne_nationalite}})<br>
-                <br>
-          </div>
-            {% endfor%}
-          <div class="carte">
+                <div class="mySlides">
+                    <dt>Localisation : </dt> {{erige.erige_lieu}} ({{erige.erige_ville}}, {{erige.erige_pays}})<br/>
+                    <dt>Date : </dt>{{erige.erige_date}}<br/>
+                    <dt>Commanditaire : </dt>{% if personne.personne_nom %}{{personne.personne_nom}}, {% endif %}{{personne.personne_fonction}} {{personne.personne_nationalite}}<br>
+                    <br>
+                    <div id="map">
+                        <script>
+                        // CARTE
 
-          </div>
+                        // Fonction d'initialisation de la carte
+                        function initMap() {
+                            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+                            var macarte = L.map('map').setView([{{erige.erige_longitude}},{{erige.erige_latitude}}], 13);
+
+                            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+                            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                                minZoom: 1,
+                                maxZoom: 20
+                            }).addTo(macarte);
+
+                            var icon = L.icon({
+                              iconUrl:'images/icon.png',
+                              iconSize: [98, 114],
+                              iconAnchor: [49, 114]
+                            });
+
+                            var marker = L.marker({{erige.erige_longitude}},{{erige.erige_latitude}}, {icon: icon}).addTo(macarte)
+                        }
+
+                       window.addEventListener('load', initMap());
+                        </script>
+                     </div>
+                </div>
+            {% endfor%}
+
+
         </div>
         <!-- Next/prev buttons -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
-
-
-
-        <br>
-        <dl>
+    <div class="dot-container">
+        {% for erige in erige %}
+            <span class="dot"></span>
+        {% endfor%}
+    </div>
+    <br>
+    <dl>
+        {% if obelisque.inscription_latine %}
             <br>
             <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
             <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
-        </dl>
-        <br>
-
-        <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
-        <br>
+        {% endif %}
+    </dl>
+    <br>
+    <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
+    <br>
     <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
 {% endblock %}
