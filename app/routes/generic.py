@@ -4,7 +4,7 @@ from flask import render_template, request, flash, redirect
 from ..app import app, login, db
 from ..modeles.donnees import Obelisque, Personne, Erige, Image
 from ..modeles.utilisateurs import Utilisateur
-from ..constantes import LIEUX_PAR_PAGE
+from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
 
 
@@ -61,25 +61,26 @@ def recherche():
     )
 
 
-@app.route("/browse")
-def browse():
-    """ Route permettant la recherche plein-texte
-    """
-    # On préfèrera l'utilisation de .get() ici
-    #   qui nous permet d'éviter un if long (if "clef" in dictionnaire and dictonnaire["clef"])
+@app.route("/index_obelisques")
+def index_obelisques():
     page = request.args.get("page", 1)
-
     if isinstance(page, str) and page.isdigit():
         page = int(page)
     else:
         page = 1
+    resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
 
-    resultats = Obelisque.query.paginate(page=page, per_page=LIEUX_PAR_PAGE)
+    return render_template("pages/index_obelisques.html", resultats=resultats)
 
-    return render_template(
-        "pages/browse.html",
-        resultats=resultats
-    )
+@app.route("/index_personnes")
+def index_personnes():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    personnes = Personne.query.order_by(Personne.personnes_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    return render_template("pages/index_personnes.html", personnes=personnes)
 
 
 @app.route("/register", methods=["GET", "POST"])

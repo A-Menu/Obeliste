@@ -1,0 +1,18 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+<br>
+        <h1>{{personne.personne_nom}}</h1>
+
+        <dl>
+            <dt>Occupation</dt><dd>{{personne.personne_fonction}}</dd>
+            <dt>Nationalité</dt><dd>{{personne.personne_nationalite}}</dd>
+        </dl>
+        <br>
+<dt>A érigé les obélisques suivants :</dt>
+        {% for erige in erige %}
+                {{erige.erige_date}}
+                <br>
+        {% endfor%}
+    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+{% endblock %}

@@ -1,6 +1,7 @@
 from warnings import warn
 
-LIEUX_PAR_PAGE = 2
+RESULTATS_PAR_PAGE = 10
+
 SECRET_KEY = "Carthago Delenda Est"
 API_ROUTE = "/api"
 
