@@ -15,13 +15,12 @@
             .hero  {
                 background-position: center center;
                 padding:10vh;
-                background-image: url({{url_for("static", filename="images/gallica_btv1b55007071f.jpeg")}});
             }
             .container .hero {
                 background-image: none;
             }
             .container {
-                margin-top: 40px;
+                margin-top: 20px;
                 margin-bottom: 30px;
             }
             .foot {
@@ -58,10 +57,10 @@
                 <a class="nav-link" href="{{url_for("index_obelisques")}}">Les obélisques</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for("index_obelisques")}}">Les personnes</a>
+                <a class="nav-link" href="{{url_for("index_personnes")}}">Les personnes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for("index_obelisques")}}">Les lieux</a>
+                <a class="nav-link" href="{{url_for("index_lieux")}}">Les lieux</a>
               </li>
             {% if not current_user.is_authenticated %}
               <li class="nav-item">

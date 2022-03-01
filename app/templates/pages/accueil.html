@@ -1,6 +1,12 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+    <style type="text/css">
+        /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+        #map{
+            height:400px;
+        }
+    </style>
 
 <h1>Bienvenue sur l'Obéliste !</h1>
 <br>
@@ -14,4 +20,39 @@
     Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
 </p>
 <br>
+
+<div id="map">
+            <script type="text/javascript">
+            var macarte = L.map('map').setView([41.89620633792111, 12.488997397366385], 13);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                    // Il est toujours bien de laisser le lien vers la source des données
+                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                    minZoom: 1,
+                    maxZoom: 20
+                }).addTo(macarte);
+
+
+        {% for erige in erige %}
+
+                // Choix de l'icône
+                var icon = L.icon({
+                iconUrl: '../../static/images/icon.png',
+                iconSize: [26, 40]
+                });
+            {% if erige.erige_actuel == 1 %}
+                // Création du marqueur
+                var marker = L.marker([{{erige.erige_longitude}}, {{erige.erige_latitude}}]);
+
+                // Ajout à la carte
+                marker.addTo(macarte);
+
+                // Création d'un popup
+                var popup = marker.bindPopup("<a href='/obelisque/{{obelisque.obelisque_id}}\'><b>{{obelisque.obelisque_nom}}</b></a></br></br><i>{{erige.erige_lieu}}</i>");
+            {% endif %}
+        {% endfor %}
+
+        </script>
+
+                     </div>
 {% endblock %}

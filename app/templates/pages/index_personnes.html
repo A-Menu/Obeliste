@@ -4,12 +4,12 @@
 
 {% block corps %}
 
-    <h1>Navigation</h1>
+    <h1>Index des personnes</h1>
     {% if resultats %}
-        <p>Il y a {{resultats.total}} résultats qui répondent à votre requête :</p>
+        <p>Il y a {{resultats.total}} personnes présentes dans la base :</p>
         <ul>
-            {% for obelisque in resultats.items %}
-                <li><a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">{{obelisque.obelisque_nom}}</a></li>
+            {% for personne in resultats.items %}
+                <li><a href="{{url_for('personne', personne_id=personne.personne_id)}}">{{personne.personne_nom}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
@@ -18,7 +18,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("browse", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for("index_personnes", page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

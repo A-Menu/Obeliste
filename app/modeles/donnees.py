@@ -38,6 +38,7 @@ class Erige(db.Model):
     erige_date = db.Column(db.Text)
     erige_longitude = db.Column(db.Float)
     erige_latitude = db.Column(db.Float)
+    erige_actuel = db.Column(db.Integer)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
 

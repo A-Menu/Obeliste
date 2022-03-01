@@ -3,16 +3,17 @@
 {% block corps %}
 <br>
         <h1>{{personne.personne_nom}}</h1>
-
-        <dl>
-            <dt>Occupation</dt><dd>{{personne.personne_fonction}}</dd>
-            <dt>Nationalité</dt><dd>{{personne.personne_nationalite}}</dd>
-        </dl>
+        <h4>{{personne.personne_fonction}} {{personne.personne_nationalite}}</h4>
         <br>
-<dt>A érigé les obélisques suivants :</dt>
-        {% for erige in erige %}
-                {{erige.erige_date}}
-                <br>
-        {% endfor%}
+        <div>
+        <p>Cette personne a fait ériger les obélisques suivants :</p>
+            <ul>
+            {% for erige in erige %}
+            <li>{{erige.erige_date}} : {{obelisque.obelisque_nom}}, {{erige.erige_lieu}} ({{erige.erige_ville}}, {{erige.erige_pays}})</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <br>
+
     <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
 {% endblock %}

@@ -4,12 +4,12 @@
 
 {% block corps %}
 
-    <h1>Navigation</h1>
+    <h1>Index des lieux</h1>
     {% if resultats %}
-        <p>Il y a {{resultats.total}} résultats qui répondent à votre requête :</p>
+        <p>Il y a {{resultats.total}} lieux présents dans la base :</p>
         <ul>
-            {% for obelisque in resultats.items %}
-                <li><a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">{{obelisque.obelisque_nom}}</a></li>
+            {% for erige in resultats.items %}
+                <li><a href="{{url_for('erige', erige_id=erige.erige_id)}}">{{erige.erige_lieu}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
@@ -18,7 +18,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("browse", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for("index_lieux", page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

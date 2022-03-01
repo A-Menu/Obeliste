@@ -6,11 +6,14 @@ from ..modeles.donnees import Obelisque, Personne, Erige, Image
 from ..modeles.utilisateurs import Utilisateur
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
+from sqlalchemy import or_
 
 
 @app.route("/")
 def accueil():
-    return render_template("pages/accueil.html")
+    erige = Erige.query.all()
+    obelisque = Obelisque.query.all()
+    return render_template("pages/accueil.html", erige=erige, obelisque=obelisque)
 
 
 @app.route("/obelisque/<int:obelisque_id>")
@@ -21,12 +24,51 @@ def obelisque(obelisque_id):
     personne_multiple = Personne.query.filter(Erige.erige_id_personne == Personne.personne_id)
     return render_template("pages/obelisque.html", obelisque=obelisque_unique, image=image_unique, erige=erige_multiple, personne=personne_multiple)
 
-
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
     personne_unique = Personne.query.filter(Personne.personne_id == personne_id).first()
-    erige_multiple = Erige.query.filter(Erige.erige_id_obelisque == personne_id)
-    return render_template("pages/personne.html", personne=personne_unique, erige=erige_multiple)
+    erige_multiple = Erige.query.filter(Erige.erige_id_personne == personne_id)
+    obelisque = Erige.query.filter(Erige.erige_id_obelisque == Obelisque.obelisque_id)
+
+    return render_template("pages/personne.html", personne=personne_unique, erige=erige_multiple, obelisque=obelisque)
+
+@app.route("/lieu/<int:erige_id>")
+def erige(erige_id):
+    erige = Erige.query.filter(Erige.erige_id == erige_id).first()
+    return render_template("pages/lieu.html", erige=erige)
+
+
+@app.route("/index_obelisques")
+def index_obelisques():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+
+    return render_template("pages/index_obelisques.html", resultats=resultats)
+
+@app.route("/index_personnes")
+def index_personnes():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    resultats = Personne.query.order_by(Personne.personne_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    return render_template("pages/index_personnes.html", resultats=resultats)
+
+
+@app.route("/index_lieux")
+def index_lieux():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    resultats = Erige.query.group_by(Erige.erige_lieu).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    return render_template("pages/index_lieux.html", resultats=resultats)
 
 
 @app.route("/recherche")
@@ -48,10 +90,14 @@ def recherche():
     # On fait de même pour le titre de la page
     titre = "Recherche"
     if motclef:
-        resultats = Obelisque.query.filter(
-            Obelisque.obelisque_nom.like("%{}%".format(motclef))
-        ).paginate(page=page, per_page=LIEUX_PAR_PAGE)
-        titre = "Résultat pour la recherche `" + motclef + "`"
+        resultats = Obelisque.query.filter(or_(
+                Obelisque.obelisque_nom.like("%{}%".format(motclef)),
+                Obelisque.obelisque_materiau.like("%{}%".format(motclef)),
+                Obelisque.obelisque_type_commande.like("%{}%".format(motclef)),
+                Obelisque.obelisque_notice.like("%{}%".format(motclef)),
+                Obelisque.obelisque_inscription_latine.like("%{}%".format(motclef)),
+                Obelisque.obelisque_inscription_latine_traduite.like("%{}%".format(motclef))
+            )).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
 
     return render_template(
         "pages/recherche.html",
@@ -59,28 +105,6 @@ def recherche():
         titre=titre,
         keyword=motclef
     )
-
-
-@app.route("/index_obelisques")
-def index_obelisques():
-    page = request.args.get("page", 1)
-    if isinstance(page, str) and page.isdigit():
-        page = int(page)
-    else:
-        page = 1
-    resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
-
-    return render_template("pages/index_obelisques.html", resultats=resultats)
-
-@app.route("/index_personnes")
-def index_personnes():
-    page = request.args.get("page", 1)
-    if isinstance(page, str) and page.isdigit():
-        page = int(page)
-    else:
-        page = 1
-    personnes = Personne.query.order_by(Personne.personnes_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGES)
-    return render_template("pages/index_personnes.html", personnes=personnes)
 
 
 @app.route("/register", methods=["GET", "POST"])
