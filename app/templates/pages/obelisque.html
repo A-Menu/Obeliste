@@ -158,7 +158,7 @@
                         // Fonction d'initialisation de la carte
                         function initMap() {
                             // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-                            var macarte = L.map('map').setView([{{erige.erige_longitude}},{{erige.erige_latitude}}], 13);
+                            var macarte = L.map('map').setView([{{erige.erige_latitude}},{{erige.erige_longitude}}], 13);
 
                             // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
                             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
@@ -173,7 +173,7 @@
                               iconAnchor: [49, 114]
                             });
 
-                            var marker = L.marker({{erige.erige_longitude}},{{erige.erige_latitude}}, {icon: icon}).addTo(macarte)
+                            var marker = L.marker({{erige.erige_latitude}},{{erige.erige_longitude}}, {icon: icon}).addTo(macarte)
                         }
 
                        window.addEventListener('load', initMap());
@@ -204,5 +204,11 @@
     <br>
     <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
     <br>
-    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+
+    <div align="center">
+        <br>
+        <a href="{{url_for('index_obelisques')}}">Retour à l'index des obélisques</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
 {% endblock %}

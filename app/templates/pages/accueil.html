@@ -1,12 +1,6 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
-    <style type="text/css">
-        /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-        #map{
-            height:400px;
-        }
-    </style>
 
 <h1>Bienvenue sur l'Obéliste !</h1>
 <br>
@@ -21,9 +15,9 @@
 </p>
 <br>
 
-<div id="map">
+<div id="map" style="width: 800px; height: 600px">
             <script type="text/javascript">
-            var macarte = L.map('map').setView([41.89620633792111, 12.488997397366385], 13);
+            var macarte = L.map('map').setView([41.8969633792111, 12.484097397366385], 14);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                     // Il est toujours bien de laisser le lien vers la source des données
@@ -42,7 +36,7 @@
                 });
             {% if erige.erige_actuel == 1 %}
                 // Création du marqueur
-                var marker = L.marker([{{erige.erige_longitude}}, {{erige.erige_latitude}}]);
+                var marker = L.marker([{{erige.erige_latitude}}, {{erige.erige_longitude}}]);
 
                 // Ajout à la carte
                 marker.addTo(macarte);

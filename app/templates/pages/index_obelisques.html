@@ -6,7 +6,7 @@
 
     <h1>Index des obélisques</h1>
     {% if resultats %}
-        <p>Il y a {{resultats.total}} obélisques présents dans la base :</p>
+        <p>{{resultats.total}} obélisques sont présents dans la base :</p>
         <ul>
             {% for obelisque in resultats.items %}
                 <li><a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">{{obelisque.obelisque_nom}}</a></li>

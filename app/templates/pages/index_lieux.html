@@ -6,7 +6,7 @@
 
     <h1>Index des lieux</h1>
     {% if resultats %}
-        <p>Il y a {{resultats.total}} lieux présents dans la base :</p>
+        <p>{{resultats.total}} lieux sont présents dans la base :</p>
         <ul>
             {% for erige in resultats.items %}
                 <li><a href="{{url_for('erige', erige_id=erige.erige_id)}}">{{erige.erige_lieu}}</a></li>

@@ -6,6 +6,7 @@ from ..modeles.donnees import Obelisque, Personne, Erige, Image
 from ..modeles.utilisateurs import Utilisateur
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
+# On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
 from sqlalchemy import or_
 
 
