@@ -86,6 +86,7 @@ def recherche():
 
     # On crée une liste vide de résultat (qui restera vide par défaut
     #   si on n'a pas de mot clé)
+    # FAIRE DES APPEND !!!
     resultats = []
 
     # On fait de même pour le titre de la page

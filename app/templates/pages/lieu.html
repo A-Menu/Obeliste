@@ -1,6 +1,7 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+{% if erige %}
 <br>
         <h1>{{erige.erige_lieu}}</h1>
         <h4>{{erige.erige_ville}}, {{erige.erige_pays}}</h4>
@@ -14,6 +15,12 @@
             </ul>
         </div>
         <br>
+
+{% else %}
+
+<h2 align="center">Page non trouvée, ce lieu n'existe pas.</h2>
+
+{% endif %}
 
     <div align="center">
         <br>

@@ -5,7 +5,9 @@
     <br>
 {% endblock %}
 
+
 {% block corps %}
+{% if obelisque %}
 
     <style type="text/css">
         /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
@@ -204,6 +206,12 @@
     <br>
     <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
     <br>
+
+{% else %}
+
+<h2 align="center">Page non trouvée, cet obélisque n'existe pas.</h2>
+
+{% endif %}
 
     <div align="center">
         <br>

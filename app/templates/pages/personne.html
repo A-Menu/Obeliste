@@ -1,6 +1,7 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+{%if personne %}
 <br>
         <h1>{{personne.personne_nom}}</h1>
         <h4>{{personne.personne_fonction}} {{personne.personne_nationalite}}</h4>
@@ -14,6 +15,12 @@
             </ul>
         </div>
         <br>
+
+{% else %}
+
+<h2 align="center">Page non trouvée, cette personne n'existe pas.</h2>
+
+{% endif %}
 
     <div align="center">
         <br>
