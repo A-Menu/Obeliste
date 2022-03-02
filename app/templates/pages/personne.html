@@ -10,16 +10,18 @@
         <p>Cette personne a fait ériger les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
-            <li>{{erige.erige_date}} : {{obelisque.obelisque_nom}}, {{erige.erige_lieu}} ({{erige.erige_ville}}, {{erige.erige_pays}})</li>
+            <li>{{erige.erige_date}} : {{obelisque.obelisque_nom}}, <a href="/lieu/{{erige.erige_id}}">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}})</li>
             {% endfor %}
             </ul>
         </div>
         <br>
 
 {% else %}
-
+<br>
+<br>
 <h2 align="center">Page non trouvée, cette personne n'existe pas.</h2>
-
+<br>
+<br>
 {% endif %}
 
     <div align="center">

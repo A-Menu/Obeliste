@@ -149,7 +149,7 @@
           <!-- Full-width slides/quotes -->
             {% for erige in erige %}
                 <div class="mySlides">
-                    <dt>Localisation : </dt> {{erige.erige_lieu}} ({{erige.erige_ville}}, {{erige.erige_pays}})<br/>
+                    <dt>Localisation : </dt> <a href="/lieu/{{erige.erige_id}}">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}})<br/>
                     <dt>Date : </dt>{{erige.erige_date}}<br/>
                     <dt>Commanditaire : </dt>{% if personne.personne_nom %}{{personne.personne_nom}}, {% endif %}{{personne.personne_fonction}} {{personne.personne_nationalite}}<br>
                     <br>
@@ -208,9 +208,11 @@
     <br>
 
 {% else %}
-
+<br>
+<br>
 <h2 align="center">Page non trouvée, cet obélisque n'existe pas.</h2>
-
+<br>
+<br>
 {% endif %}
 
     <div align="center">
