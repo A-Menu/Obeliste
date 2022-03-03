@@ -3,7 +3,7 @@ from flask import render_template, request, flash, redirect
 
 from ..app import app, login, db
 from ..modeles.donnees import Obelisque, Personne, Erige, Image
-from ..modeles.utilisateurs import Utilisateur
+from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
@@ -115,10 +115,11 @@ def inscription():
     """
     # Si on est en POST, cela veut dire que le formulaire a été envoyé
     if request.method == "POST":
-        statut, donnees = Utilisateur.creer(
-            utilisateur_login=request.form.get("login", None),
-            utilisateur_mail=request.form.get("email", None),
-            utilisateur_password=request.form.get("motdepasse", None)
+        statut, donnees = User.creer(
+            login=request.form.get("login", None),
+            email=request.form.get("email", None),
+            nom=request.form.get("nom", None),
+            motdepasse=request.form.get("motdepasse", None)
         )
         if statut is True:
             flash("Enregistrement effectué. Identifiez-vous maintenant", "success")
@@ -139,9 +140,9 @@ def connexion():
         return redirect("/")
     # Si on est en POST, cela veut dire que le formulaire a été envoyé
     if request.method == "POST":
-        utilisateur = Utilisateur.identification(
-            utilisateur_login=request.form.get("login", None),
-            utilisateur_motdepasse=request.form.get("motdepasse", None)
+        utilisateur = User.identification(
+            login=request.form.get("login", None),
+            motdepasse=request.form.get("motdepasse", None)
         )
         if utilisateur:
             flash("Connexion effectuée", "success")
@@ -160,6 +161,7 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
+
 
 
 # Erreurs.

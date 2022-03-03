@@ -3,13 +3,13 @@ from flask_login import UserMixin
 
 from .. app import db, login
 
-#On crée une classe Utilisateur
-class Utilisateur(UserMixin, db.Model):
-    utilisateur_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
-    utilisateur_login = db.Column(db.String(45), nullable=False, unique=True)
-    utilisateur_mail = db.Column(db.Text, nullable=False)
-    utilisateur_password = db.Column(db.String(100), nullable=False)
 
+class User(UserMixin, db.Model):
+    user_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    user_nom = db.Column(db.Text, nullable=False)
+    user_login = db.Column(db.String(45), nullable=False, unique=True)
+    user_email = db.Column(db.Text, nullable=False)
+    user_password = db.Column(db.String(100), nullable=False)
 
     @staticmethod
     def identification(login, motdepasse):
@@ -20,8 +20,8 @@ class Utilisateur(UserMixin, db.Model):
         :returns: Si réussite, données de l'utilisateur. Sinon None
         :rtype: User or None
         """
-        utilisateur = Utilisateur.query.filter(Utilisateur.utilisateur_login == login).first()
-        if utilisateur and check_password_hash(Utilisateur.utilisateur_password, motdepasse):
+        utilisateur = User.query.filter(User.user_login == login).first()
+        if utilisateur and check_password_hash(utilisateur.user_password, motdepasse):
             return utilisateur
         return None
 
@@ -42,12 +42,14 @@ class Utilisateur(UserMixin, db.Model):
             erreurs.append("Le login fourni est vide")
         if not email:
             erreurs.append("L'email fourni est vide")
+        if not nom:
+            erreurs.append("Le nom fourni est vide")
         if not motdepasse or len(motdepasse) < 6:
             erreurs.append("Le mot de passe fourni est vide ou trop court")
 
         # On vérifie que personne n'a utilisé cet email ou ce login
-        uniques = Utilisateur.query.filter(
-            db.or_(Utilisateur.utilisateur_mail == email, Utilisateur.utilisateur_login == login)
+        uniques = User.query.filter(
+            db.or_(User.user_email == email, User.user_login == login)
         ).count()
         if uniques > 0:
             erreurs.append("L'email ou le login sont déjà inscrits dans notre base de données")
@@ -57,10 +59,11 @@ class Utilisateur(UserMixin, db.Model):
             return False, erreurs
 
         # On crée un utilisateur
-        utilisateur = Utilisateur(
-            utilisateur_login=login,
-            utilisateur_mail=email,
-            utilisateur_password=generate_password_hash(motdepasse)
+        utilisateur = User(
+            user_nom=nom,
+            user_login=login,
+            user_email=email,
+            user_password=generate_password_hash(motdepasse)
         )
 
         try:
@@ -80,7 +83,7 @@ class Utilisateur(UserMixin, db.Model):
         :returns: ID de l'utilisateur
         :rtype: int
         """
-        return self.utilisateur_id
+        return self.user_id
 
     def to_jsonapi_dict(self):
         """ It ressembles a little JSON API format but it is not completely compatible
@@ -90,10 +93,11 @@ class Utilisateur(UserMixin, db.Model):
         return {
             "type": "people",
             "attributes": {
-                "name": self.utilisateur_login
+                "name": self.user_nom
             }
         }
 
 @login.user_loader
 def trouver_utilisateur_via_id(identifiant):
-    return Utilisateur.query.get(int(identifiant))
+    return User.query.get(int(identifiant))
+
