@@ -19,7 +19,7 @@ def accueil():
 
 @app.route("/obelisque/<int:obelisque_id>")
 def obelisque(obelisque_id):
-    obelisque_unique = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first()
+    obelisque_unique = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
     image_unique = Image.query.filter(Image.image_obelisque_id == obelisque_id).first()
     erige_multiple = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
     personne_multiple = Personne.query.filter(Erige.erige_id_personne == Personne.personne_id)
@@ -27,7 +27,7 @@ def obelisque(obelisque_id):
 
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
-    personne_unique = Personne.query.filter(Personne.personne_id == personne_id).first()
+    personne_unique = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
     erige_multiple = Erige.query.filter(Erige.erige_id_personne == personne_id)
     obelisque = Erige.query.filter(Erige.erige_id_obelisque == Obelisque.obelisque_id)
 
@@ -35,7 +35,7 @@ def personne(personne_id):
 
 @app.route("/lieu/<int:erige_id>")
 def erige(erige_id):
-    erige = Erige.query.filter(Erige.erige_id == erige_id).first()
+    erige = Erige.query.filter(Erige.erige_id == erige_id).first_or_404()
     return render_template("pages/lieu.html", erige=erige)
 
 
@@ -160,3 +160,13 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
+
+
+# Erreurs.
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('erreurs/erreur_404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('error/erreur_500.html'), 500
