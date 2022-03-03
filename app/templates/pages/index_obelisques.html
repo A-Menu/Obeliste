@@ -1,9 +1,10 @@
 {% extends "conteneur.html" %}
 
-{% block titre %}| Navigation : Page {{resultats.page}}{%endblock%}
+{% block titre %}
+    | Les obélisques
+{% endblock %}
 
 {% block corps %}
-
     <h1>Index des obélisques</h1>
     {% if resultats %}
         <p>{{resultats.total}} obélisques sont présents dans la base :</p>

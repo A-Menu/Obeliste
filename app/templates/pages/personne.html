@@ -1,8 +1,10 @@
 {% extends "conteneur.html" %}
 
+{% block titre %}
+    | {{personne.personne_nom}}
+{% endblock %}
+
 {% block corps %}
-{%if personne %}
-<br>
         <h1>{{personne.personne_nom}}</h1>
         <h4>{{personne.personne_fonction}} {{personne.personne_nationalite}}</h4>
         <br>
@@ -15,14 +17,6 @@
             </ul>
         </div>
         <br>
-
-{% else %}
-<br>
-<br>
-<h2 align="center">Page non trouvée, cette personne n'existe pas.</h2>
-<br>
-<br>
-{% endif %}
 
     <div align="center">
         <br>

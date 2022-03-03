@@ -1,8 +1,12 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
-
-<h1>Bienvenue sur l'Obéliste !</h1>
+<div align="center">
+    <img src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="110" />
+</div>
+<br>
+<br>
+<h1>Bienvenue !</h1>
 <br>
 <p>
     Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
@@ -17,12 +21,12 @@
 
 <div id="map" style="width: 800px; height: 600px">
             <script type="text/javascript">
-            var macarte = L.map('map').setView([41.8969633792111, 12.484097397366385], 14);
+            var macarte = L.map('map').setView([41.8969633792111, 12.481097397366385], 14);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                     // Il est toujours bien de laisser le lien vers la source des données
                     attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-                    minZoom: 1,
+                    minZoom: 4,
                     maxZoom: 20
                 }).addTo(macarte);
 
@@ -48,5 +52,5 @@
 
         </script>
 
-                     </div>
+</div>
 {% endblock %}

@@ -1,11 +1,14 @@
 {% extends "conteneur.html" %}
 
+{% block titre %}
+    | {{erige.erige_lieu}}
+{% endblock %}
+
 {% block corps %}
-{% if erige %}
-<br>
         <h1>{{erige.erige_lieu}}</h1>
         <h4>{{erige.erige_ville}}, {{erige.erige_pays}}</h4>
         <br>
+
         <div>
         <p>Ce lieu à accueilli les obélisques suivants :</p>
             <ul>
@@ -16,13 +19,34 @@
         </div>
         <br>
 
-{% else %}
+<div id="map" style="width: 800px; height: 600px">
+            <script type="text/javascript">
+            var macarte = L.map('map').setView([{{erige.erige_latitude}}, {{erige.erige_longitude}}], 14);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                    // Il est toujours bien de laisser le lien vers la source des données
+                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                    minZoom: 4,
+                    maxZoom: 20
+                }).addTo(macarte);
+
+                // Choix de l'icône
+                var icon = L.icon({
+                iconUrl: '../../static/images/icon.png',
+                iconSize: [26, 40]
+                });
+
+                // Création du marqueur
+                var marker = L.marker([{{erige.erige_latitude}}, {{erige.erige_longitude}}]);
+
+                // Ajout à la carte
+                marker.addTo(macarte);
+
+                // Création d'un popup
+                var popup = marker.bindPopup("{{erige.erige_lieu}}");
+        </script>
+</div>
 <br>
-<br>
-<h2 align="center">Page non trouvée, ce lieu n'existe pas.</h2>
-<br>
-<br>
-{% endif %}
 
     <div align="center">
         <br>
