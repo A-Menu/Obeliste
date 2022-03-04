@@ -48,5 +48,7 @@ class Image(db.Model):
     image_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
     image_nom = db.Column(db.Text)
     image_auteur = db.Column(db.Text)
+    image_url = db.Column(db.Text)
     image_droits = db.Column(db.Text)
+    image_url_droits = db.Column(db.Text)
     image_titre_obelisque = db.Column(db.Text)
