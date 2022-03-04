@@ -49,3 +49,4 @@ class Image(db.Model):
     image_nom = db.Column(db.Text)
     image_auteur = db.Column(db.Text)
     image_droits = db.Column(db.Text)
+    image_titre_obelisque = db.Column(db.Text)

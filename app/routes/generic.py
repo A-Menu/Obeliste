@@ -46,8 +46,7 @@ def index_obelisques():
         page = int(page)
     else:
         page = 1
-    resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
-
+    resultats = Image.query.order_by(Image.image_titre_obelisque).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_obelisques.html", resultats=resultats)
 
 @app.route("/index_personnes")
@@ -86,8 +85,7 @@ def recherche():
 
     # On crée une liste vide de résultat (qui restera vide par défaut
     #   si on n'a pas de mot clé)
-    # FAIRE DES APPEND !!!
-    resultats = []
+    resultats =  []
 
     # On fait de même pour le titre de la page
     titre = "Recherche"
@@ -99,6 +97,8 @@ def recherche():
                 Obelisque.obelisque_notice.like("%{}%".format(motclef)),
                 Obelisque.obelisque_inscription_latine.like("%{}%".format(motclef)),
                 Obelisque.obelisque_inscription_latine_traduite.like("%{}%".format(motclef))
+
+
             )).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
 
     return render_template(

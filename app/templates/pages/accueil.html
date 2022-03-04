@@ -1,6 +1,7 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+
 <div align="center">
     <img src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="110" />
 </div>
@@ -19,7 +20,7 @@
 </p>
 <br>
 
-<div id="map" style="width: 800px; height: 600px">
+<div id="map" style="width: 780px; height: 600px">
             <script type="text/javascript">
             var macarte = L.map('map').setView([41.8969633792111, 12.481097397366385], 14);
 
@@ -53,4 +54,24 @@
         </script>
 
 </div>
+<br>
+<br>
+<h3>À propos</h3>
+<br>
+<p>
+    Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
+</p>
+<p>
+  Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
+</p>
+<p>
+    Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
+</p>
+<br>
+<br>
+<h3>Contact</h3>
+<p>
+    Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git" target="_blank">dépôt GitHub de l'application</a> !
+</p>
+
 {% endblock %}

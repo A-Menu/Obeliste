@@ -6,14 +6,30 @@
 
 {% block corps %}
 
+<style type="text/css">
+    .card:hover{
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+</style>
+
     <h1>Index des lieux</h1>
     {% if resultats %}
         <p>{{resultats.total}} lieux sont présents dans la base :</p>
-        <ul>
+
+        <div class="card-columns">
             {% for erige in resultats.items %}
-                <li><a href="{{url_for('erige', erige_id=erige.erige_id)}}">{{erige.erige_lieu}}</a></li>
+            <div class="card">
+                <a href="/lieu/{{erige.erige_id}}">
+                    <div class="card-body">
+                    <h6 class="card-title">{{erige.erige_lieu}}</h6>
+                    <p class="card-text">{{erige.erige_ville}}, {{erige.erige_pays}}</p>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+<br>
     <nav aria-label="research-pagination">
       <ul class="pagination">
         {%- for page in resultats.iter_pages() %}

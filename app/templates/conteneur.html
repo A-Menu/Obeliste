@@ -23,33 +23,24 @@
                 margin-top: 40px;
                 margin-bottom: 30px;
             }
-            .foot {
-                position: relative;
-                bottom: 0;
-                width: 100%;
-                text-align: center;
-            }
-            .logo {
-                text-align: center;
-                margin-top: 20px;
-                margin-bottom: 10px;
-            }
             .logo_top {
                 margin-bottom: 6px;
-            }
-            .banniere_sol {
-                color:#868e96;
-                margin-bottom: 12px;
             }
             .row {
                 text-align: justify;
                 margin-left: 150px;
                 margin-right: 150px;
             }
+            .github {
+                margin-left: 13px;
+            }
+            .utilisateur {
+                margin-left:780px;
+            }
         </style>
     </head>
     <body>
-     <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+     <nav class="navbar navbar-expand-md navbar-dark justify-content-between" style="background-color: #21081a;">
         <a class="navbar-brand" href="{{ url_for('accueil') }}"><img class="logo_top" src="{{url_for('static', filename='images/obeliste_logo_light.png')}}" alt="L'Obéliste" height="25"/></a>
 
         <ul class="navbar-nav mr-auto">
@@ -63,14 +54,14 @@
                 <a class="nav-link" href="{{url_for("index_lieux")}}">Les lieux</a>
               </li>
             {% if not current_user.is_authenticated %}
-              <li class="nav-item">
+              <li class="nav-item utilisateur">
                 <a class="nav-link" href="{{url_for("inscription")}}">Inscription</a>
               </li>
-              <li class="nav-item ">
+              <li class="nav-item">
                 <a class="nav-link" href="{{url_for("connexion")}}">Connexion</a>
               </li>
             {% else %}
-              <li class="nav-item">
+              <li class="nav-item utilisateur">
                 <a class="nav-link" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
               </li>
             {% endif %}
@@ -79,6 +70,7 @@
           <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
           <button class="btn btn-info" type="submit">Rechercher</button>
         </form>
+
       </nav>
       {% block afternav %}{%endblock%}
       <div class="container">
@@ -100,10 +92,12 @@
         </div>
       </div>
     </body>
-    <footer class="foot">
-        <img class="logo" src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="30" />
-        <br/>
-        <p class="banniere_sol">©Ariane Menu, 2022</p>
+    <br>
+    <br>
+    <br>
+    <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
+      <div class="text-center p-2">
+          ©L'Obéliste - Ariane Menu, 2022<a class="github" href="https://github.com/A-Menu/Obeliste.git" target="_blank"><img width="28" height="28" src="{{url_for('static', filename='images/github_logo.png')}}" alt="Voir l'application sur GitHub" title="Voir l'application sur Github"></a>
+      </div>
     </footer>
-
 </html>
