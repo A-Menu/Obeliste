@@ -11,113 +11,52 @@
             height:400px;
         }
 
-        .box {
-            display: flex;
-        }
-
-         /* Slideshow container */
-        .slideshow-container {
-            position: relative;
-            background: #f1f1f1f1;
-        }
-
-        /* Slides */
-        .mySlides {
-            display: none;
-            padding: 30px 50px 30px 50px;
-            text-align: left;
-        }
-
-        /* Next & previous buttons */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            margin-top: -30px;
-            padding: 16px;
-            color: #888;
-            font-weight: bold;
-            font-size: 20px;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-        }
-
-        /* Position the "next button" to the right */
-        .next {
-            position: absolute;
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        /* On hover, add a black background color with a little bit see-through */
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-            color: white;
-        }
-
-        /* The dot/bullet/indicator container */
-        .dot-container {
-            text-align: center;
-            background: #f1f1f1f1;
-        }
-
-        /* The dots/bullets/indicators */
-        .dot {
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        /* Add a background color to the active dot/circle */
-        .active {
-            background-color: #717171;
-        }
-
         .illustration  {
             text-align: center;
             font-style: italic;
         }
+
+ /* Style the buttons that are used to open and close the accordion panel */
+.accordion_perso {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: solid, 1px;
+  outline: none;
+  transition: 0.4s;
+  border-radius: 6px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.accordion_perso:hover {
+  background-color: #E2E3DF;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel_perso {
+  padding: 0 18px;
+  background-color: #F8F8F8;
+  display: none;
+  overflow: hidden;
+}
+
+.accordion_perso:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
     </style>
 
-    <script type="text/javascript">
-        var slideIndex = 0;
-        showSlides(slideIndex);
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-          showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-              var i;
-              var slides = document.getElementsByClassName("mySlides");
-              var dots = document.getElementsByClassName("dot");
-              if (n > slides.length) {slideIndex = 1}
-                if (n < 1) {slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                  slides[i].style.display = "none";
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-              slides[slideIndex-1].style.display = "block";
-              dots[slideIndex-1].className += " active";
-            }
-
-        window.onload = function(){
-            plusSlides(n);
-            currentSlide(n);
-            showSlides(n);
-        };
-    </script>
 
     <h1>{{obelisque.obelisque_nom}}</h1>
     <br>
@@ -138,58 +77,68 @@
     </dl>
     <br>
     <dt>Élévations successives :</dt>
-    <!-- Slideshow container -->
-    <div class="slideshow-container">
-        <div class="slideshow-content">
-          <!-- Full-width slides/quotes -->
-            {% for erige in erige %}
-                <div class="mySlides">
-                    <dt>Localisation : </dt> <a href="/lieu/{{erige.erige_id}}">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}})<br/>
-                    <dt>Date : </dt>{{erige.erige_date}}<br/>
-                    <dt>Commanditaire : </dt>{% if personne.personne_nom %}{{personne.personne_nom}}, {% endif %}{{personne.personne_fonction}} {{personne.personne_nationalite}}<br>
-                    <br>
-                    <div id="map">
-                        <script>
-                        // CARTE
+<br>
+<div >
+    {% for erige in erige %}
 
-                        // Fonction d'initialisation de la carte
-                        function initMap() {
-                            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-                            var macarte = L.map('map').setView([{{erige.erige_latitude}},{{erige.erige_longitude}}], 13);
+    <button class="accordion_perso"><b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.erige_id}}">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}}) | Commanditaire : {% if personne.personne_nom %}{{personne.personne_nom}}, {% endif %}{{personne.personne_fonction}} {{personne.personne_nationalite}}</button>
+    <div class="panel_perso">
+    <br>
+    <div id="map">
+        <script>
+        // CARTE
+        // Fonction d'initialisation de la carte
+        function initMap() {
+        // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+             var macarte = L.map('map').setView([{{erige.erige_latitude}},{{erige.erige_longitude}}], 13);
 
-                            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-                            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-                                minZoom: 4,
-                                maxZoom: 20
-                            }).addTo(macarte);
+             // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 4,
+                maxZoom: 20
+             }).addTo(macarte);
 
-                            var icon = L.icon({
-                              iconUrl:'images/icon.png',
-                              iconSize: [98, 114],
-                              iconAnchor: [49, 114]
-                            });
+             var icon = L.icon({
+                iconUrl:'images/icon.png',
+                iconSize: [98, 114],
+                iconAnchor: [49, 114]
+             });
 
-                            var marker = L.marker({{erige.erige_latitude}},{{erige.erige_longitude}}, {icon: icon}).addTo(macarte)
-                        }
+             var marker = L.marker({{erige.erige_latitude}},{{erige.erige_longitude}}, {icon: icon}).addTo(macarte)
+             }
 
-                       window.addEventListener('load', initMap());
-                        </script>
-                     </div>
-                </div>
-            {% endfor%}
-
-
-        </div>
-        <!-- Next/prev buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+             window.addEventListener('load', initMap());
+        </script>
     </div>
-    <div class="dot-container">
-        {% for erige in erige %}
-            <span class="dot"></span>
-        {% endfor%}
+
+    <br>
     </div>
+
+  {% endfor%}
+</div>
+
+<script type="text/javascript">
+    var acc = document.getElementsByClassName("accordion_perso");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            /* Toggle between adding and removing the "active" class,
+            to highlight the button that controls the panel */
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
     <br>
     <dl>
         {% if obelisque.obelisque_inscription_latine %}
