@@ -2,12 +2,12 @@ from flask import render_template, request, flash, redirect
 
 
 from ..app import app, login, db
-from ..modeles.donnees import Obelisque, Personne, Erige, Image
+from ..modeles.donnees import Obelisque, Personne, Erige
 from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 
 
 @app.route("/")
@@ -19,19 +19,18 @@ def accueil():
 
 @app.route("/obelisque/<int:obelisque_id>")
 def obelisque(obelisque_id):
-    obelisque_unique = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
-    image_unique = Image.query.filter(Image.image_obelisque_id == obelisque_id).first()
-    erige_multiple = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
-    personne_multiple = Personne.query.filter(Erige.erige_id_personne == Personne.personne_id)
-    return render_template("pages/obelisque.html", obelisque=obelisque_unique, image=image_unique, erige=erige_multiple, personne=personne_multiple)
+    obelisque = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
+    erige = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
+    personne = Personne.query.filter(Erige.erige_id_personne == Personne.personne_id)
+    return render_template("pages/obelisque.html", obelisque=obelisque, erige=erige, personne=personne)
 
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
-    personne_unique = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
-    erige_multiple = Erige.query.filter(Erige.erige_id_personne == personne_id)
+    personne = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
+    erige = Erige.query.filter(Erige.erige_id_personne == personne_id)
     obelisque = Erige.query.filter(Erige.erige_id_obelisque == Obelisque.obelisque_id)
 
-    return render_template("pages/personne.html", personne=personne_unique, erige=erige_multiple, obelisque=obelisque)
+    return render_template("pages/personne.html", personne=personne, erige=erige, obelisque=obelisque)
 
 @app.route("/lieu/<int:erige_id>")
 def erige(erige_id):
@@ -46,8 +45,28 @@ def index_obelisques():
         page = int(page)
     else:
         page = 1
-    resultats = Image.query.order_by(Image.image_titre_obelisque).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_obelisques.html", resultats=resultats)
+
+@app.route("/index_obelisques_egyptiens")
+def index_obelisques_egyptiens():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande =="Égyptienne").paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    return render_template("pages/index_obelisques_egyptiens.html", resultats=resultats)
+
+@app.route("/index_obelisques_romains")
+def index_obelisques_romains():
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande =="Romaine").paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    return render_template("pages/index_obelisques_romains.html", resultats=resultats)
 
 @app.route("/index_personnes")
 def index_personnes():
@@ -107,7 +126,6 @@ def recherche():
         titre=titre,
         keyword=motclef
     )
-
 
 @app.route("/register", methods=["GET", "POST"])
 def inscription():

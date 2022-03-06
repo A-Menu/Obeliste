@@ -1,11 +1,10 @@
 {% extends "conteneur.html" %}
 
 {% block titre %}
-    | Les commanditaires
+    | Les obélisques romains
 {% endblock %}
 
 {% block corps %}
-
 <style type="text/css">
     .card:hover{
         transform: scale(1.05);
@@ -13,17 +12,17 @@
     }
 </style>
 
-    <h1>Index des commanditaires</h1>
+    <h1>Index des obélisques romains</h1>
     {% if resultats %}
-        <p>{{resultats.total}} commanditaires sont présents dans la base :</p>
+        <p>{{resultats.total}} obélisques romains sont présents dans la base :</p>
 
         <div class="card-columns">
-            {% for personne in resultats.items %}
+            {% for obelisque in resultats.items %}
             <div class="card">
-                <a href="/personne/{{personne.personne_id}}">
+                <a href="/obelisque/{{obelisque.obelisque_id}}">
+                <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
                     <div class="card-body">
-                    <h6 class="card-title">{{personne.personne_nom}}</h6>
-                    <p class="card-text">{{personne.personne_fonction}} {{personne.personne_nationalite}}</p>
+                    <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
                     </div>
                 </a>
             </div>
@@ -36,7 +35,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("index_personnes", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for("index_obelisques", page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

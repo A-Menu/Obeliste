@@ -12,17 +12,17 @@
     }
 </style>
 
-    <h1>Index des obélisques</h1>
+    <h1>Index général des obélisques</h1>
     {% if resultats %}
-        <p>{{resultats.total}} obélisques sont présents dans la base :</p>
+        <p>{{resultats.total}} obélisques sont présents dans la base au total :</p>
 
         <div class="card-columns">
-            {% for image in resultats.items %}
+            {% for obelisque in resultats.items %}
             <div class="card">
-                <a href="/obelisque/{{image.image_obelisque_id}}">
-                <img class="card-img-top" src="../../static/images/img_obelisques/{{image.image_nom}}" alt="{{image.image_titre_obelisque}}"/>
+                <a href="/obelisque/{{obelisque.obelisque_id}}">
+                <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
                     <div class="card-body">
-                    <h6 class="card-title">{{image.image_titre_obelisque}}</h6>
+                    <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
                     </div>
                 </a>
             </div>
