@@ -31,12 +31,23 @@ class Personne(db.Model):
     personne_nationalite = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="personne")
 
+#On crée une classe Localisation
+class Localisation(db.Model):
+    localisation_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    localisation_lieu = db.Column(db.Text)
+    localisation_ville = db.Column(db.Text)
+    localisation_pays = db.Column(db.Text)
+    localisation_longitude = db.Column(db.Float)
+    localisation_latitude = db.Column(db.Float)
+    erige = db.relationship("Erige", back_populates="localisation")
+
 #On crée une classe Erige
 class Erige(db.Model):
     __tablename__ = "erige"
     erige_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     erige_id_obelisque = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
     erige_id_personne = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
+    erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_lieu = db.Column(db.Text)
     erige_ville = db.Column(db.Text)
     erige_pays = db.Column(db.Text)
@@ -46,3 +57,4 @@ class Erige(db.Model):
     erige_actuel = db.Column(db.Integer)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
+    localisation = db.relationship("Localisation", back_populates="erige")

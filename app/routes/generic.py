@@ -2,40 +2,37 @@ from flask import render_template, request, flash, redirect
 
 
 from ..app import app, login, db
-from ..modeles.donnees import Obelisque, Personne, Erige
+from ..modeles.donnees import Obelisque, Personne, Erige, Localisation
 from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
-from sqlalchemy import or_, and_
+from sqlalchemy import or_
 
 
 @app.route("/")
 def accueil():
     erige = Erige.query.all()
-    obelisque = Obelisque.query.all()
-    return render_template("pages/accueil.html", erige=erige, obelisque=obelisque)
+    return render_template("pages/accueil.html", erige=erige)
 
 
 @app.route("/obelisque/<int:obelisque_id>")
 def obelisque(obelisque_id):
     obelisque = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
-    personne = Personne.query.filter(Erige.erige_id_personne == Personne.personne_id)
-    return render_template("pages/obelisque.html", obelisque=obelisque, erige=erige, personne=personne)
+    return render_template("pages/obelisque.html", obelisque=obelisque, erige=erige)
 
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
     personne = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
-    erige = Erige.query.filter(Erige.erige_id_personne == personne_id)
-    obelisque = Erige.query.filter(Erige.erige_id_obelisque == Obelisque.obelisque_id)
+    erige = Erige.query.filter(Erige.erige_id_personne == personne_id).order_by(Erige.erige_date)
+    return render_template("pages/personne.html", personne=personne, erige=erige)
 
-    return render_template("pages/personne.html", personne=personne, erige=erige, obelisque=obelisque)
-
-@app.route("/lieu/<int:erige_id>")
-def erige(erige_id):
-    erige = Erige.query.filter(Erige.erige_id == erige_id).first_or_404()
-    return render_template("pages/lieu.html", erige=erige)
+@app.route("/lieu/<int:localisation_id>")
+def localisation(localisation_id):
+    localisation = Localisation.query.filter(Localisation.localisation_id == localisation_id).first_or_404()
+    erige = Erige.query.filter(Erige.erige_id_localisation == localisation_id).order_by(Erige.erige_date)
+    return render_template("pages/lieu.html", localisation=localisation, erige=erige)
 
 
 @app.route("/index_obelisques")

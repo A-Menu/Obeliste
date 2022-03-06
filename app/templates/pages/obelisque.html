@@ -81,7 +81,7 @@
 <div >
     {% for erige in erige %}
 
-    <button class="accordion_perso"><b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.erige_id}}">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}}) | Commanditaire : {% if personne.personne_nom %}{{personne.personne_nom}}, {% endif %}{{personne.personne_fonction}} {{personne.personne_nationalite}}</button>
+    <button class="accordion_perso"><b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.erige_id}}" target="_blank">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}}) | Commanditaire : {% if erige.personne.personne_nom %}<a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {% endif %}{{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}</button>
     <div class="panel_perso">
     <br>
     <div id="map">
