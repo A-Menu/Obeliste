@@ -28,11 +28,11 @@
   <div class="form-group row">
     <label for="register-password" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="register-password" placeholder="Mot de passe" name="motdepasse">
+      <input type="password" class="form-control" id="register-password" placeholder="Mot de passe d'au moins six caractères" name="motdepasse">
     </div>
   </div>
   <div>
-    <button type="submit" class="btn btn-primary">S'inscrire</button>
+    <button type="submit" class="btn btn-info">S'inscrire</button>
     <a href="{{url_for("connexion")}}" class="btn btn-secondary">Déjà inscrit ? Se connecter</a>
   </div>
 </form>
