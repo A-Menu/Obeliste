@@ -16,6 +16,11 @@ class Obelisque(db.Model):
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)
+    obelisque_image_nom = db.Column(db.Text)
+    obelisque_image_url = db.Column(db.Text)
+    obelisque_image_auteur = db.Column(db.Text)
+    obelisque_image_licence = db.Column(db.Text)
+    obelisque_image_licence_url = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="obelisque")
 
 #On crée une classe Personne
@@ -41,14 +46,3 @@ class Erige(db.Model):
     erige_actuel = db.Column(db.Integer)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
-
-#On crée une classe Image
-class Image(db.Model):
-    image_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
-    image_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
-    image_nom = db.Column(db.Text)
-    image_auteur = db.Column(db.Text)
-    image_url = db.Column(db.Text)
-    image_droits = db.Column(db.Text)
-    image_url_droits = db.Column(db.Text)
-    image_titre_obelisque = db.Column(db.Text)

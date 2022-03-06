@@ -61,9 +61,9 @@
     <h1>{{obelisque.obelisque_nom}}</h1>
     <br>
     <div class="illustration">
-        <img src="../../static/images/img_obelisques/{{image.image_nom}}" height="500" alt="Illustration"/>
+        <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="500" alt="Illustration"/>
         <br>
-        <a href="{{image.image_url}}" target="_blank">{{image.image_auteur}}</a>, <a href="{{image.image_url_droits}}" target="_blank">{{image.image_droits}}</a>
+        <a href="{{obelisque.obelisque_image_url}}" target="_blank">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}" target="_blank">{{obelisque.obelisque_image_licence}}</a>
     </div>
     <br>
     {{obelisque.obelisque_notice}}

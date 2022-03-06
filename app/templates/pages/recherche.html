@@ -5,8 +5,9 @@
 {% block corps %}
 
     <h1>{{titre}}</h1>
+    <br>
     {% if resultats %}
-        <p>{{resultats.total}} résultats répondent à votre requête :</p>
+        <p>{{resultats.total}} résultats répondent à votre requête</p>
         <ul>
             {% for obelisque in resultats.items %}
                 <li><a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">{{obelisque.obelisque_nom}}</a></li>
@@ -36,5 +37,7 @@
         {%- endfor %}
       </ul>
     </nav>
+    {% else %}
+    <span>Veuillez renseigner un terme à rechercher</span>
     {% endif %}
 {% endblock %}
