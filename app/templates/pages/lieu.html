@@ -12,9 +12,9 @@
         <div>
         <p>Ce lieu à accueilli les obélisques suivants :</p>
             <ul>
-                {% for erige in erige %}
+            {% for erige in erige %}
                 <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}</li>
-                {% endfor %}
+            {% endfor %}
             </ul>
         </div>
         <br>

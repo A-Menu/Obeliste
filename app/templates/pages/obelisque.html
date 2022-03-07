@@ -35,7 +35,7 @@
 <ul >
     {% for erige in erige %}
     <li>
-    <b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.erige_id}}" target="_blank">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}}) | Commanditaire : {% if erige.personne.personne_nom %}<a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {% endif %}{{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}
+    <b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.localisation.localisation_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : {% if erige.personne.personne_nom %}<a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {% endif %}{{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}
     </li>
   {% endfor%}
 </ul>
