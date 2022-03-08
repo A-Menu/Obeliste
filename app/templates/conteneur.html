@@ -103,8 +103,29 @@
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                         <li class="dropdown-item"><a href="{{url_for('index_obelisques')}}">Tous les obélisques</a></li>
                         <li class="dropdown-divider"></li>
-                        <li class="dropdown-item"><a href="{{url_for('index_obelisques_egyptiens')}}">Les obélisques égyptiens</a></li>
-                        <li class="dropdown-item"><a href="{{url_for('index_obelisques_romains')}}">Les obélisques romains</a></li>
+                        <li class="dropdown-submenu">
+                            <a  class="dropdown-item" href="{{url_for('index_obelisques_egyptiens')}}">Les obélisques égyptiens</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=3)}}">L'Obélisque Flaminio</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=7)}}">L'Obélisque de Dogali</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=6)}}">L'Obélisque de la Minerve</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=8)}}">L'Obélisque de la villa Celimontana</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=1)}}">L'Obélisque du Latran</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=4)}}">L'Obélisque du Montecitorio</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=5)}}">L'Obélisque du Panthéon</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=2)}}">L'Obélisque du Vatican</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a  class="dropdown-item" href="{{url_for('index_obelisques_romains')}}">Les obélisques romains</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=9)}}">L'Obélisque Agonale</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=12)}}">L'Obélisque de la Trinité-des-Monts</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=11)}}">L'Obélisque de l’Esquilin</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=13)}}">L'Obélisque du Pincio</a></li>
+                                <li class="dropdown-item"><a href="{{url_for('obelisque', obelisque_id=10)}}">L'Obélisque du Quirinal</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
 
