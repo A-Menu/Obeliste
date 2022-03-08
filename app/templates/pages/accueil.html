@@ -47,7 +47,7 @@
                 marker.addTo(macarte);
 
                 // Création d'un popup
-                var popup = marker.bindPopup("<a href='/obelisque/{{erige.obelisque.obelisque_id}}\'><b>{{erige.obelisque.obelisque_nom}}</b></a></br><i>{{erige.localisation.localisation_lieu}}</i>");
+                var popup = marker.bindPopup("<a href='{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}'><b>{{erige.obelisque.obelisque_nom}}</b></a></br><i>{{erige.localisation.localisation_lieu}}</i>");
             {% endif %}
         {% endfor %}
 
@@ -68,13 +68,13 @@
     Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
 </p>
 <div class="text-center">
-    <a href="https://www.chartes.psl.eu/fr" target="_blank"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
+    <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
 </div>
 <br>
 <br>
 <h3>Contact</h3>
 <p>
-    Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git" target="_blank">dépôt GitHub de l'application</a> !
+    Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git">dépôt GitHub de l'application</a> !
 </p>
 
 {% endblock %}

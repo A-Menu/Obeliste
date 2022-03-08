@@ -101,10 +101,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Les obélisques</a>
 
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li class="dropdown-item"><a href="/index_obelisques">Tous les obélisques</a></li>
+                        <li class="dropdown-item"><a href="{{url_for('index_obelisques')}}">Tous les obélisques</a></li>
                         <li class="dropdown-divider"></li>
-                        <li class="dropdown-item"><a href="/index_obelisques_egyptiens">Les obélisques égyptiens</a></li>
-                        <li class="dropdown-item"><a href="/index_obelisques_romains">Les obélisques romains</a></li>
+                        <li class="dropdown-item"><a href="{{url_for('index_obelisques_egyptiens')}}">Les obélisques égyptiens</a></li>
+                        <li class="dropdown-item"><a href="{{url_for('index_obelisques_romains')}}">Les obélisques romains</a></li>
                     </ul>
                 </li>
 
@@ -112,49 +112,49 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Les commanditaires</a>
 
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li class="dropdown-item"><a href="/index_personnes">Tous les commanditaires</a></li>
+                        <li class="dropdown-item"><a href="{{url_for('index_personnes')}}">Tous les commanditaires</a></li>
                         <li class="dropdown-divider"></li>
                             <li class="dropdown-submenu">
                                 <a  class="dropdown-item" href="#">Par nationalité</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Égyptienne</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/5">Apriès</a></li>
-                                            <li class="dropdown-item"><a href="/personne/4">Psammétique II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/3">Ramsès II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/9">Thoutmôsis IV</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=5)}}">Apriès</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=4)}}">Psammétique II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=3)}}">Ramsès II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=9)}}">Thoutmôsis IV</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Espagnole</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/19">Manuel Godoy</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=19)}}">Manuel Godoy</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Italienne</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/12">Alexandre VII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/13">Clément XI</a></li>
-                                            <li class="dropdown-item"><a href="/personne/22">Clément XII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/26">Clément XIV</a></li>
-                                            <li class="dropdown-item"><a href="/personne/11">Cyriaque Mattei</a></li>
-                                            <li class="dropdown-item"><a href="/personne/15">Gouvernement italien</a></li>
-                                            <li class="dropdown-item"><a href="/personne/21">Innocent X</a></li>
-                                            <li class="dropdown-item"><a href="/personne/14">Pie VI</a></li>
-                                            <li class="dropdown-item"><a href="/personne/25">Pie VII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/10">Sixte V</a></li>
-                                            <li class="dropdown-item"><a href="/personne/27">Urbain VIII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=12)}}">Alexandre VII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=13)}}">Clément XI</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=22)}}">Clément XII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=26)}}">Clément XIV</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=11)}}">Cyriaque Mattei</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=15)}}">Gouvernement italien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=21)}}">Innocent X</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=14)}}">Pie VI</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=25)}}">Pie VII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=10)}}">Sixte V</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=27)}}">Urbain VIII</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Romaine</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/6">Auguste</a></li>
-                                            <li class="dropdown-item"><a href="/personne/18">Caius Cornelius Gallus</a></li>
-                                            <li class="dropdown-item"><a href="/personne/7">Caligula</a></li>
-                                            <li class="dropdown-item"><a href="/personne/17">Constance II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/8">Domitien</a></li>
-                                            <li class="dropdown-item"><a href="/personne/23">Hadrien</a></li>
-                                            <li class="dropdown-item"><a href="/personne/24">Héliogabale</a></li>
-                                            <li class="dropdown-item"><a href="/personne/20">Maxence</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=6)}}">Auguste</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=18)}}">Caius Cornelius Gallus</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=7)}}">Caligula</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=17)}}">Constance II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=8)}}">Domitien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=23)}}">Hadrien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=24)}}">Héliogabale</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=20)}}">Maxence</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -164,54 +164,54 @@
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Ancien Premier Ministre</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/19">Manuel Godoy</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=19)}}">Manuel Godoy</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Collectionneur d'art</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/11">Cyriaque Mattei</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=11)}}">Cyriaque Mattei</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Empereur</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/6">Auguste</a></li>
-                                            <li class="dropdown-item"><a href="/personne/7">Caligula</a></li>
-                                            <li class="dropdown-item"><a href="/personne/17">Constance II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/8">Domitien</a></li>
-                                            <li class="dropdown-item"><a href="/personne/23">Hadrien</a></li>
-                                            <li class="dropdown-item"><a href="/personne/24">Héliogabale</a></li>
-                                            <li class="dropdown-item"><a href="/personne/20">Maxence</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=6)}}">Auguste</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=7)}}">Caligula</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=17)}}">Constance II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=8)}}">Domitien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=23)}}">Hadrien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=24)}}">Héliogabale</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=20)}}">Maxence</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Gouvernement</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/15">Gouvernement italien</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=15)}}">Gouvernement italien</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Pape</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/12">Alexandre VII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/13">Clément XI</a></li>
-                                            <li class="dropdown-item"><a href="/personne/22">Clément XII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/26">Clément XIV</a></li>
-                                            <li class="dropdown-item"><a href="/personne/21">Innocent X</a></li>
-                                            <li class="dropdown-item"><a href="/personne/14">Pie VI</a></li>
-                                            <li class="dropdown-item"><a href="/personne/25">Pie VII</a></li>
-                                            <li class="dropdown-item"><a href="/personne/10">Sixte V</a></li>
-                                            <li class="dropdown-item"><a href="/personne/27">Urbain VIII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=12)}}">Alexandre VII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=13)}}">Clément XI</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=22)}}">Clément XII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=26)}}">Clément XIV</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=21)}}">Innocent X</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=14)}}">Pie VI</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=25)}}">Pie VII</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=10)}}">Sixte V</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=27)}}">Urbain VIII</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Pharaon</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/5">Apriès</a></li>
-                                            <li class="dropdown-item"><a href="/personne/4">Psammétique II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/3">Ramsès II</a></li>
-                                            <li class="dropdown-item"><a href="/personne/9">Thoutmôsis IV</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=5)}}">Apriès</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=4)}}">Psammétique II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=3)}}">Ramsès II</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=9)}}">Thoutmôsis IV</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-submenu"><a class="dropdown-item" href="#">Préfet</a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-item"><a href="/personne/18">Caius Cornelius Gallus</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('personne', personne_id=18)}}">Caius Cornelius Gallus</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -223,34 +223,34 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Les lieux</a>
 
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li class="dropdown-item"><a href="index_lieux">Tous les lieux</a></li>
+                        <li class="dropdown-item"><a href="{{url_for('index_lieux')}}">Tous les lieux</a></li>
                         <li class="dropdown-divider"></li>
                         <li class="dropdown-submenu">
                             <a  class="dropdown-item" href="#">Égypte</a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Alexandrie</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/5">Forum julien</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=5)}}">Forum julien</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Héliopolis</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/8">Temple de Rê</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=8)}}">Temple de Rê</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Karnak</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/1">Temple d'Amon</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=1)}}">Temple d'Amon</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Saïs</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/17">Temple de Neith</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=17)}}">Temple de Neith</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Ville inconnue</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/4">Lieu inconnu</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=4)}}">Lieu inconnu</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -261,41 +261,41 @@
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Rome</a>
                                     <ul class="dropdown-menu">
                                         <h6 class="dropdown-header">Lieux antiques</h6>
-                                        <li class="dropdown-item"><a href="/lieu/2">Circus Maximus</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/40">Circus Varianus</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/6">Circus Vaticanus</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/12">Horologium d'Auguste</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/15">Iseum</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/36">Jardins de Salluste</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/32">Mausolée d'Auguste</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=2)}}">Circus Maximus</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=40)}}">Circus Varianus</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=6)}}">Circus Vaticanus</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=12)}}">Horologium d'Auguste</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=15)}}">Iseum</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=36)}}">Jardins de Salluste</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=32)}}">Mausolée d'Auguste</a></li>
                                         <h6 class="dropdown-header">Lieux modernes et contemporains</h6>
-                                        <li class="dropdown-item"><a href="/lieu/26">Capitole</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/38">Escalier d'Espagne</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/23">Giardini Einaudi</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/43">Jardins du Pincio</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/37">Latran</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/41">Palais Barberini</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/22">Piazza del Cinquecento</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/10">Piazza del Popolo</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/35">Place de l'Esquilin</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/13">Place de Montecitorio</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/19">Place de la Minerve</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/16">Place du Panthéon</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/33">Place du Quirinal</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/31">Place Navone</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/3">Place Saint-Jean-de-Latran</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/27">Villa Celimontana, hippodrome</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/28">Villa Celimontana, jardins</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=26)}}">Capitole</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=38)}}">Escalier d'Espagne</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=23)}}">Giardini Einaudi</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=43)}}">Jardins du Pincio</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=37)}}">Latran</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=41)}}">Palais Barberini</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=22)}}">Piazza del Cinquecento</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=10)}}">Piazza del Popolo</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=35)}}">Place de l'Esquilin</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=13)}}">Place de Montecitorio</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=19)}}">Place de la Minerve</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=16)}}">Place du Panthéon</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=33)}}">Place du Quirinal</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=31)}}">Place Navone</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=3)}}">Place Saint-Jean-de-Latran</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=27)}}">Villa Celimontana, hippodrome</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=28)}}">Villa Celimontana, jardins</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Tivoli</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/39">Villa d'Hadrien</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=39)}}">Villa d'Hadrien</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Voie Appienne</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/30">Circus Maxentius</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=30)}}">Circus Maxentius</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -305,8 +305,8 @@
                             <ul class="dropdown-menu">
                                 <li class="dropdown-submenu"><a class="dropdown-item" href="#">Cité du Vatican</a>
                                     <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="/lieu/42">Cour de la Pigne</a></li>
-                                        <li class="dropdown-item"><a href="/lieu/7">Place Saint-Pierre</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=42)}}">Cour de la Pigne</a></li>
+                                        <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=7)}}">Place Saint-Pierre</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -314,18 +314,18 @@
             </ul>
                 {% if not current_user.is_authenticated %}
                 <li class="nav-item utilisateur">
-                    <a class="nav-link" href="{{url_for("inscription")}}">Inscription</a>
+                    <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for("connexion")}}">Connexion</a>
+                    <a class="nav-link" href="{{url_for('connexion')}}">Connexion</a>
                 </li>
                 {% else %}
                 <li class="nav-item utilisateur">
-                    <a class="nav-link" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
+                    <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
                 </li>
                 {% endif %}
             </ul>
-            <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
+            <form class="form-inline" action="{{url_for('recherche')}}" method="GET">
                 <input class="form-control" name="keyword" type="search" placeholder="Chercher un obélisque" aria-label="Recherche">
                 <button class="btn btn-info" type="submit">Rechercher</button>
             </form>
@@ -364,7 +364,7 @@
     <br>
     <footer class="text-center text-white fixed-bottom" style="background-color: #3B0E2E;">
       <div class="text-center p-2">
-          ©L'Obéliste - Ariane Menu, 2022<a class="github" href="https://github.com/A-Menu/Obeliste.git" target="_blank"><img width="28" height="28" src="{{url_for('static', filename='images/github_logo.png')}}" alt="Voir l'application sur GitHub" title="Voir l'application sur Github"></a>
+          ©L'Obéliste - Ariane Menu, 2022<a class="github" href="https://github.com/A-Menu/Obeliste.git"><img width="28" height="28" src="{{url_for('static', filename='images/github_logo.png')}}" alt="Voir l'application sur GitHub" title="Voir l'application sur Github"></a>
       </div>
     </footer>
 </html>

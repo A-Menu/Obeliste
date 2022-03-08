@@ -13,7 +13,7 @@
         <p>Cette personne a fait ériger les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
-                <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, <a href="/lieu/{{erige.erige_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</li>
+                <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, <a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</li>
             {% endfor %}
             </ul>
         </div>

@@ -17,7 +17,7 @@
     <div class="illustration">
         <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="500" alt="Illustration"/>
         <br>
-        <a href="{{obelisque.obelisque_image_url}}" target="_blank">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}" target="_blank">{{obelisque.obelisque_image_licence}}</a>
+        <a href="{{obelisque.obelisque_image_url}}">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a>
     </div>
     <br>
     {{obelisque.obelisque_notice}}
@@ -35,7 +35,7 @@
 <ul >
     {% for erige in erige %}
     <li>
-    <b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.localisation.localisation_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
+    <b>{{erige.erige_date}} : </b><a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
     </li>
   {% endfor%}
 </ul>
@@ -65,7 +65,7 @@
                 marker.addTo(macarte);
 
                 // Création d'un popup
-                var popup = marker.bindPopup("<a href='/lieu/{{erige.localisation.localisation_id}}\'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
+                var popup = marker.bindPopup("<a href='{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
                 {% endif %}
         {% endfor %}
 

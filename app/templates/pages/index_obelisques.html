@@ -19,7 +19,7 @@
         <div class="card-columns">
             {% for obelisque in resultats.items %}
             <div class="card">
-                <a href="/obelisque/{{obelisque.obelisque_id}}">
+                <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">
                 <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
                     <div class="card-body">
                     <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
@@ -35,7 +35,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("index_obelisques", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('index_obelisques', page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

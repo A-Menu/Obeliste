@@ -20,7 +20,7 @@
         <div class="card-columns">
             {% for localisation in resultats.items %}
             <div class="card">
-                <a href="/lieu/{{localisation.localisation_id}}">
+                <a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}">
                     <div class="card-body">
                     <h6 class="card-title">{{localisation.localisation_lieu}}</h6>
                     <p class="card-text">{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</p>
@@ -36,7 +36,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("index_lieux", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('index_lieux', page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

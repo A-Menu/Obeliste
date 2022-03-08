@@ -20,7 +20,7 @@
         <div class="card-columns">
             {% for personne in resultats.items %}
             <div class="card">
-                <a href="/personne/{{personne.personne_id}}">
+                <a href="{{url_for('personne', personne_id=personne.personne_id)}}">
                     <div class="card-body">
                     <h6 class="card-title">{{personne.personne_nom}}</h6>
                     <p class="card-text">{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %} {% if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</p>
@@ -36,7 +36,7 @@
             {% if page %}
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("index_personnes", page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('index_personnes', page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">
