@@ -1,32 +1,33 @@
 {% extends "conteneur.html" %}
 
-{% block titre %}
-    | {{personne.personne_nom}}
-{% endblock %}
+{% block titre %} | {{personne.personne_nom}}{% endblock %}
 
 {% block corps %}
-        <h1>{{personne.personne_nom}}</h1>
-        <h4>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
-            {% if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</h4>
-        <br>
-        <div>
+    <h1>{{personne.personne_nom}}</h1>
+    <!-- On affiche l'occupation et la nationalité de la personne s'ils existent dans la base -->
+    <h4>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
+        {% if personne.personne_nationalite %}{{personne.personne_nationalite}}{% endif %}
+    </h4>
+    <br>
+    <div>
         <p>Cette personne a fait ériger les obélisques suivants :</p>
-            <ul>
+        <ul>
             {% for erige in erige %}
                 <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, <a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</li>
             {% endfor %}
-            </ul>
-        </div>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <!-- Boutons -->
+    <div align="center">
+        <a href="#" class="btn btn-outline-danger">Modifier la page</a>
+        <a href="#" class="btn btn-danger">Supprimer la page</a>
         <br>
-<br>
-<div align="center">
-    <a href="#" class="btn btn-outline-danger">Modifier la page</a>
-    <a href="#" class="btn btn-danger">Supprimer la page</a>
+        <br>
+        <a href="#" class="btn btn-outline-danger">Ajouter une page personne</a>
+    </div>
     <br>
-    <br>
-    <a href="#" class="btn btn-outline-danger">Ajouter une page personne</a>
-</div>
-<br>
     <div align="center">
         <br>
         <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>

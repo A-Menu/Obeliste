@@ -1,5 +1,6 @@
 from warnings import warn
 
+#On définit le nombre de résultats affichés par page
 RESULTATS_PAR_PAGE = 18
 
 SECRET_KEY = "Carthago Delenda Est"

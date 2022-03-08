@@ -1,57 +1,55 @@
 {% extends "conteneur.html" %}
 
-{% block titre %}
-    | Les obélisques romains
-{% endblock %}
+{% block titre %} | Les obélisques romains{% endblock %}
 
 {% block corps %}
-<style type="text/css">
-    .card:hover{
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-    }
-</style>
+    <!-- Effet loupe au survol des cartes -->
+    <style type="text/css">
+        .card:hover{
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        }
+    </style>
 
     <h1>Index des obélisques romains</h1>
     {% if resultats %}
         <p>{{resultats.total}} obélisques romains sont présents dans la base :</p>
-
+        <!-- Insertion du conteneur à cartes -->
         <div class="card-columns">
             {% for obelisque in resultats.items %}
-            <div class="card">
-                <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">
-                <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
-                    <div class="card-body">
-                    <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
-                    </div>
-                </a>
-            </div>
+                <!-- Insertion des cartes -->
+                <div class="card">
+                    <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">
+                        <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
+                        <div class="card-body">
+                            <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
-<br>
-    <nav aria-label="research-pagination">
-      <ul class="pagination">
-        {%- for page in resultats.iter_pages() %}
-            {% if page %}
-              {% if page != resultats.page %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for('index_obelisques', page=page) }}">{{page}}</a>
-                </li>
-              {% else %}
-                <li class="page-item active disabled">
-                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
-                </li>
-              {% endif %}
-
-            {% else %}
-                <li class="page-item disabled">
-                  <a class="page-link">...</a>
-                </li>
-            {% endif %}
-
-        {%- endfor %}
-      </ul>
-    </nav>
+        <br>
+        <nav aria-label="research-pagination">
+            <ul class="pagination">
+                {%- for page in resultats.iter_pages() %}
+                    {% if page %}
+                        {% if page != resultats.page %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ url_for('index_obelisques', page=page) }}">{{page}}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item active disabled">
+                                <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">...</a>
+                        </li>
+                    {% endif %}
+                {%- endfor %}
+            </ul>
+        </nav>
     {% endif %}
     <div align="center">
         <br>

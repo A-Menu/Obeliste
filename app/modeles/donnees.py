@@ -1,8 +1,6 @@
 from flask import url_for
 import datetime
-
 from .. app import db
-
 
 #On crée une classe Obelisque
 class Obelisque(db.Model):
@@ -24,7 +22,7 @@ class Obelisque(db.Model):
     erige = db.relationship("Erige", back_populates="obelisque")
     authorships = db.relationship("Authorship", back_populates="obelisque")
 
-#On crée une classe Personne
+#On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
 class Personne(db.Model):
     personne_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     personne_nom = db.Column(db.Text)
@@ -33,7 +31,7 @@ class Personne(db.Model):
     erige = db.relationship("Erige", back_populates="personne")
     authorships = db.relationship("Authorship", back_populates="personne")
 
-#On crée une classe Localisation
+#On crée une classe Localisation pour recenser les lieux où les obélisques ont été érigés
 class Localisation(db.Model):
     localisation_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     localisation_lieu = db.Column(db.Text)
@@ -44,7 +42,7 @@ class Localisation(db.Model):
     erige = db.relationship("Erige", back_populates="localisation")
     authorships = db.relationship("Authorship", back_populates="localisation")
 
-#On crée une classe Erige
+#On crée une classe Erige servant de table de relation reliant les trois tables précédentes
 class Erige(db.Model):
     __tablename__ = "erige"
     erige_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
@@ -58,7 +56,7 @@ class Erige(db.Model):
     localisation = db.relationship("Localisation", back_populates="erige")
     authorships = db.relationship("Authorship", back_populates="erige")
 
-#On crée une classe Authorship
+#On crée une classe Authorship pour recenser les modifications des utilisateurs
 class Authorship(db.Model):
     __tablename__ = "authorship"
     authorship_id = db.Column(db.Integer, nullable=True, autoincrement=True, primary_key=True)

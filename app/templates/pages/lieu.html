@@ -1,66 +1,68 @@
 {% extends "conteneur.html" %}
 
-{% block titre %}
-    | {{localisation.localisation_lieu}}
-{% endblock %}
+{% block titre %} | {{localisation.localisation_lieu}}{% endblock %}
 
 {% block corps %}
-        <h1>{{localisation.localisation_lieu}}</h1>
-        <h4>{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</h4>
-        <br>
-
-        <div>
+    <h1>{{localisation.localisation_lieu}}</h1>
+    <h4>{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</h4>
+    <br>
+    <div>
         <p>Ce lieu à accueilli les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
                 <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_fonction %}{{erige.personne.personne_nationalite}}{% endif %}</li>
             {% endfor %}
             </ul>
-        </div>
-        <br>
-
-{% if localisation.localisation_latitude %}
-<div id="map" style="width: 800px; height: 600px">
+    </div>
+    <br>
+    <!-- Si on bénéficie de coordonnées géographiques, alors le lieu apparait sur une carte -->
+    {% if localisation.localisation_latitude %}
+        <div id="map" style="width: 800px; height: 600px">
             <script type="text/javascript">
-            var macarte = L.map('map').setView([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}], {% if localisation.localisation_ville == "Rome" %}14{% elif localisation.localisation_ville == "Cité du Vatican" %}14{% else %}10{% endif %});
+                //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
+                //On crée une carte centrée sur le lieu. Pour se repérer plus facilement, on choisit un zoom de 14 pour Rome et le Vatican, et zoom plus éloigné (10) pour le reste de l'Italie et l'Egypte
+                var macarte = L.map('map').setView([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}], {% if localisation.localisation_ville == "Rome" %}14{% elif localisation.localisation_ville == "Cité du Vatican" %}14{% else %}10{% endif %});
 
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                    // Il est toujours bien de laisser le lien vers la source des données
+                    //Crédits
                     attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
                     minZoom: 4,
                     maxZoom: 20
                 }).addTo(macarte);
 
-                // Choix de l'icône
-                var icon = L.icon({
-                iconSize: [26, 40]
+                //On ajoute un marqueur pour le lieu
+
+                //On définit la taille du marqueur
+                 var icon = L.icon({
+                    iconSize: [26, 40]
                 });
 
-                // Création du marqueur
+                //Création du marqueur
                 var marker = L.marker([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}]);
 
-                // Ajout à la carte
+                //Ajout à la carte
                 marker.addTo(macarte);
 
-                // Création d'un popup
+                //Création d'un popup
                 var popup = marker.bindPopup("{{localisation.localisation_lieu}}");
-        </script>
-</div>
-{% endif %}
-<br>
-<br>
-<div align="center">
-    <a href="#" class="btn btn-outline-danger">Modifier la page</a>
-    <a href="#" class="btn btn-danger">Supprimer la page</a>
+            </script>
+        </div>
+    {% endif %}
     <br>
     <br>
-    <a href="#" class="btn btn-outline-danger">Ajouter une page lieu</a>
-</div>
-<br>
-<div align="center">
+    <!-- Boutons -->
+    <div align="center">
+        <a href="#" class="btn btn-outline-danger">Modifier la page</a>
+        <a href="#" class="btn btn-danger">Supprimer la page</a>
+        <br>
+        <br>
+        <a href="#" class="btn btn-outline-danger">Ajouter une page lieu</a>
+    </div>
     <br>
-    <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
-    <br>
-    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
-</div>
+    <div align="center">
+        <br>
+        <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
 {% endblock %}

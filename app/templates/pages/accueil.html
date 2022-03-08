@@ -1,90 +1,91 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
-
-<div align="center">
-    <img src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="110" />
-</div>
-<br>
-<br>
-<h1>Bienvenue !</h1>
-<br>
-<p>
-    Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
-</p>
-<p>
-  Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
-</p>
-<p>
-    Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
-</p>
-<br>
-<div class="text-center">
-    <a href="{{url_for('index_obelisques')}}" class="btn btn-info">Découvrir tous les obélisques de Rome</a>
-</div>
-<br>
-<div class="text-center">
-    <a href="{{url_for('index_obelisques_egyptiens')}}" class="btn btn-outline-info">Découvrir les obélisques égyptiens de Rome</a>
-    <a href="{{url_for('index_obelisques_romains')}}" class="btn btn-outline-info">Découvrir les obélisques romains de Rome</a>
-</div>
-<br>
-<br>
-<div id="map" style="width: 780px; height: 600px">
-            <script type="text/javascript">
+    <div align="center">
+        <img src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="110" />
+    </div>
+    <br>
+    <br>
+    <h1>Bienvenue !</h1>
+    <br>
+    <p>
+        Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
+    </p>
+    <p>
+      Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
+    </p>
+    <p>
+        Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
+    </p>
+    <br>
+    <div class="text-center">
+        <a href="{{url_for('index_obelisques')}}" class="btn btn-info">Découvrir tous les obélisques de Rome</a>
+    </div>
+    <br>
+    <div class="text-center">
+        <a href="{{url_for('index_obelisques_egyptiens')}}" class="btn btn-outline-info">Découvrir les obélisques égyptiens de Rome</a>
+        <a href="{{url_for('index_obelisques_romains')}}" class="btn btn-outline-info">Découvrir les obélisques romains de Rome</a>
+    </div>
+    <br>
+    <br>
+    <div id="map" style="width: 780px; height: 600px">
+        <script type="text/javascript">
+            //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
+            //On crée une carte centrée sur Rome
             var macarte = L.map('map').setView([41.8969633792111, 12.481097397366385], 14);
 
-                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                    // Il est toujours bien de laisser le lien vers la source des données
-                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-                    minZoom: 4,
-                    maxZoom: 20
-                }).addTo(macarte);
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                //Crédits
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 4,
+                maxZoom: 20
+            }).addTo(macarte);
 
+            //On ajoute un marqueur pour chaque élévation d'obélisque
+            {% for erige in erige %}
+                //On définit la taille du marqueur
+                var icon = L.icon({iconSize: [26, 40]});
 
-        {% for erige in erige %}
+                    //On n'affiche que les localisations actuelles des obélisques
+                    {% if erige.erige_actuel == 1 %}
+                        //Création du marqueur
+                        var marker = L.marker([{{erige.localisation.localisation_latitude}}, {{erige.localisation.localisation_longitude}}]);
 
-                // Choix de l'icône
-                var icon = L.icon({
-                iconSize: [26, 40]
-                });
-            {% if erige.erige_actuel == 1 %}
-                // Création du marqueur
-                var marker = L.marker([{{erige.localisation.localisation_latitude}}, {{erige.localisation.localisation_longitude}}]);
+                        //Ajout à la carte
+                        marker.addTo(macarte);
 
-                // Ajout à la carte
-                marker.addTo(macarte);
-
-                // Création d'un popup
-                var popup = marker.bindPopup("<a href='{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}'><b>{{erige.obelisque.obelisque_nom}}</b></a></br><i>{{erige.localisation.localisation_lieu}}</i>");
-            {% endif %}
-        {% endfor %}
+                        //Création d'un popup
+                        var popup = marker.bindPopup("<a href='{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}'><b>{{erige.obelisque.obelisque_nom}}</b></a><br><i>{{erige.localisation.localisation_lieu}}</i>");
+                    {% endif %}
+            {% endfor %}
         </script>
-</div>
-<br>
-<div class="text-center">
-    <span>Localisation actuelle des treize obélisques de Rome</span>
-</div>
-<br>
-<br>
-<h3>À propos</h3>
-<br>
-<p>
-    Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
-</p>
-<p>
-  Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
-</p>
-<p>
-    Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
-</p>
-<div class="text-center">
-    <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
-</div>
-<br>
-<br>
-<h3>Contact</h3>
-<p>
-    Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git">dépôt GitHub de l'application</a> !
-</p>
-
+    </div>
+    <br>
+    <!-- Légende de la carte -->
+    <div class="text-center">
+        <span>Localisation actuelle des treize obélisques de Rome</span>
+    </div>
+    <br>
+    <br>
+    <h3>À propos</h3>
+    <br>
+    <p>
+        Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
+    </p>
+    <p>
+      Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
+    </p>
+    <p>
+        Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
+    </p>
+    <!-- Logo de l'ENC -->
+    <div class="text-center">
+        <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
+    </div>
+    <br>
+    <br>
+    <h3>Contact</h3>
+    <p>
+        Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git">dépôt GitHub de l'application</a> !
+    </p>
 {% endblock %}
