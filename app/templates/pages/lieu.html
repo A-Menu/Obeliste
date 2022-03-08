@@ -13,15 +13,16 @@
         <p>Ce lieu à accueilli les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
-                <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}</li>
+                <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_fonction %}{{erige.personne.personne_nationalite}}{% endif %}</li>
             {% endfor %}
             </ul>
         </div>
         <br>
 
+{% if localisation.localisation_latitude %}
 <div id="map" style="width: 800px; height: 600px">
             <script type="text/javascript">
-            var macarte = L.map('map').setView([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}], 14);
+            var macarte = L.map('map').setView([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}], {% if localisation.localisation_ville == "Rome" %}14{% elif localisation.localisation_ville == "Cité du Vatican" %}14{% else %}10{% endif %});
 
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                     // Il est toujours bien de laisser le lien vers la source des données
@@ -46,6 +47,7 @@
                 var popup = marker.bindPopup("{{localisation.localisation_lieu}}");
         </script>
 </div>
+{% endif %}
 <br>
     <div align="center">
         <br>

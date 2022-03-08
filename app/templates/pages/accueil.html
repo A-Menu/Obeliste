@@ -41,13 +41,13 @@
                 });
             {% if erige.erige_actuel == 1 %}
                 // Création du marqueur
-                var marker = L.marker([{{erige.erige_latitude}}, {{erige.erige_longitude}}]);
+                var marker = L.marker([{{erige.localisation.localisation_latitude}}, {{erige.localisation.localisation_longitude}}]);
 
                 // Ajout à la carte
                 marker.addTo(macarte);
 
                 // Création d'un popup
-                var popup = marker.bindPopup("<a href='/obelisque/{{erige.obelisque.obelisque_id}}\'><b>{{erige.obelisque.obelisque_nom}}</b></a></br><i>{{erige.erige_lieu}}</i>");
+                var popup = marker.bindPopup("<a href='/obelisque/{{erige.obelisque.obelisque_id}}\'><b>{{erige.obelisque.obelisque_nom}}</b></a></br><i>{{erige.localisation.localisation_lieu}}</i>");
             {% endif %}
         {% endfor %}
 

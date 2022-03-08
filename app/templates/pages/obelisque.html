@@ -35,11 +35,42 @@
 <ul >
     {% for erige in erige %}
     <li>
-    <b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.localisation.localisation_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : {% if erige.personne.personne_nom %}<a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>, {% endif %}{{erige.personne.personne_fonction}} {{erige.personne.personne_nationalite}}
+    <b>{{erige.erige_date}} : </b><a href="/lieu/{{erige.localisation.localisation_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a href="/personne/{{erige.personne.personne_id}}" target="_blank">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
     </li>
   {% endfor%}
 </ul>
+<div id="map" style="width: 780px; height: 600px">
+            <script type="text/javascript">
+            var macarte = L.map('map').setView([35.74821204259156, 20.944031638393625], 4);
 
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                    // Il est toujours bien de laisser le lien vers la source des données
+                    attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                    minZoom: 4,
+                    maxZoom: 20
+                }).addTo(macarte);
+
+
+        {% for erige in erige %}
+
+                // Choix de l'icône
+                var icon = L.icon({
+                iconUrl: '../../static/images/icon.png',
+                iconSize: [26, 40]
+                });
+                // Création du marqueur
+                var marker = L.marker([{{erige.localisation.localisation_latitude}}, {{erige.localisation.localisation_longitude}}]);
+
+                // Ajout à la carte
+                marker.addTo(macarte);
+
+                // Création d'un popup
+                var popup = marker.bindPopup("<a href='/lieu/{{erige.localisation.localisation_id}}\'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
+        {% endfor %}
+
+        </script>
+
+</div>
     <br>
     <dl>
         {% if obelisque.obelisque_inscription_latine %}

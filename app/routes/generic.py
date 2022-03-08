@@ -83,7 +83,7 @@ def index_lieux():
         page = int(page)
     else:
         page = 1
-    resultats = Erige.query.group_by(Erige.erige_lieu).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    resultats = Localisation.query.order_by(Localisation.localisation_lieu).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_lieux.html", resultats=resultats)
 
 

@@ -18,12 +18,12 @@
         <p>{{resultats.total}} lieux sont présents dans la base :</p>
 
         <div class="card-columns">
-            {% for erige in resultats.items %}
+            {% for localisation in resultats.items %}
             <div class="card">
-                <a href="/lieu/{{erige.erige_id}}">
+                <a href="/lieu/{{localisation.localisation_id}}">
                     <div class="card-body">
-                    <h6 class="card-title">{{erige.erige_lieu}}</h6>
-                    <p class="card-text">{{erige.erige_ville}}, {{erige.erige_pays}}</p>
+                    <h6 class="card-title">{{localisation.localisation_lieu}}</h6>
+                    <p class="card-text">{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</p>
                     </div>
                 </a>
             </div>

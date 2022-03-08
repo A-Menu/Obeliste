@@ -23,7 +23,7 @@
                 <a href="/personne/{{personne.personne_id}}">
                     <div class="card-body">
                     <h6 class="card-title">{{personne.personne_nom}}</h6>
-                    <p class="card-text">{{personne.personne_fonction}} {{personne.personne_nationalite}}</p>
+                    <p class="card-text">{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %} {% if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</p>
                     </div>
                 </a>
             </div>

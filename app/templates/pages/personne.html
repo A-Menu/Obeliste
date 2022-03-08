@@ -6,13 +6,14 @@
 
 {% block corps %}
         <h1>{{personne.personne_nom}}</h1>
-        <h4>{{personne.personne_fonction}} {{personne.personne_nationalite}}</h4>
+        <h4>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
+            {% if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</h4>
         <br>
         <div>
         <p>Cette personne a fait ériger les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
-                <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, <a href="/lieu/{{erige.erige_id}}" target="_blank">{{erige.erige_lieu}}</a> ({{erige.erige_ville}}, {{erige.erige_pays}})</li>
+                <li><b>{{erige.erige_date}}</b> : <a href="/obelisque/{{erige.obelisque.obelisque_id}}" target="_blank">{{erige.obelisque.obelisque_nom}}</a>, <a href="/lieu/{{erige.erige_id}}" target="_blank">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</li>
             {% endfor %}
             </ul>
         </div>
