@@ -3,7 +3,7 @@
 {% block titre %} | {{obelisque.obelisque_nom}}{% endblock %}
 
 {% block corps %}
-    <!-- On définit la taille de l'image, on met la légende en italique, et on aligne le tout -->
+    <!-- On définit la taille de l'image, on met la légende en italique, et on centre le tout -->
     <style type="text/css">
         .illustration  {
             text-align: center;
@@ -13,6 +13,7 @@
 
     <h1>{{obelisque.obelisque_nom}}</h1>
     <br>
+    <!-- Image et légende -->
     <div class="illustration">
         <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="650" alt="Illustration"/>
         <br>
@@ -36,7 +37,7 @@
             <li>
                 <b>{{erige.erige_date}} : </b><a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
             </li>
-      {% endfor%}
+        {% endfor%}
     </ul>
     <div id="map" style="width: 780px; height: 600px">
         <script type="text/javascript">
@@ -51,11 +52,10 @@
                 maxZoom: 20
             }).addTo(macarte);
 
-            //On ajoute un marqueur pour chaque lieu d'élévation
             {% for erige in erige %}
-                //On ajoute en fait un marqueur pour chaque lieu pour lequel on dispose de coordonnées
+                //On ajoute un marqueur pour chaque lieu pour lequel on dispose de coordonnées
                 {% if erige.localisation.localisation_latitude %}
-                    ////On définit la taille du marqueur
+                    //On définit la taille du marqueur
                     var icon = L.icon({
                         iconSize: [26, 40]
                     });
@@ -70,35 +70,34 @@
                     var popup = marker.bindPopup("<a href='{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
                 {% endif %}
             {% endfor %}
-         </script>
-
-</div>
-<br>
-<dl>
-    <!-- Affichage des inscriptions latines et de leur traduction si elles existent -->
-    {% if obelisque.obelisque_inscription_latine %}
+        </script>
+    </div>
+    <br>
+    <dl>
+        <!-- Affichage des inscriptions latines et de leur traduction si elles existent -->
+        {% if obelisque.obelisque_inscription_latine %}
+            <br>
+            <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
+            <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
+        {% endif %}
+    </dl>
+    <br>
+    <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
+    <br>
+    <br>
+    <!-- Boutons -->
+    <div align="center">
+        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier la page</a>
+        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer la page</a>
         <br>
-        <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
-        <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
-    {% endif %}
- </dl>
-<br>
-<dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
-<br>
-<br>
-<!-- Boutons -->
-<div align="center">
-    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier la page</a>
-    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer la page</a>
+        <br>
+        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Ajouter une page obélisque</a>
+    </div>
     <br>
-    <br>
-    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Ajouter une page obélisque</a>
-</div>
-<br>
-<div align="center">
-    <br>
-    <a href="{{url_for('index_obelisques')}}">Retour à l'index des obélisques</a>
-    <br>
-    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
-</div>
+    <div align="center">
+        <br>
+        <a href="{{url_for('index_obelisques')}}">Retour à l'index des obélisques</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
 {% endblock %}
