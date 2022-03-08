@@ -2,10 +2,10 @@ from flask import render_template, request, flash, redirect
 
 
 from ..app import app, login, db
-from ..modeles.donnees import Obelisque, Personne, Erige, Localisation
+from ..modeles.donnees import Obelisque, Personne, Erige, Localisation, Authorship
 from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
 from sqlalchemy import or_
 
@@ -179,7 +179,7 @@ def deconnexion():
 
 
 
-# Erreurs.
+# Erreurs
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('erreurs/erreur_404.html'), 404
@@ -187,3 +187,71 @@ def not_found_error(error):
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('error/erreur_500.html'), 500
+
+
+#Mise à jour des pages
+
+@app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
+@login_required
+def obelisque_update(obelisque_id):
+    """ Route permettant l'affichage des données d'un lieu
+
+    :param place_id: Identifiant numérique du lieu
+    """
+    mon_obelisque = Obelisque.query.get_or_404(obelisque_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("obelisque_nom", "").strip():
+            erreurs.append("Insérez un nom d'obélisque")
+        if not request.form.get("obelisque_hauteur", "").strip():
+            erreurs.append("Insérez une hauteur d'obélisque")
+        if not request.form.get("obelisque_hauteur_avec_base", "").strip():
+            erreurs.append("Insérez une hauteur avec base d'obélisque")
+        if not request.form.get("obelisque_materiau", "").strip():
+            erreurs.append("Insérez le matériau de l'obélisque")
+        if not request.form.get("obelisque_type_commande", "").strip():
+            erreurs.append("Insérez le type de commande de l'obélisque")
+        if not request.form.get("obelisque_notice", "").strip():
+            erreurs.append("Insérez une notice d'obélisque")
+        if not request.form.get("obelisque_bibliographie", "").strip():
+            erreurs.append("Insérez une bibliographie")
+        if not request.form.get("obelisque_image_nom", "").strip():
+            erreurs.append("Insérez le nom du fichier image")
+        if not request.form.get("obelisque_image_url", "").strip():
+            erreurs.append("Insérez l'URL de l'image'")
+        if not request.form.get("obelisque_image_auteur", "").strip():
+            erreurs.append("Insérez le nom de l'auteur de l'image")
+        if not request.form.get("obelisque_image_licence", "").strip():
+            erreurs.append("Insérez les droits de réutilisation de l'image")
+        if not request.form.get("obelisque_image_licence_url", "").strip():
+            erreurs.append("Insérez l'URL de la licence de l'image")
+
+        if not erreurs:
+            print("Faire ma modification")
+            mon_obelisque.obelisque_nom = request.form["obelisque_nom"]
+            mon_obelisque.obelisque_hauteur = request.form["obelisque_hauteur"]
+            mon_obelisque.obelisque_hauteur_avec_base = request.form["obelisque_hauteur_avec_base"]
+            mon_obelisque.obelisque_materiau = request.form["obelisque_materiau"]
+            mon_obelisque.obelisque_type_commande = request.form["obelisque_type_commande"]
+            mon_obelisque.obelisque_notice = request.form["obelisque_notice"]
+            mon_obelisque.obelisque_bibliographie = request.form["obelisque_bibliographie"]
+            mon_obelisque.obelisque_image_nom = request.form["obelisque_image_nom"]
+            mon_obelisque.obelisque_image_url = request.form["obelisque_image_url"]
+            mon_obelisque.obelisque_image_auteur = request.form["obelisque_image_auteur"]
+            mon_obelisque.obelisque_image_licence = request.form["obelisque_image_licence"]
+            mon_obelisque.obelisque_image_licence_url = request.form["obelisque_image_licence_url"]
+
+            db.session.add(mon_obelisque)
+            db.session.add(Authorship(obelisque=mon_obelisque, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/obelisque_form_update.html",
+        obelisque=mon_obelisque,
+        erreurs=erreurs,
+        updated=updated
+    )

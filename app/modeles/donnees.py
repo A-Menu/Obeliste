@@ -22,6 +22,7 @@ class Obelisque(db.Model):
     obelisque_image_licence = db.Column(db.Text)
     obelisque_image_licence_url = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="obelisque")
+    authorships = db.relationship("Authorship", back_populates="obelisque")
 
 #On crée une classe Personne
 class Personne(db.Model):
@@ -30,6 +31,7 @@ class Personne(db.Model):
     personne_fonction = db.Column(db.Text)
     personne_nationalite = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="personne")
+    authorships = db.relationship("Authorship", back_populates="personne")
 
 #On crée une classe Localisation
 class Localisation(db.Model):
@@ -40,6 +42,7 @@ class Localisation(db.Model):
     localisation_longitude = db.Column(db.Float)
     localisation_latitude = db.Column(db.Float)
     erige = db.relationship("Erige", back_populates="localisation")
+    authorships = db.relationship("Authorship", back_populates="localisation")
 
 #On crée une classe Erige
 class Erige(db.Model):
@@ -53,3 +56,20 @@ class Erige(db.Model):
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
     localisation = db.relationship("Localisation", back_populates="erige")
+    authorships = db.relationship("Authorship", back_populates="erige")
+
+#On crée une classe Authorship
+class Authorship(db.Model):
+    __tablename__ = "authorship"
+    authorship_id = db.Column(db.Integer, nullable=True, autoincrement=True, primary_key=True)
+    authorship_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
+    authorship_personne_id = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
+    authorship_localisation_id = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
+    authorship_erige_id = db.Column(db.Integer, db.ForeignKey('erige.erige_id'))
+    authorship_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    authorship_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    obelisque = db.relationship("Obelisque", back_populates="authorships")
+    personne = db.relationship("Personne", back_populates="authorships")
+    localisation = db.relationship("Localisation", back_populates="authorships")
+    erige = db.relationship("Erige", back_populates="authorships")
+    user = db.relationship("User", back_populates="authorships")

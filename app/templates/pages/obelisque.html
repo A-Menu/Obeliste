@@ -20,7 +20,7 @@
         <a href="{{obelisque.obelisque_image_url}}">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a>
     </div>
     <br>
-    {{obelisque.obelisque_notice}}
+    Brève notice à venir
     <br>
     <dl>
         <br>
@@ -30,7 +30,7 @@
         <dt>Type de commande</dt><dd>{{obelisque.obelisque_type_commande}}</dd>
     </dl>
     <br>
-    <dt>Élévations successives :</dt>
+    <dt>Élévations successives</dt>
 <br>
 <ul >
     {% for erige in erige %}
@@ -71,22 +71,30 @@
         </script>
 
 </div>
+<br>
+<dl>
+{% if obelisque.obelisque_inscription_latine %}
     <br>
-    <dl>
-        {% if obelisque.obelisque_inscription_latine %}
-            <br>
-            <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
-            <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
-        {% endif %}
-    </dl>
+    <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
+    <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
+{% endif %}
+ </dl>
+<br>
+<dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
+<br>
+<br>
+<div align="center">
+    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier la page</a>
+    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer la page</a>
     <br>
-    <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
     <br>
-
-    <div align="center">
-        <br>
-        <a href="{{url_for('index_obelisques')}}">Retour à l'index des obélisques</a>
-        <br>
-        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
-    </div>
+    <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Ajouter une page obélisque</a>
+</div>
+<br>
+<div align="center">
+    <br>
+    <a href="{{url_for('index_obelisques')}}">Retour à l'index des obélisques</a>
+    <br>
+    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}
