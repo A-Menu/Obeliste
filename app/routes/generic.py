@@ -42,7 +42,7 @@ def localisation(localisation_id):
 
 #Les pages d'index
 
-#L'index recençant l'intégralité des obélisques
+#L'index recensant l'intégralité des obélisques
 @app.route("/index_obelisques")
 def index_obelisques():
     page = request.args.get("page", 1)
