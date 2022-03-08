@@ -41,7 +41,7 @@
 </ul>
 <div id="map" style="width: 780px; height: 600px">
             <script type="text/javascript">
-            var macarte = L.map('map').setView([35.74821204259156, 20.944031638393625], 4);
+            var macarte = L.map('map').setView([35.74821204259156, 20.944031638393625], 5);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                     // Il est toujours bien de laisser le lien vers la source des données
@@ -52,7 +52,7 @@
 
 
         {% for erige in erige %}
-
+                {% if erige.localisation.localisation_latitude %}
                 // Choix de l'icône
                 var icon = L.icon({
                 iconUrl: '../../static/images/icon.png',
@@ -66,6 +66,7 @@
 
                 // Création d'un popup
                 var popup = marker.bindPopup("<a href='/lieu/{{erige.localisation.localisation_id}}\'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
+                {% endif %}
         {% endfor %}
 
         </script>
