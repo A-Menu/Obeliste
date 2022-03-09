@@ -1,4 +1,3 @@
-from flask import url_for
 import datetime
 from .. app import db
 
