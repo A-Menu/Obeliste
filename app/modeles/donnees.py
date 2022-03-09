@@ -6,18 +6,26 @@ from .. app import db
 class Obelisque(db.Model):
     obelisque_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     obelisque_nom = db.Column(db.Text)
+    #Hauteur de l'obélisque
     obelisque_hauteur = db.Column(db.Float)
+    #Hauteur totale
     obelisque_hauteur_avec_base = db.Column(db.Float)
     obelisque_materiau = db.Column(db.Text)
+    #L'obélisque est-il une commande égyptienne ou romaine ?
     obelisque_type_commande = db.Column(db.Text)
     obelisque_notice = db.Column(db.Text)
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)
+    #Nom du fichier image (utilisé pour intégrer l'image à la page)
     obelisque_image_nom = db.Column(db.Text)
+    #URL de l'image
     obelisque_image_url = db.Column(db.Text)
+    #Crédits pour l'image
     obelisque_image_auteur = db.Column(db.Text)
+    #Licence de l'image
     obelisque_image_licence = db.Column(db.Text)
+    #Lien vers la licence
     obelisque_image_licence_url = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="obelisque")
     authorships = db.relationship("Authorship", back_populates="obelisque")
@@ -35,6 +43,9 @@ class Personne(db.Model):
 class Localisation(db.Model):
     localisation_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     localisation_lieu = db.Column(db.Text)
+    #Le terme de "ville" est à concevoir au sens large, il s'agit d'indiquer ici une référence plus précise que le pays, mais moins précise que le lieu exact.
+    #On y renseigne la ville si le lieu d'évélation en possède une, mais on y retrouve également des termes tels que "Voie Appienne" (donc une route)
+    #ou "Karnak" (un complexe)
     localisation_ville = db.Column(db.Text)
     localisation_pays = db.Column(db.Text)
     localisation_longitude = db.Column(db.Float)
@@ -50,6 +61,7 @@ class Erige(db.Model):
     erige_id_personne = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_date = db.Column(db.Text)
+    #On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (booléen, 0 = non, 1 = oui)
     erige_actuel = db.Column(db.Integer)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
