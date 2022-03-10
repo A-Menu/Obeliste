@@ -15,6 +15,11 @@ def accueil():
     erige = Erige.query.all()
     return render_template("pages/accueil.html", erige=erige)
 
+#Page redirigeant vers les ajouts de pages
+@app.route("/add")
+def add():
+    return render_template("pages/add.html")
+
 
 #Routes vers les trois éléments principaux de la base
 
@@ -270,3 +275,205 @@ def obelisque_update(obelisque_id):
         erreurs=erreurs,
         updated=updated
     )
+
+#Modifier une page personne
+@app.route("/personne/<int:personne_id>/update", methods=["GET", "POST"])
+@login_required
+def personne_update(personne_id):
+    editable = Personne.query.get_or_404(personne_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("personne_nom", "").strip():
+            erreurs.append("Insérez un nom")
+        if not request.form.get("personne_nationalite", "").strip():
+            erreurs.append("Insérez la nationalité de la personne")
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.personne_nom = request.form["personne_nom"]
+            editable.personne_nationalite = request.form["personne_nationalite"]
+            editable.personne_fonction = request.form["personne_fonction"]
+
+            db.session.add(editable)
+            db.session.add(Authorship(personne=editable, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/personne_form_update.html",
+        personne=editable,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+
+#Modifier une page lieu
+@app.route("/lieu/<int:localisation_id>/update", methods=["GET", "POST"])
+@login_required
+def localisation_update(localisation_id):
+    editable = Localisation.query.get_or_404(localisation_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("localisation_lieu", "").strip():
+            erreurs.append("Insérez un nom de lieu")
+        if not request.form.get("localisation_ville", "").strip():
+            erreurs.append("Insérez la ville du lieu")
+        if not request.form.get("localisation_pays", "").strip():
+            erreurs.append("Insérez le pays du lieu")
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.localisation_lieu = request.form["localisation_lieu"]
+            editable.localisation_ville = request.form["localisation_ville"]
+            editable.localisation_pays = request.form["localisation_pays"]
+            editable.localisation_latitude = request.form["localisation_latitude"]
+            editable.localisation_longitude = request.form["localisation_longitude"]
+
+            db.session.add(editable)
+            db.session.add(Authorship(localisation=editable, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/lieu_form_update.html",
+        localisation=editable,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+
+#Ajouter une page
+
+#Ajouter une page obélisque
+
+@app.route("/obelisque/add", methods=["GET", "POST"])
+@login_required
+def obelisque_add():
+
+    if request.method == "POST":
+        statut, informations = Obelisque.obelisque_add(
+            obelisque_add_nom = request.form.get("obelisque_add_nom", None),
+            obelisque_add_hauteur = request.form.get("obelisque_add_hauteur", None),
+            obelisque_add_hauteur_avec_base = request.form.get("obelisque_add_hauteur_avec_base", None),
+            obelisque_add_materiau=request.form.get("obelisque_add_materiau", None),
+            obelisque_add_type_commande=request.form.get("obelisque_add_type_commande", None),
+            obelisque_add_notice=request.form.get("obelisque_add_notice", None),
+            obelisque_add_inscription_latine=request.form.get("obelisque_add_inscription_latine", None),
+            obelisque_add_inscription_latine_traduite=request.form.get("obelisque_add_inscription_latine_traduite", None),
+            obelisque_add_bibliographie=request.form.get("obelisque_add_bibliographie", None),
+            obelisque_add_image_nom=request.form.get("obelisque_add_image_nom", None),
+            obelisque_add_image_url=request.form.get("obelisque_add_image_url", None),
+            obelisque_add_image_auteur=request.form.get("obelisque_add_image_auteur", None),
+            obelisque_add_image_licence=request.form.get("obelisque_add_image_licence", None),
+            obelisque_add_image_licence_url=request.form.get("obelisque_add_image_licence_url", None)
+        )
+
+        if statut is True:
+            flash("Nouvel obélisque ajouté à la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec : " + ", ".join(informations), "danger")
+            return render_template("pages/obelisque_form_add.html")
+    else:
+        return render_template("pages/obelisque_form_add.html")
+
+
+#Ajouter une page personne
+
+@app.route("/personne/add", methods=["GET", "POST"])
+@login_required
+def personne_add():
+
+    if request.method == "POST":
+        statut, informations = Personne.personne_add(
+        personne_add_nom = request.form.get("personne_add_nom", None),
+        personne_add_fonction = request.form.get("personne_add_fonction", None),
+        personne_add_nationalite = request.form.get("personne_add_nationalite", None)
+        )
+
+        if statut is True:
+            flash("Nouveau commanditaire ajouté à la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec : " + ", ".join(informations), "danger")
+            return render_template("pages/personne_form_add.html")
+    else:
+        return render_template("pages/personne_form_add.html")
+
+#Ajouter une page lieu
+
+@app.route("/lieu/add", methods=["GET", "POST"])
+@login_required
+def localisation_add():
+
+    if request.method == "POST":
+        statut, informations = Localisation.localisation_add(
+        localisation_add_lieu = request.form.get("localisation_add_lieu", None),
+        localisation_add_ville = request.form.get("localisation_add_ville", None),
+        localisation_add_pays = request.form.get("localisation_add_pays", None),
+        localisation_add_latitude=request.form.get("localisation_add_latitude", None),
+        localisation_add_longitude=request.form.get("localisation_add_longitude", None)
+        )
+
+        if statut is True:
+            flash("Nouveau lieu ajouté à la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec : " + ", ".join(informations), "danger")
+            return render_template("pages/lieu_form_add.html")
+    else:
+        return render_template("pages/lieu_form_add.html")
+
+
+#Supprimer une page
+
+#Supprimer une page personne
+
+@app.route("/personne/<int:personne_id>/delete", methods=["POST", "GET"])
+@login_required
+def personne_delete(personne_id):
+
+    supprimable = Personne.query.get(personne_id)
+
+    if request.method == "POST":
+        statut = Personne.personne_delete(
+            personne_id=personne_id
+        )
+
+        if statut is True:
+            flash("Le commanditaire a été supprimé de la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/personne_form_delete.html", supprimable=supprimable)
+
+
+#Supprimer une page lieu
+
+@app.route("/lieu/<int:localisation_id>/delete", methods=["POST", "GET"])
+@login_required
+def localisation_delete(localisation_id):
+
+    supprimable = Localisation.query.get(localisation_id)
+
+    if request.method == "POST":
+        statut = Localisation.localisation_delete(
+            localisation_id=localisation_id
+        )
+
+        if statut is True:
+            flash("Le lieu a été supprimé de la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/lieu_form_delete.html", supprimable=supprimable)

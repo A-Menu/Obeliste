@@ -1,0 +1,19 @@
+{% extends "conteneur.html" %}
+
+{% block titre %} | Ajouter une page{% endblock %}
+
+{% block corps %}
+    <h1>Ajouter une nouvelle page à la base</h1>
+    <br>
+    <br>
+    <p>Vous désirez contribuer à l'Obéliste ? Il vous est possible de créer des pages obélisque, commanditaire ou lieu.</p>
+    <p>Pensez également à vous rendre directement sur une page existante afin de la modifier ou la supprimer !</p>
+    <br>
+    <br>
+    <div align="center">
+        <a href="#" class="btn btn-info">Ajouter une page obélisque</a>
+        <a href="{{url_for('personne_add')}}" class="btn btn-info">Ajouter une page commanditaire</a>
+        <a href="{{url_for('localisation_add')}}" class="btn btn-info">Ajouter une page lieu</a>
+    </div>
+
+{% endblock %}

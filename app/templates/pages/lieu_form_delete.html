@@ -1,0 +1,39 @@
+{% extends "conteneur.html" %}
+
+{% block titre %} | Supprimer {{supprimable.localisation_lieu}}{% endblock %}
+
+{% block corps %}
+    <form method="POST" action="{{url_for('localisation_delete', localisation_id=supprimable.localisation_id)}}">
+        <div>
+            <p>Etes-vous certain de vouloir supprimer ce lieu ?
+            <br/>
+            <p>
+                <em>{{supprimable.localisation_lieu}}</em> <br/>
+                <em>{{supprimable.localisation_ville}}</em> <br/>
+                <em>{{supprimable.localisation_pays}}</em> <br/>
+                {% if supprimable.localisation_latitude %}
+                    <em>{{supprimable.localisation_latitude}}</em> <br/>
+                    <em>{{supprimable.localisation_longitude}}</em> <br/>
+                {% endif %}
+            </p>
+        </div>
+        <br/>
+        <div>
+          <div>
+              <button type="submit" class="btn btn-info">Confirmer</button>
+              <button type="button" class="btn btn-outline-danger"> <a href="{{url_for('localisation', localisation_id=supprimable.localisation_id)}}">Annuler</a>
+              </button>
+          </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <div align="center">
+        <a href="{{url_for('localisation', localisation_id=supprimable.localisation_id)}}">Retour au lieu</a>
+        <br>
+        <br>
+        <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

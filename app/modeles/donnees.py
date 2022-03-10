@@ -29,6 +29,64 @@ class Obelisque(db.Model):
     erige = db.relationship("Erige", back_populates="obelisque")
     authorships = db.relationship("Authorship", back_populates="obelisque")
 
+    @staticmethod
+    def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau, obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine, obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_nom, obelisque_add_image_url, obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
+        erreurs = []
+        if not obelisque_add_nom:
+            erreurs.append("veuillez renseigner le nom de l'obélisque")
+        if not obelisque_add_hauteur:
+            erreurs.append( "veuillez renseigner la hauteur de l'obélisque")
+        if not obelisque_add_hauteur_avec_base:
+            erreurs.append("veuillez renseigner la hauteur totale du monument")
+        if not obelisque_add_materiau:
+           erreurs.append("veuillez renseigner le matériau composant l'obélisque")
+        if not obelisque_add_type_commande:
+            erreurs.append("veuillez renseigner le type de commande")
+        if not obelisque_add_notice:
+            erreurs.append("veuillez renseigner une brève notice sur l'obélisque")
+        if not obelisque_add_bibliographie:
+            erreurs.append("veuillez renseigner vos sources")
+        if not obelisque_add_image_nom:
+            erreurs.append("veuillez renseigner une image de l'obélisque")
+        if not obelisque_add_image_url:
+            erreurs.append("veuillez renseigner l'URL de l'image")
+        if not obelisque_add_image_auteur:
+            erreurs.append("veuillez renseigner l'ayant-droit de l'image")
+        if not obelisque_add_image_licence:
+            erreurs.append("veuillez renseigner la licence permettant la réutilisation de l'image")
+        if not obelisque_add_image_licence_url:
+            erreurs.append("veuillez renseigner l'URL de la licence")
+
+            # S'il y a au moins une erreur, afficher un message d'erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Obelisque
+        ajoutable = Obelisque(obelisque_nom=obelisque_add_nom,
+                              obelisque_hauteur=obelisque_add_hauteur,
+                              obelisque_hauteur_avec_base=obelisque_add_hauteur_avec_base,
+                              obelisque_materiau=obelisque_add_materiau,
+                              obelisque_type_commande=obelisque_add_type_commande,
+                              obelisque_notice=obelisque_add_notice,
+                              obelisque_inscription_latine=obelisque_add_inscription_latine,
+                              obelisque_inscription_latine_traduite=obelisque_add_inscription_latine_traduite,
+                              obelisque_bibliographie=obelisque_add_bibliographie,
+                              obelisque_image_nom=obelisque_add_image_nom,
+                              obelisque_image_url=obelisque_add_image_url,
+                              obelisque_image_auteur=obelisque_add_image_auteur,
+                              obelisque_image_licence=obelisque_add_image_licence,
+                              obelisque_image_licence_url=obelisque_add_image_licence_url,
+                              )
+
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        try:
+            db.session.add(ajoutable)
+            db.session.commit()
+            return True, ajoutable
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
 #On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
 class Personne(db.Model):
     personne_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
@@ -37,6 +95,95 @@ class Personne(db.Model):
     personne_nationalite = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="personne")
     authorships = db.relationship("Authorship", back_populates="personne")
+
+    @staticmethod
+    def personne_add(personne_add_nom, personne_add_fonction, personne_add_nationalite):
+        erreurs = []
+        if not personne_add_nom:
+            erreurs.append("veuillez renseigner le nom du commanditaire")
+        if not personne_add_fonction:
+            erreurs.append(
+                "veuillez renseigner les fonctions du commanditaire")
+        if not personne_add_nationalite:
+            erreurs.append(
+                "veuillez renseigner la nationalité du commanditaire")
+
+            # S'il y a au moins une erreur, afficher un message d'erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Personne
+        ajoutable = Personne(personne_nom=personne_add_nom,
+                             personne_fonction=personne_add_fonction,
+                             personne_nationalite=personne_add_nationalite)
+
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        try:
+            db.session.add(ajoutable)
+            db.session.commit()
+            return True, ajoutable
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def personne_update(personne_nom, personne_fonction, personne_nationalite):
+        erreurs = []
+        if not personne_nom:
+            erreurs.append("veuillez renseigner le nom du commanditaire")
+        if not personne_nationalite:
+            erreurs.append("veuillez renseigner la nationalité du commanditaire")
+
+        # S'il y a au moins une erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        # On récupère une personne dans la base.
+        editable = Personne.query.get(personne_id)
+
+        # On vérifie que l'utilisateur-ice modifie au moins un champ.
+        if editable.personne_nom == personne_nom \
+                and editable.personne_fonction == personne_fonction \
+                and editable.personne_nationalite == personne_nationalite :
+            erreurs.append("No edit was submitted")
+
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        else:
+            # Mise à jour du site
+            editable.personne_nom = personne_nom
+            editable.personne_fonction = personne_fonction
+            editable.personne_nationalite = personne_nationalite
+
+        try:
+            # On l'ajoute au transport vers la base de données.
+            db.session.add(editable)
+            # On envoie le paquet.
+            db.session.commit()
+
+            # On renvoie les informations du site.
+            return True, editable
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def personne_delete(personne_id):
+        """
+        Fonction qui permet de supprimer une personne de la base.
+        :param personne_id: id de la personne (int)
+        :return:
+        """
+        supprimable = Personne.query.get(personne_id)
+
+        try:
+            db.session.delete(supprimable)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
 
 #On crée une classe Localisation pour recenser les lieux où les obélisques ont été érigés
 class Localisation(db.Model):
@@ -47,10 +194,107 @@ class Localisation(db.Model):
     #ou "Karnak" (un complexe)
     localisation_ville = db.Column(db.Text)
     localisation_pays = db.Column(db.Text)
-    localisation_longitude = db.Column(db.Float)
-    localisation_latitude = db.Column(db.Float)
+    localisation_longitude = db.Column(db.Text)
+    localisation_latitude = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="localisation")
     authorships = db.relationship("Authorship", back_populates="localisation")
+
+    @staticmethod
+    def localisation_add(localisation_add_lieu, localisation_add_ville, localisation_add_pays, localisation_add_latitude, localisation_add_longitude):
+        erreurs = []
+        if not localisation_add_lieu:
+            erreurs.append("Veuillez renseigner le nom du lieu")
+        if not localisation_add_ville:
+            erreurs.append(
+                "Veuillez renseigner le nom de la ville")
+        if not localisation_add_pays:
+            erreurs.append(
+                "Veuillez renseigner le nom du pays")
+
+            # S'il y a au moins une erreur, afficher un message d'erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
+        ajoutable = Localisation(localisation_lieu=localisation_add_lieu,
+                             localisation_ville=localisation_add_ville,
+                             localisation_pays=localisation_add_pays,
+                                 localisation_latitude=localisation_add_latitude,
+                                 localisation_longitude=localisation_add_longitude)
+
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        try:
+            db.session.add(ajoutable)
+            db.session.commit()
+            return True, ajoutable
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def localisation_update(localisation_lieu, localisation_ville, localisation_pays, localisation_latitude, localisation_longitude):
+        erreurs = []
+        if not localisation_lieu:
+            erreurs.append("veuillez renseigner le nom du lieu")
+        if not localisation_ville:
+            erreurs.append("veuillez renseigner le nom de la ville où se trouve le lieu")
+        if not localisation_pays:
+            erreurs.append("veuillez renseigner le pays où se trouve le lieu")
+
+        # S'il y a au moins une erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        # On récupère une personne dans la base.
+        editable = Localisation.query.get(localisation_id)
+
+        # On vérifie que l'utilisateur-ice modifie au moins un champ.
+        if editable.localisation_lieu == localisation_lieu \
+                and editable.localisation_ville == localisation_ville \
+                and editable.localisation_pays == localisation_pays\
+                and editable.localisation_latitude == localisation_latitude\
+                and editable.localisation_longitude == localisation_longitude :
+            erreurs.append("No edit was submitted")
+
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        else:
+            # Mise à jour du lieu
+            editable.localisation_lieu = localisation_lieu
+            editable.localisation_ville = localisation_ville
+            editable.localisation_pays = localisation_pays
+            editable.localisation_latitude = localisation_latitude
+            editable.localisation_longitude = localisation_longitude
+
+        try:
+            # On l'ajoute au transport vers la base de données.
+            db.session.add(editable)
+            # On envoie le paquet.
+            db.session.commit()
+
+            # On renvoie les informations du site.
+            return True, editable
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def localisation_delete(localisation_id):
+        """
+        Fonction qui permet de supprimer une personne de la base.
+        :param personne_id: id de la personne (int)
+        :return:
+        """
+        supprimable = Localisation.query.get(localisation_id)
+
+        try:
+            db.session.delete(supprimable)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
 
 #On crée une classe Erige servant de table de relation reliant les trois tables précédentes
 class Erige(db.Model):
@@ -61,7 +305,7 @@ class Erige(db.Model):
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_date = db.Column(db.Text)
     #On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (booléen, 0 = non, 1 = oui)
-    erige_actuel = db.Column(db.Integer)
+    erige_actuel = db.Column(db.Boolean, default=0)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
     localisation = db.relationship("Localisation", back_populates="erige")
@@ -70,13 +314,13 @@ class Erige(db.Model):
 #On crée une classe Authorship pour recenser les modifications des utilisateurs
 class Authorship(db.Model):
     __tablename__ = "authorship"
-    authorship_id = db.Column(db.Integer, nullable=True, autoincrement=True, primary_key=True)
-    authorship_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
-    authorship_personne_id = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
-    authorship_localisation_id = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
-    authorship_erige_id = db.Column(db.Integer, db.ForeignKey('erige.erige_id'))
-    authorship_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    authorship_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    authorship_id = db.Column(db.Integer, nullable=False, autoincrement=True, primary_key=True)
+    authorship_obelisque_id = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'), nullable=True)
+    authorship_personne_id = db.Column(db.Integer, db.ForeignKey('personne.personne_id'), nullable=True)
+    authorship_localisation_id = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'), nullable=True)
+    authorship_erige_id = db.Column(db.Integer, db.ForeignKey('erige.erige_id'), nullable=True)
+    authorship_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    authorship_date = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
     obelisque = db.relationship("Obelisque", back_populates="authorships")
     personne = db.relationship("Personne", back_populates="authorships")
     localisation = db.relationship("Localisation", back_populates="authorships")

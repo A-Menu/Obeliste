@@ -7,7 +7,7 @@
     <h4>{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</h4>
     <br>
     <div>
-        <p>Ce lieu à accueilli les obélisques suivants :</p>
+        <p>Ce lieu a accueilli les obélisques suivants :</p>
             <ul>
             {% for erige in erige %}
                 <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_fonction %}{{erige.personne.personne_nationalite}}{% endif %}</li>
@@ -52,11 +52,11 @@
     <br>
     <!-- Boutons -->
     <div align="center">
-        <a href="#" class="btn btn-outline-danger">Modifier la page</a>
-        <a href="#" class="btn btn-danger">Supprimer la page</a>
+        <a href="{{url_for('localisation_update', localisation_id=localisation.localisation_id)}}" class="btn btn-outline-danger">Modifier la page</a>
+        <a href="{{url_for('localisation_delete', localisation_id=localisation.localisation_id)}}" class="btn btn-danger">Supprimer la page</a>
         <br>
         <br>
-        <a href="#" class="btn btn-outline-danger">Ajouter une page lieu</a>
+        <a href="{{url_for('localisation_add', localisation_id=localisation.localisation_id)}}" class="btn btn-outline-danger">Ajouter une page lieu</a>
     </div>
     <br>
     <div align="center">

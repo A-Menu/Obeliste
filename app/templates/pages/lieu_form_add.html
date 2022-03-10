@@ -1,0 +1,47 @@
+{% extends "conteneur.html" %}
+
+{% block titre %} | Ajout de lieu
+{% endblock %}
+
+{% block corps %}
+    <h1>Formulaire d'ajout de lieu</h1>
+    <br>
+    <form class="form" method="POST" action="{{url_for('localisation_add')}}">
+        <div class="mb-3">
+            <label for="localisation_add_lieu" class="form-label"><b>Nom du lieu *</b></label>
+            <input type="text" class="form-control" id="localisation_add_lieu" name="localisation_add_lieu" placeholder="avec une majuscule">
+        </div>
+
+        <div class="mb-3">
+            <label for="localisation_add_ville" class="form-label"><b>Ville du lieu *</b></label>
+            <input type="text" class="form-control" id="localisation_add_ville" name="localisation_add_ville" placeholder="en minuscules">
+        </div>
+
+        <div class="mb-3">
+            <label for="localisation_add_pays" class="form-label"><b>Pays du lieu *</b></label>
+            <input type="text" class="form-control" id="localisation_add_pays" name="localisation_add_pays" placeholder="en minuscules">
+        </div>
+
+        <div class="mb-3">
+            <label for="localisation_add_latitude" class="form-label"><b>Latitude (coordonnées décimales)</b></label>
+            <input type="text" class="form-control" id="localisation_add_latitude" name="localisation_add_latitude" placeholder="latitude décimale">
+        </div>
+
+        <div class="mb-3">
+            <label for="localisation_add_longitude" class="form-label"><b>Longitude (coordonnées décimales)</b></label>
+            <input type="text" class="form-control" id="localisation_add_longitude" name="localisation_add_longitude" placeholder="longitude décimale">
+        </div>
+        <br>
+        <input type="submit" name="Ajouter" class="btn btn-success btn-lg" />
+    </form>
+    <br>
+    <br>
+
+    <div align="center">
+        <br>
+        <br>
+        <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

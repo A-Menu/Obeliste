@@ -1,0 +1,38 @@
+{% extends "conteneur.html" %}
+
+{% block titre %} | Ajout de commanditaire
+{% endblock %}
+
+{% block corps %}
+    <h1>Formulaire d'ajout de commanditaire</h1>
+    <br>
+    <form class="form" method="POST" action="{{url_for('personne_add')}}">
+        <div class="mb-3">
+            <label for="personne_add_nom" class="form-label"><b>Nom du commanditaire *</b></label>
+            <input type="text" class="form-control" id="personne_add_nom" name="personne_add_nom" placeholder="avec une majuscule">
+        </div>
+
+        <div class="mb-3">
+            <label for="personne_add_fonction" class="form-label"><b>Fonctions du commanditaire *</b></label>
+            <input type="text" class="form-control" id="personne_add_fonction" name="personne_add_fonction" placeholder="en minuscules">
+        </div>
+
+        <div class="mb-3">
+            <label for="personne_add_nationalite" class="form-label"><b>Nationalité du commanditaire *</b></label>
+            <input type="text" class="form-control" id="personne_add_nationalite" name="personne_add_nationalite" placeholder="en minuscules">
+        </div>
+
+        <br>
+        <input type="submit" name="Ajouter" class="btn btn-success btn-lg" />
+    </form>
+    <br>
+    <br>
+
+    <div align="center">
+        <br>
+        <br>
+        <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>
+        <br>
+        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

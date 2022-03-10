@@ -25,22 +25,23 @@
                 margin-bottom: 30px;
             }
             .row {
+                /* Pour centrer et justifier le contenu des pages */
                 text-align: justify;
                 margin-left: 150px;
                 margin-right: 150px;
             }
 
-            /* Pour centrer le logo dans la navbar */
+            /* Pour centrer verticalement le logo dans la navbar */
             .logo_top {
                 margin-bottom: 6px;
             }
-            /* Pour décaler le logo GitHub par rapport au texte du pied de page */
+            /* Pour décaler à droite le logo GitHub par rapport au texte du pied de page */
             .github {
                 margin-left: 13px;
             }
             /* Pour décaler la section utilisateur sur la droite de la navbar */
             .utilisateur {
-                margin-left:650px;
+                margin-left:550px;
             }
 
 
@@ -309,10 +310,10 @@
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=2)}}">Circus Maximus</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=40)}}">Circus Varianus</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=6)}}">Circus Vaticanus</a></li>
-                                            <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=12)}}">Horologium d'Auguste</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=15)}}">Iseum</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=36)}}">Jardins de Salluste</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=32)}}">Mausolée d'Auguste</a></li>
+                                            <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=12)}}">Méridienne d'Auguste</a></li>
                                             <h6 class="dropdown-header">Lieux modernes et contemporains</h6>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=26)}}">Capitole</a></li>
                                             <li class="dropdown-item"><a href="{{url_for('localisation', localisation_id=38)}}">Escalier d'Espagne</a></li>
@@ -357,6 +358,8 @@
                                 </ul>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('add')}}">Ajouter une page</a></li>
                     <!-- Section utilisateur -->
                     {% if not current_user.is_authenticated %}
                         <li class="nav-item utilisateur">
