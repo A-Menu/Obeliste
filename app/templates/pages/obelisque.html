@@ -15,9 +15,13 @@
     <br>
     <!-- Image et légende -->
     <div class="illustration">
-        <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="650" alt="Illustration"/>
-        <br>
-        <a href="{{obelisque.obelisque_image_url}}">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a>
+        {% if obelisque.obelisque_image_nom %}
+            <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="650" alt="Illustration"/>
+        {% else %}
+            <img src="{{obelisque.obelisque_image_url}}" height="650" alt="Illustration"/>
+        {% endif %}
+            <br>
+            <a href="{{obelisque.obelisque_image_url}}">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a>
     </div>
     <br>
     Brève notice à venir
@@ -85,13 +89,27 @@
     <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
     <br>
     <br>
+    <!-- Historique des modifications -->
+    <div>
+        <h6>Historique des modifications</h6>
+        {% if obelisque.authorships %}
+            {% for modification in obelisque.authorships %}
+                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+                <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+            {% endfor %}
+        {% else %}
+        <span>La page ne compte pas de modifications pour le moment</span>
+        {% endif %}
+    </div>
+    <br>
+    <br>
     <!-- Boutons -->
     <div align="center">
-        <a href="#" class="btn btn-outline-danger">Modifier l'obélisque</a>
-        <a href="#" class="btn btn-danger">Supprimer l'obélisque</a>
+        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier l'obélisque</a>
+        <a href="{{url_for('obelisque_delete', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer l'obélisque</a>
         <br>
         <br>
-        <a href="#" class="btn btn-outline-danger">Ajouter un obélisque</a>
+        <a href="{{url_for('obelisque_add')}}" class="btn btn-outline-danger">Ajouter un obélisque</a>
     </div>
     <br>
     <div align="center">

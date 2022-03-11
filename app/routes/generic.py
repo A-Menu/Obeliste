@@ -1,13 +1,14 @@
 from flask import render_template, request, flash, redirect
 
 
-from ..app import app, login, db
+from ..app import app, login, db, ALLOWED_EXTENSIONS, os
 from ..modeles.donnees import Obelisque, Personne, Erige, Localisation, Authorship
 from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user, login_required
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
 from sqlalchemy import or_
+from werkzeug.utils import secure_filename
 
 #Page d'accueil
 @app.route("/")
@@ -209,143 +210,7 @@ def internal_error(error):
     return render_template('error/erreur_500.html'), 500
 
 
-#Modifier, ajouter ou supprimer une page
-
-
-#Modifier une page
-
-#Modifier une page obélisque
-@app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
-@login_required
-def obelisque_update(obelisque_id):
-    mon_obelisque = Obelisque.query.get_or_404(obelisque_id)
-
-    erreurs = []
-    updated = False
-
-    if request.method == "POST":
-        if not request.form.get("obelisque_nom", "").strip():
-            erreurs.append("Insérez un nom d'obélisque")
-        if not request.form.get("obelisque_hauteur", "").strip():
-            erreurs.append("Insérez une hauteur d'obélisque")
-        if not request.form.get("obelisque_hauteur_avec_base", "").strip():
-            erreurs.append("Insérez une hauteur avec base d'obélisque")
-        if not request.form.get("obelisque_materiau", "").strip():
-            erreurs.append("Insérez le matériau de l'obélisque")
-        if not request.form.get("obelisque_type_commande", "").strip():
-            erreurs.append("Insérez le type de commande de l'obélisque")
-        if not request.form.get("obelisque_notice", "").strip():
-            erreurs.append("Insérez une notice d'obélisque")
-        if not request.form.get("obelisque_bibliographie", "").strip():
-            erreurs.append("Insérez une bibliographie")
-        if not request.form.get("obelisque_image_nom", "").strip():
-            erreurs.append("Insérez le nom du fichier image")
-        if not request.form.get("obelisque_image_url", "").strip():
-            erreurs.append("Insérez l'URL de l'image'")
-        if not request.form.get("obelisque_image_auteur", "").strip():
-            erreurs.append("Insérez le nom de l'auteur de l'image")
-        if not request.form.get("obelisque_image_licence", "").strip():
-            erreurs.append("Insérez les droits de réutilisation de l'image")
-        if not request.form.get("obelisque_image_licence_url", "").strip():
-            erreurs.append("Insérez l'URL de la licence de l'image")
-
-        if not erreurs:
-            print("Faire ma modification")
-            mon_obelisque.obelisque_nom = request.form["obelisque_nom"]
-            mon_obelisque.obelisque_hauteur = request.form["obelisque_hauteur"]
-            mon_obelisque.obelisque_hauteur_avec_base = request.form["obelisque_hauteur_avec_base"]
-            mon_obelisque.obelisque_materiau = request.form["obelisque_materiau"]
-            mon_obelisque.obelisque_type_commande = request.form["obelisque_type_commande"]
-            mon_obelisque.obelisque_notice = request.form["obelisque_notice"]
-            mon_obelisque.obelisque_bibliographie = request.form["obelisque_bibliographie"]
-            mon_obelisque.obelisque_image_nom = request.form["obelisque_image_nom"]
-            mon_obelisque.obelisque_image_url = request.form["obelisque_image_url"]
-            mon_obelisque.obelisque_image_auteur = request.form["obelisque_image_auteur"]
-            mon_obelisque.obelisque_image_licence = request.form["obelisque_image_licence"]
-            mon_obelisque.obelisque_image_licence_url = request.form["obelisque_image_licence_url"]
-
-            db.session.add(mon_obelisque)
-            db.session.add(Authorship(obelisque=mon_obelisque, user=current_user))
-            db.session.commit()
-            updated = True
-
-    return render_template(
-        "pages/obelisque_form_update.html",
-        obelisque=mon_obelisque,
-        erreurs=erreurs,
-        updated=updated
-    )
-
-#Modifier une page personne
-@app.route("/personne/<int:personne_id>/update", methods=["GET", "POST"])
-@login_required
-def personne_update(personne_id):
-    editable = Personne.query.get_or_404(personne_id)
-
-    erreurs = []
-    updated = False
-
-    if request.method == "POST":
-        if not request.form.get("personne_nom", "").strip():
-            erreurs.append("Insérez un nom")
-        if not request.form.get("personne_nationalite", "").strip():
-            erreurs.append("Insérez la nationalité de la personne")
-
-        if not erreurs:
-            print("Faire ma modification")
-            editable.personne_nom = request.form["personne_nom"]
-            editable.personne_nationalite = request.form["personne_nationalite"]
-            editable.personne_fonction = request.form["personne_fonction"]
-
-            db.session.add(editable)
-            db.session.add(Authorship(personne=editable, user=current_user))
-            db.session.commit()
-            updated = True
-
-    return render_template(
-        "pages/personne_form_update.html",
-        personne=editable,
-        erreurs=erreurs,
-        updated=updated
-    )
-
-
-#Modifier une page lieu
-@app.route("/lieu/<int:localisation_id>/update", methods=["GET", "POST"])
-@login_required
-def localisation_update(localisation_id):
-    editable = Localisation.query.get_or_404(localisation_id)
-
-    erreurs = []
-    updated = False
-
-    if request.method == "POST":
-        if not request.form.get("localisation_lieu", "").strip():
-            erreurs.append("Insérez un nom de lieu")
-        if not request.form.get("localisation_ville", "").strip():
-            erreurs.append("Insérez la ville du lieu")
-        if not request.form.get("localisation_pays", "").strip():
-            erreurs.append("Insérez le pays du lieu")
-
-        if not erreurs:
-            print("Faire ma modification")
-            editable.localisation_lieu = request.form["localisation_lieu"]
-            editable.localisation_ville = request.form["localisation_ville"]
-            editable.localisation_pays = request.form["localisation_pays"]
-            editable.localisation_latitude = request.form["localisation_latitude"]
-            editable.localisation_longitude = request.form["localisation_longitude"]
-
-            db.session.add(editable)
-            db.session.add(Authorship(localisation=editable, user=current_user))
-            db.session.commit()
-            updated = True
-
-    return render_template(
-        "pages/lieu_form_update.html",
-        localisation=editable,
-        erreurs=erreurs,
-        updated=updated
-    )
+#Ajouter, modifier ou supprimer une page
 
 
 #Ajouter une page
@@ -431,7 +296,190 @@ def localisation_add():
         return render_template("pages/lieu_form_add.html")
 
 
+#Modifier une page
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#Modifier une page obélisque
+
+@app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
+@login_required
+def obelisque_update(obelisque_id):
+    editable = Obelisque.query.get_or_404(obelisque_id)
+    '''erige_editable = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)'''
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("obelisque_nom", "").strip():
+            erreurs.append("Insérez un nom d'obélisque")
+        if not request.form.get("obelisque_hauteur", "").strip():
+            erreurs.append("Insérez une hauteur d'obélisque")
+        if not request.form.get("obelisque_hauteur_avec_base", "").strip():
+            erreurs.append("Insérez une hauteur avec base d'obélisque")
+        if not request.form.get("obelisque_materiau", "").strip():
+            erreurs.append("Insérez le matériau de l'obélisque")
+        if not request.form.get("obelisque_type_commande", "").strip():
+            erreurs.append("Insérez le type de commande de l'obélisque")
+        if not request.form.get("obelisque_notice", "").strip():
+            erreurs.append("Insérez une notice d'obélisque")
+        if not request.form.get("obelisque_bibliographie", "").strip():
+            erreurs.append("Insérez une bibliographie")
+        if not request.form.get("obelisque_image_url", "").strip():
+            erreurs.append("Insérez l'URL de l'image'")
+        if not request.form.get("obelisque_image_auteur", "").strip():
+            erreurs.append("Insérez le nom de l'auteur de l'image")
+        if not request.form.get("obelisque_image_licence", "").strip():
+            erreurs.append("Insérez les droits de réutilisation de l'image")
+        if not request.form.get("obelisque_image_licence_url", "").strip():
+            erreurs.append("Insérez l'URL de la licence de l'image")
+
+            if not request.form.get("obelisque_image_nom", "").strip():
+                erreurs.append("Insérez le nom de l'image")
+
+            # check if the post request has the file part
+            if not request.form.get("file", "").strip():
+                erreurs.append("Insérez une image")
+
+            file = request.files['file']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.obelisque_nom = request.form["obelisque_nom"]
+            editable.obelisque_hauteur = request.form["obelisque_hauteur"]
+            editable.obelisque_hauteur_avec_base = request.form["obelisque_hauteur_avec_base"]
+            editable.obelisque_materiau = request.form["obelisque_materiau"]
+            editable.obelisque_type_commande = request.form["obelisque_type_commande"]
+            editable.obelisque_notice = request.form["obelisque_notice"]
+            editable.obelisque_bibliographie = request.form["obelisque_bibliographie"]
+            editable.obelisque_image_url = request.form["obelisque_image_url"]
+            editable.obelisque_image_auteur = request.form["obelisque_image_auteur"]
+            editable.obelisque_image_licence = request.form["obelisque_image_licence"]
+            editable.obelisque_image_licence_url = request.form["obelisque_image_licence_url"]
+            editable.obelisque_image_nom = request.form["obelisque_image_nom"]
+
+            '''erige_editable.erige_id_obelisque = request.form["erige_id_obelisque"]
+            erige_editable.erige_id_personne = request.form["erige_id_personne"]
+            erige_editable.erige_id_localisation = request.form["erige_id_localisation"]
+            erige_editable.erige_date = request.form["erige_date"]
+            erige_editable.erige_actuel = request.form["erige_actuel"]'''
+
+            db.session.add(editable)
+            db.session.add(Authorship(obelisque=editable, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/obelisque_form_update.html",
+        obelisque=editable,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+#Modifier une page personne
+
+@app.route("/personne/<int:personne_id>/update", methods=["GET", "POST"])
+@login_required
+def personne_update(personne_id):
+    editable = Personne.query.get_or_404(personne_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("personne_nom", "").strip():
+            erreurs.append("Insérez un nom")
+        if not request.form.get("personne_nationalite", "").strip():
+            erreurs.append("Insérez la nationalité de la personne")
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.personne_nom = request.form["personne_nom"]
+            editable.personne_nationalite = request.form["personne_nationalite"]
+            editable.personne_fonction = request.form["personne_fonction"]
+
+            db.session.add(editable)
+            db.session.add(Authorship(personne=editable, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/personne_form_update.html",
+        personne=editable,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+
+#Modifier une page lieu
+
+@app.route("/lieu/<int:localisation_id>/update", methods=["GET", "POST"])
+@login_required
+def localisation_update(localisation_id):
+    editable = Localisation.query.get_or_404(localisation_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        if not request.form.get("localisation_lieu", "").strip():
+            erreurs.append("Insérez un nom de lieu")
+        if not request.form.get("localisation_ville", "").strip():
+            erreurs.append("Insérez la ville du lieu")
+        if not request.form.get("localisation_pays", "").strip():
+            erreurs.append("Insérez le pays du lieu")
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.localisation_lieu = request.form["localisation_lieu"]
+            editable.localisation_ville = request.form["localisation_ville"]
+            editable.localisation_pays = request.form["localisation_pays"]
+            editable.localisation_latitude = request.form["localisation_latitude"]
+            editable.localisation_longitude = request.form["localisation_longitude"]
+
+            db.session.add(editable)
+            db.session.add(Authorship(localisation=editable, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/lieu_form_update.html",
+        localisation=editable,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+
 #Supprimer une page
+
+#Supprimer une page obélisque
+
+@app.route("/obelisque/<int:obelisque_id>/delete", methods=["POST", "GET"])
+@login_required
+def obelisque_delete(obelisque_id):
+
+    supprimable = Obelisque.query.get(obelisque_id)
+
+    if request.method == "POST":
+        statut = Obelisque.obelisque_delete(
+            obelisque_id=obelisque_id
+        )
+
+        if statut is True:
+            flash("L'obélisque a été supprimé de la base", "success")
+            return redirect("/")
+        else:
+            flash("Echec", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/obelisque_form_delete.html", supprimable=supprimable)
+
 
 #Supprimer une page personne
 

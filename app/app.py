@@ -4,6 +4,7 @@ from flask_login import LoginManager
 import os
 from .constantes import SECRET_KEY
 
+
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(chemin_actuel, "templates")
 statics = os.path.join(chemin_actuel, "static")
@@ -18,6 +19,17 @@ app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./obeliste.sqlite'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+#On définit le lieu où sont stockées les images
+UPLOAD_FOLDER = 'app/static/images/img_obelisques/'
+#On définit les extensions acceptées pour télécharger des images
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+#On configure le fichier pour recevoir les images
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 # On initie l'extension
 db = SQLAlchemy(app)
 

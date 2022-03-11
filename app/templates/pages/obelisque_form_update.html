@@ -16,61 +16,70 @@
         {% endif %}
         <form method="POST">
             <div class="mb-3">
-                <label for="obelisque_nom" class="form-label">Nom du lieu.</label>
+                <label for="obelisque_nom" class="form-label">Nom de l'obélisque</label>
                 <input type="text" name="obelisque_nom" class="form-control" id="obelisque_nom" value="{{obelisque.obelisque_nom}}"/>
             </div>
 
             <div class="mb-3">
-                <label for="obelisque_hauteur" class="form-label">Longitude du lieu.</label>
+                <label for="obelisque_hauteur" class="form-label">Hauteur de l'obélisque</label>
                 <input type="number" name="obelisque_hauteur" class="form-control" id="obelisque_hauteur" value="{{obelisque.obelisque_hauteur}}"/>
             </div>
 
             <div class="mb-3">
-                <label for="obelisque_hauteur_avec_base" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_hauteur_avec_base" class="form-label">Hauteur totale du monument</label>
                 <input type="number" name="obelisque_hauteur_avec_base" class="form-control" id="obelisque_hauteur_avec_base" value="{{obelisque.obelisque_hauteur_avec_base}}"/>
             </div>
 
             <div class="mb-3">
-                <label for="obelisque_materiau" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_materiau" class="form-label">Matériau composant l'obélisque</label>
                 <input type="text" name="obelisque_materiau" class="form-control" id="obelisque_materiau" value="{{obelisque.obelisque_materiau}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_type_commande" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_type_commande" class="form-label">Type de commande</label>
                 <input type="text" name="obelisque_type_commande" class="form-control" id="obelisque_type_commande" value="{{obelisque.obelisque_type_commande}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_notice" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_notice" class="form-label">Brève notice</label>
                 <input type="text" name="obelisque_notice" class="form-control" id="obelisque_notice" value="{{obelisque.obelisque_notice}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_bibliographie" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_bibliographie" class="form-label">Bibliographie utilisée</label>
                 <input type="text" name="obelisque_bibliographie" class="form-control" id="obelisque_bibliographie" value="{{obelisque.obelisque_bibliographie}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_nom" class="form-label">Latitude du lieu</label>
-                <input type="text" name="obelisque_image_nom" class="form-control" id="obelisque_image_nom" value="{{obelisque.obelisque_image_nom}}">
+                <label for="obelisque_image_url" class="form-label">URL de l'image</label>
+                <input type="url" name="obelisque_image_url" class="form-control" id="obelisque_image_url" value="{{obelisque.obelisque_image_url}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_url" class="form-label">Latitude du lieu</label>
-                <input type="text" name="obelisque_image_url" class="form-control" id="obelisque_image_url" value="{{obelisque.obelisque_image_url}}">
-            </div>
-            <div class="mb-3">
-                <label for="obelisque_image_auteur" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_image_auteur" class="form-label">Ayant-droit de l'image</label>
                 <input type="text" name="obelisque_image_auteur" class="form-control" id="obelisque_image_auteur" value="{{obelisque.obelisque_image_auteur}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_licence" class="form-label">Latitude du lieu</label>
+                <label for="obelisque_image_licence" class="form-label">Licence permettant la réutilisation de l'image</label>
                 <input type="text" name="obelisque_image_licence" class="form-control" id="obelisque_image_licence" value="{{obelisque.obelisque_image_licence}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_licence_url" class="form-label">Latitude du lieu</label>
-                <input type="text" name="obelisque_image_licence_url" class="form-control" id="obelisque_image_licence_url" value="{{obelisque.obelisque_image_licence_url}}">
+                <label for="obelisque_image_licence_url" class="form-label">URL de la licence</label>
+                <input type="url" name="obelisque_image_licence_url" class="form-control" id="obelisque_image_licence_url" value="{{obelisque.obelisque_image_licence_url}}">
             </div>
             <br>
+                        <div class="mb-3">
+                <label for="obelisque_image_nom" class="form-label">Nom du fichier image</label>
+                <input type="text" name="obelisque_image_nom" class="form-control" id="obelisque_image_nom" value="{{obelisque.obelisque_image_nom}}">
+            </div>
+            <br>
+            <br>
             <input type="submit" name="Modifier" class="btn btn-success btn-lg" />
+            <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
         </form>
-    <br>
-    <br>
+        <br>
+<form method=post enctype=multipart/form-data>
+                <div >
+                <input type=file name=file>
+                <input type=submit value=Upload>
+            </div>
+</form>
+        <br>
     {% endif %}
     <div align="center">
         <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">Retour à l'obélisque</a>

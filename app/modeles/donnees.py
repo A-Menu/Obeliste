@@ -87,6 +87,25 @@ class Obelisque(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
+    @staticmethod
+    def obelisque_delete(obelisque_id):
+        """
+        Fonction qui permet de supprimer un obélisque de la base.
+        :param obelisque_id: id de l'obélisque (int)
+        :return:
+        """
+        supprimable = Obelisque.query.get(obelisque_id)
+
+        try:
+            db.session.delete(supprimable)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+
 #On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
 class Personne(db.Model):
     personne_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
