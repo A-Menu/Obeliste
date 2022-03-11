@@ -3,37 +3,29 @@
 {% block titre %} | Supprimer {{supprimable.personne_nom}}{% endblock %}
 
 {% block corps %}
-    <!-- Message affiché en cas d'envoi de modification -->
-    {% if updated %}
-        <div class="alert alert-success">
-            <p>Nous vous remercions pour votre contribution</p>
-            <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a></p>
-            <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
-        </div>
-    {% endif %}
+    <h1>Suppression de commanditaire</h1>
+    <br>
     <form method="POST" action="{{url_for('personne_delete', personne_id=supprimable.personne_id)}}">
         <div>
-            <p>Etes-vous certain de vouloir supprimer cette personne ?
-            <br/>
-            <p>
-                <em>Nom de la personne : {{supprimable.personne_nom}}</em> <br/>
-                <em>Fonctions de la personne : {{supprimable.personne_fonction}}</em> <br/>
-                <em>Nationalité de la personne : {{supprimable.personne_nationalite}}</em> <br/>
-            </p>
+            <p>Êtes-vous certain de vouloir supprimer ce commanditaire ?
+            <br>
+            <br>
+            <p><b>Nom de la personne :</b> {{supprimable.personne_nom}}</p>
+            <p><b>Fonctions de la personne :</b> {{supprimable.personne_fonction}}</p>
+            <p><b>Nationalité de la personne :</b> {{supprimable.personne_nationalite}}</p>
         </div>
-        <br/>
+        <br>
         <div>
           <div>
-              <button type="submit" class="btn btn-info">Confirmer</button>
-              <button type="button" class="btn btn-outline-danger"> <a href="{{url_for('personne', personne_id=supprimable.personne_id)}}">Annuler</a>
-              </button>
+              <button type="submit" class="btn btn-danger btn-lg">Confirmer</button>
+              <a href="{{url_for('personne', personne_id=supprimable.personne_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
           </div>
         </div>
     </form>
     <br>
     <br>
     <div align="center">
-        <a href="{{url_for('personne', personne_id=supprimable.personne_id)}}"">Retour au commanditaire</a>
+        <a href="{{url_for('personne', personne_id=supprimable.personne_id)}}">Retour au commanditaire</a>
         <br>
         <br>
         <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>

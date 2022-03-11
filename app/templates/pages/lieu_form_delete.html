@@ -3,26 +3,26 @@
 {% block titre %} | Supprimer {{supprimable.localisation_lieu}}{% endblock %}
 
 {% block corps %}
+    <h1>Suppression de lieu</h1>
+    <br>
     <form method="POST" action="{{url_for('localisation_delete', localisation_id=supprimable.localisation_id)}}">
         <div>
-            <p>Etes-vous certain de vouloir supprimer ce lieu ?
-            <br/>
-            <p>
-                <em>{{supprimable.localisation_lieu}}</em> <br/>
-                <em>{{supprimable.localisation_ville}}</em> <br/>
-                <em>{{supprimable.localisation_pays}}</em> <br/>
-                {% if supprimable.localisation_latitude %}
-                    <em>{{supprimable.localisation_latitude}}</em> <br/>
-                    <em>{{supprimable.localisation_longitude}}</em> <br/>
-                {% endif %}
-            </p>
+            <p>Êtes-vous certain de vouloir supprimer ce lieu ?
+            <br>
+            <br>
+            <p><b>Nom du lieu :</b> {{supprimable.localisation_lieu}}</p>
+            <p><b>Ville :</b> {{supprimable.localisation_ville}}</p>
+            <p><b>Pays :</b> {{supprimable.localisation_pays}}</p>
+            {% if supprimable.localisation_latitude %}
+                <p><b>Latitude :</b> {{supprimable.localisation_latitude}}</p>
+                <p><b>Longitude :</b> {{supprimable.localisation_longitude}}</p>
+            {% endif %}
         </div>
         <br/>
         <div>
           <div>
-              <button type="submit" class="btn btn-info">Confirmer</button>
-              <button type="button" class="btn btn-outline-danger"> <a href="{{url_for('localisation', localisation_id=supprimable.localisation_id)}}">Annuler</a>
-              </button>
+              <button type="submit" class="btn btn-danger btn-lg">Confirmer</button>
+              <a href="{{url_for('localisation', localisation_id=supprimable.localisation_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
           </div>
         </div>
     </form>
