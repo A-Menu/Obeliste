@@ -19,6 +19,20 @@
     </div>
     <br>
     <br>
+    <!-- Historique des modifications -->
+    <div>
+        <h6>Historique des modifications</h6>
+        {% if personne.authorships %}
+            {% for modification in personne.authorships %}
+                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+                <li><b>{{modification.user.user_nom}}</b> | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+            {% endfor %}
+        {% else %}
+        <p>La page ne compte pas de modifications pour le moment</p>
+        {% endif %}
+    </div>
+    <br>
+    <br>
     <!-- Boutons -->
     <div align="center">
         <a href="{{url_for('personne_update', personne_id=personne.personne_id)}}" class="btn btn-outline-danger">Modifier le commanditaire</a>

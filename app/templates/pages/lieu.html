@@ -50,6 +50,20 @@
     {% endif %}
     <br>
     <br>
+    <!-- Historique des modifications -->
+    <div>
+        <h6>Historique des modifications</h6>
+        {% if localisation.authorships %}
+            {% for modification in localisation.authorships %}
+                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+                <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+            {% endfor %}
+        {% else %}
+        <span>La page ne compte pas de modifications pour le moment</span>
+        {% endif %}
+    </div>
+    <br>
+    <br>
     <!-- Boutons -->
     <div align="center">
         <a href="{{url_for('localisation_update', localisation_id=localisation.localisation_id)}}" class="btn btn-outline-danger">Modifier le lieu</a>
