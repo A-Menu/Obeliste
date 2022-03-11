@@ -1,14 +1,12 @@
 from flask import render_template, request, flash, redirect
 
-
-from ..app import app, login, db, ALLOWED_EXTENSIONS, os
+from ..app import app, login, db
 from ..modeles.donnees import Obelisque, Personne, Erige, Localisation, Authorship
 from ..modeles.utilisateurs import User
 from ..constantes import RESULTATS_PAR_PAGE
 from flask_login import login_user, current_user, logout_user, login_required
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
 from sqlalchemy import or_
-from werkzeug.utils import secure_filename
 
 #Page d'accueil
 @app.route("/")
@@ -212,7 +210,6 @@ def internal_error(error):
 
 #Ajouter, modifier ou supprimer une page
 
-
 #Ajouter une page
 
 #Ajouter une page obélisque
@@ -232,7 +229,6 @@ def obelisque_add():
             obelisque_add_inscription_latine=request.form.get("obelisque_add_inscription_latine", None),
             obelisque_add_inscription_latine_traduite=request.form.get("obelisque_add_inscription_latine_traduite", None),
             obelisque_add_bibliographie=request.form.get("obelisque_add_bibliographie", None),
-            obelisque_add_image_nom=request.form.get("obelisque_add_image_nom", None),
             obelisque_add_image_url=request.form.get("obelisque_add_image_url", None),
             obelisque_add_image_auteur=request.form.get("obelisque_add_image_auteur", None),
             obelisque_add_image_licence=request.form.get("obelisque_add_image_licence", None),
@@ -298,10 +294,6 @@ def localisation_add():
 
 #Modifier une page
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 #Modifier une page obélisque
 
 @app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
@@ -337,18 +329,6 @@ def obelisque_update(obelisque_id):
         if not request.form.get("obelisque_image_licence_url", "").strip():
             erreurs.append("Insérez l'URL de la licence de l'image")
 
-            if not request.form.get("obelisque_image_nom", "").strip():
-                erreurs.append("Insérez le nom de l'image")
-
-            # check if the post request has the file part
-            if not request.form.get("file", "").strip():
-                erreurs.append("Insérez une image")
-
-            file = request.files['file']
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
         if not erreurs:
             print("Faire ma modification")
             editable.obelisque_nom = request.form["obelisque_nom"]
@@ -358,11 +338,12 @@ def obelisque_update(obelisque_id):
             editable.obelisque_type_commande = request.form["obelisque_type_commande"]
             editable.obelisque_notice = request.form["obelisque_notice"]
             editable.obelisque_bibliographie = request.form["obelisque_bibliographie"]
+            editable.obelisque_inscription_latine = request.form["obelisque_inscription_latine"]
+            editable.obelisque_inscription_latine_traduite = request.form["obelisque_inscription_latine_traduite"]
             editable.obelisque_image_url = request.form["obelisque_image_url"]
             editable.obelisque_image_auteur = request.form["obelisque_image_auteur"]
             editable.obelisque_image_licence = request.form["obelisque_image_licence"]
             editable.obelisque_image_licence_url = request.form["obelisque_image_licence_url"]
-            editable.obelisque_image_nom = request.form["obelisque_image_nom"]
 
             '''erige_editable.erige_id_obelisque = request.form["erige_id_obelisque"]
             erige_editable.erige_id_personne = request.form["erige_id_personne"]

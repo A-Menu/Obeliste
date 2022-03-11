@@ -21,15 +21,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./obeliste.sqlite'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
-#On définit le lieu où sont stockées les images
-UPLOAD_FOLDER = 'app/static/images/img_obelisques/'
-#On définit les extensions acceptées pour télécharger des images
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-
-#On configure le fichier pour recevoir les images
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
 # On initie l'extension
 db = SQLAlchemy(app)
 

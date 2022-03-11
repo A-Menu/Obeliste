@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block corps %}
+    <h1>Modification d'obélisque</h1>
+    <br>
     {% if obelisque %}
         <!-- Message affiché en cas d'envoi de modification -->
         {% if updated %}
@@ -16,56 +18,58 @@
         {% endif %}
         <form method="POST">
             <div class="mb-3">
-                <label for="obelisque_nom" class="form-label">Nom de l'obélisque</label>
+                <label for="obelisque_nom" class="form-label"><b>Nom de l'obélisque *</b></label>
                 <input type="text" name="obelisque_nom" class="form-control" id="obelisque_nom" value="{{obelisque.obelisque_nom}}"/>
             </div>
-
+            <br>
             <div class="mb-3">
-                <label for="obelisque_hauteur" class="form-label">Hauteur de l'obélisque</label>
-                <input type="number" name="obelisque_hauteur" class="form-control" id="obelisque_hauteur" value="{{obelisque.obelisque_hauteur}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="obelisque_hauteur_avec_base" class="form-label">Hauteur totale du monument</label>
-                <input type="number" name="obelisque_hauteur_avec_base" class="form-control" id="obelisque_hauteur_avec_base" value="{{obelisque.obelisque_hauteur_avec_base}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="obelisque_materiau" class="form-label">Matériau composant l'obélisque</label>
-                <input type="text" name="obelisque_materiau" class="form-control" id="obelisque_materiau" value="{{obelisque.obelisque_materiau}}">
-            </div>
-            <div class="mb-3">
-                <label for="obelisque_type_commande" class="form-label">Type de commande</label>
-                <input type="text" name="obelisque_type_commande" class="form-control" id="obelisque_type_commande" value="{{obelisque.obelisque_type_commande}}">
-            </div>
-            <div class="mb-3">
-                <label for="obelisque_notice" class="form-label">Brève notice</label>
+                <label for="obelisque_notice" class="form-label"><b>Brève notice *</b></label>
                 <input type="text" name="obelisque_notice" class="form-control" id="obelisque_notice" value="{{obelisque.obelisque_notice}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_bibliographie" class="form-label">Bibliographie utilisée</label>
-                <input type="text" name="obelisque_bibliographie" class="form-control" id="obelisque_bibliographie" value="{{obelisque.obelisque_bibliographie}}">
+                <label for="obelisque_hauteur" class="form-label"><b>Hauteur de l'obélisque (en mètres) *</b></label>
+                <input type="number" name="obelisque_hauteur" class="form-control" id="obelisque_hauteur" value="{{obelisque.obelisque_hauteur}}"/>
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_url" class="form-label">URL de l'image</label>
+                <label for="obelisque_hauteur_avec_base" class="form-label"><b>Hauteur totale du monument (en mètres) *</b></label>
+                <input type="number" name="obelisque_hauteur_avec_base" class="form-control" id="obelisque_hauteur_avec_base" value="{{obelisque.obelisque_hauteur_avec_base}}"/>
+            </div>
+            <div class="mb-3">
+                <label for="obelisque_materiau" class="form-label"><b>Matériau composant l'obélisque *</b></label>
+                <input type="text" name="obelisque_materiau" class="form-control" id="obelisque_materiau" value="{{obelisque.obelisque_materiau}}">
+            </div>
+            <div class="mb-3">
+                <label for="obelisque_type_commande" class="form-label"><b>Type de commande *</b></label>
+                <input type="text" name="obelisque_type_commande" class="form-control" id="obelisque_type_commande" value="{{obelisque.obelisque_type_commande}}">
+            </div>
+            <div class="mb-3">
+                <label for="obelisque_inscription_latine" class="form-label"><b>Transcription d'une éventuelle inscription latine</b></label>
+                <input type="text" name="obelisque_inscription_latine" class="form-control" id="obelisque_inscription_latine" value="{{obelisque.obelisque_inscription_latine}}">
+            </div>
+            <div class="mb-3">
+                <label for="obelisque_inscription_latine_traduite" class="form-label"><b>Traduction d'une éventuelle inscription latine</b></label>
+                <input type="text" name="obelisque_inscription_latine_traduite" class="form-control" id="obelisque_inscription_latine_traduite" value="{{obelisque.obelisque_inscription_latine_traduite}}">
+            </div>
+            <div class="mb-3">
+                <label for="obelisque_bibliographie" class="form-label"><b>Bibliographie utilisée pour rédiger la fiche *</b></label>
+                <input type="text" name="obelisque_bibliographie" class="form-control" id="obelisque_bibliographie" value="{{obelisque.obelisque_bibliographie}}">
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="obelisque_image_url" class="form-label"><b>URL de l'image *</b></label>
                 <input type="url" name="obelisque_image_url" class="form-control" id="obelisque_image_url" value="{{obelisque.obelisque_image_url}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_auteur" class="form-label">Ayant-droit de l'image</label>
+                <label for="obelisque_image_auteur" class="form-label"><b>Ayant-droit de l'image *</b></label>
                 <input type="text" name="obelisque_image_auteur" class="form-control" id="obelisque_image_auteur" value="{{obelisque.obelisque_image_auteur}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_licence" class="form-label">Licence permettant la réutilisation de l'image</label>
+                <label for="obelisque_image_licence" class="form-label"><b>Licence de l'image *</b></label>
                 <input type="text" name="obelisque_image_licence" class="form-control" id="obelisque_image_licence" value="{{obelisque.obelisque_image_licence}}">
             </div>
             <div class="mb-3">
-                <label for="obelisque_image_licence_url" class="form-label">URL de la licence</label>
+                <label for="obelisque_image_licence_url" class="form-label"><b>URL de la licence *</b></label>
                 <input type="url" name="obelisque_image_licence_url" class="form-control" id="obelisque_image_licence_url" value="{{obelisque.obelisque_image_licence_url}}">
-            </div>
-            <br>
-                        <div class="mb-3">
-                <label for="obelisque_image_nom" class="form-label">Nom du fichier image</label>
-                <input type="text" name="obelisque_image_nom" class="form-control" id="obelisque_image_nom" value="{{obelisque.obelisque_image_nom}}">
             </div>
             <br>
             <br>
@@ -73,12 +77,6 @@
             <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
         </form>
         <br>
-<form method=post enctype=multipart/form-data>
-                <div >
-                <input type=file name=file>
-                <input type=submit value=Upload>
-            </div>
-</form>
         <br>
     {% endif %}
     <div align="center">

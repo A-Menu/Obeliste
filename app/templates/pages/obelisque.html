@@ -15,13 +15,9 @@
     <br>
     <!-- Image et légende -->
     <div class="illustration">
-        {% if obelisque.obelisque_image_nom %}
-            <img src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" height="650" alt="Illustration"/>
-        {% else %}
-            <img src="{{obelisque.obelisque_image_url}}" height="650" alt="Illustration"/>
-        {% endif %}
-            <br>
-            <a href="{{obelisque.obelisque_image_url}}">{{obelisque.obelisque_image_auteur}}</a>, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a>
+        <a href="{{obelisque.obelisque_image_url}}"><img src="{{obelisque.obelisque_image_url}}" height="650" alt="Illustration" title="cliquez pour une meilleure résolution"/></a>
+        <br>
+        <span>{{obelisque.obelisque_image_auteur}}, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a></span>
     </div>
     <br>
     Brève notice à venir

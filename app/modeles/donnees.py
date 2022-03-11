@@ -16,8 +16,6 @@ class Obelisque(db.Model):
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)
-    #Nom du fichier image (utilisé pour intégrer l'image à la page)
-    obelisque_image_nom = db.Column(db.Text)
     #URL de l'image
     obelisque_image_url = db.Column(db.Text)
     #Crédits pour l'image
@@ -30,7 +28,7 @@ class Obelisque(db.Model):
     authorships = db.relationship("Authorship", back_populates="obelisque")
 
     @staticmethod
-    def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau, obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine, obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_nom, obelisque_add_image_url, obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
+    def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau, obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine, obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_url, obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
         erreurs = []
         if not obelisque_add_nom:
             erreurs.append("veuillez renseigner le nom de l'obélisque")
@@ -46,8 +44,6 @@ class Obelisque(db.Model):
             erreurs.append("veuillez renseigner une brève notice sur l'obélisque")
         if not obelisque_add_bibliographie:
             erreurs.append("veuillez renseigner vos sources")
-        if not obelisque_add_image_nom:
-            erreurs.append("veuillez renseigner une image de l'obélisque")
         if not obelisque_add_image_url:
             erreurs.append("veuillez renseigner l'URL de l'image")
         if not obelisque_add_image_auteur:
@@ -71,7 +67,6 @@ class Obelisque(db.Model):
                               obelisque_inscription_latine=obelisque_add_inscription_latine,
                               obelisque_inscription_latine_traduite=obelisque_add_inscription_latine_traduite,
                               obelisque_bibliographie=obelisque_add_bibliographie,
-                              obelisque_image_nom=obelisque_add_image_nom,
                               obelisque_image_url=obelisque_add_image_url,
                               obelisque_image_auteur=obelisque_add_image_auteur,
                               obelisque_image_licence=obelisque_add_image_licence,
