@@ -13,6 +13,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="obelisque_add_notice" class="form-label"><b>Notice de l'obélisque *</b></label>
+            <input type="text" class="form-control" id="obelisque_add_notice" name="obelisque_add_notice" placeholder="longitude décimale">
+        </div>
+
+        <div class="mb-3">
             <label for="obelisque_add_hauteur" class="form-label"><b>Hauteur de l'obélisque *</b></label>
             <input type="text" class="form-control" id="obelisque_add_hauteur" name="obelisque_add_hauteur" placeholder="en minuscules">
         </div>
@@ -31,10 +36,7 @@
             <label for="obelisque_add_type_commande" class="form-label"><b>Type de commande *</b></label>
             <input type="text" class="form-control" id="obelisque_add_type_commande" name="obelisque_add_type_commande" placeholder="longitude décimale">
         </div>
-        <div class="mb-3">
-            <label for="obelisque_add_notice" class="form-label"><b>Notice de l'obélisque *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_notice" name="obelisque_add_notice" placeholder="longitude décimale">
-        </div>
+
         <div class="mb-3">
             <label for="obelisque_add_inscription_latine" class="form-label"><b>Transcription d'une éventuelle inscription latine</b></label>
             <input type="text" class="form-control" id="obelisque_add_inscription_latine" name="obelisque_add_inscription_latine" placeholder="longitude décimale">
@@ -69,6 +71,7 @@
         </div>
         <br>
         <input type="submit" name="Ajouter" class="btn btn-success btn-lg" />
+        <a href="{{url_for('accueil')}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
     </form>
     <br>
     <br>

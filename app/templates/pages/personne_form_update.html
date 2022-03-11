@@ -34,9 +34,10 @@
             <br>
             <br>
             <input type="submit" name="Modifier" class="btn btn-success btn-lg" />
+            <a href="{{url_for('personne', personne_id=personne.personne_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
         </form>
-    <br>
-    <br>
+        <br>
+        <br>
     {% endif %}
     <div align="center">
         <a href="{{url_for('personne', personne_id=personne.personne_id)}}">Retour au commanditaire</a>
