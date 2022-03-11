@@ -20,7 +20,7 @@
                 <!-- Insertion des cartes -->
                 <div class="card">
                     <a href="{{url_for('obelisque', obelisque_id=obelisque.obelisque_id)}}">
-                        <img class="card-img-top" src="../../static/images/img_obelisques/{{obelisque.obelisque_image_nom}}" alt="{{obelisque.obelisque_nom}}"/>
+                        <img class="card-img-top" src="{{obelisque.obelisque_image_url}}" alt="{{obelisque.obelisque_nom}}"/>
                         <div class="card-body">
                             <h6 class="card-title">{{obelisque.obelisque_nom}}</h6>
                         </div>
