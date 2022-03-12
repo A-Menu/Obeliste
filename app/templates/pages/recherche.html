@@ -3,6 +3,7 @@
 {% block titre %}| {{titre}}{%endblock%}
 
 {% block corps %}
+<div class="centrer_contenu">
     <h1>{{titre}}</h1>
     <br>
     {% if resultats %}
@@ -37,4 +38,5 @@
         <!-- Si l'utilisateur ne renseigne aucun terme -->
         <span>Veuillez renseigner un terme à rechercher</span>
     {% endif %}
+</div>
 {% endblock %}

@@ -11,6 +11,7 @@
         }
     </style>
 
+<div class="centrer_contenu">
     <h1>Index des lieux</h1>
     {% if resultats %}
         <p>{{resultats.total}} lieux sont présents dans la base :</p>
@@ -59,4 +60,5 @@
         <br>
         <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
     </div>
+</div>
 {% endblock %}

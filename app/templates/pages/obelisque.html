@@ -11,11 +11,12 @@
         }
     </style>
 
+<div class="centrer_contenu">
     <h1>{{obelisque.obelisque_nom}}</h1>
     <br>
     <!-- Image et légende -->
     <div class="illustration">
-        <a href="{{obelisque.obelisque_image_url}}"><img src="{{obelisque.obelisque_image_url}}" height="650" alt="Illustration" title="Cliquez pour avoir une meilleure résolution"/></a>
+        <a href="{{obelisque.obelisque_image_url}}"><img src="{{obelisque.obelisque_image_url}}" height="550" alt="Illustration" title="Cliquez pour avoir une meilleure résolution"/></a>
         <br>
         <span>{{obelisque.obelisque_image_auteur}}, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a></span>
         <br>
@@ -41,7 +42,7 @@
             </li>
         {% endfor%}
     </ul>
-    <div id="map" style="width: 780px; height: 600px">
+    <div class="carte" id="map" style="width: 780px; height: 600px">
         <script type="text/javascript">
             //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
             //On crée une carte centrée sur l'est de la Méditerranée
@@ -116,4 +117,5 @@
         <br>
         <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
     </div>
+</div>
 {% endblock %}

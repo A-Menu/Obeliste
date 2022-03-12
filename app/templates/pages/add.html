@@ -3,6 +3,7 @@
 {% block titre %} | Ajouter une page{% endblock %}
 
 {% block corps %}
+<div class="centrer_contenu">
     <h1>Ajouter une nouvelle page à la base</h1>
     <br>
     <br>
@@ -15,5 +16,5 @@
         <a href="{{url_for('personne_add')}}" class="btn btn-info btn-lg">Ajouter un commanditaire</a>
         <a href="{{url_for('localisation_add')}}" class="btn btn-info btn-lg">Ajouter un lieu</a>
     </div>
-
+</div>
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block titre %} | {{personne.personne_nom}}{% endblock %}
 
 {% block corps %}
+<div class="centrer_contenu">
     <h1>{{personne.personne_nom}}</h1>
     <!-- On affiche l'occupation et la nationalité de la personne s'ils existent dans la base -->
     <h4>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
@@ -48,4 +49,5 @@
         <br>
         <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
     </div>
+</div>
 {% endblock %}

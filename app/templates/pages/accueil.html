@@ -1,9 +1,11 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+<div class="centrer_contenu">
     <div align="center">
         <img src="{{url_for('static', filename='images/obeliste_logo_dark.png')}}" alt="L'Obéliste" height="110" />
     </div>
+    <br>
     <br>
     <br>
     <h1>Bienvenue !</h1>
@@ -28,7 +30,7 @@
     </div>
     <br>
     <br>
-    <div id="map" style="width: 780px; height: 600px">
+    <div class="carte" id="map" style="width: 780px; height: 600px">
         <script type="text/javascript">
             //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
             //On crée une carte centrée sur Rome
@@ -78,6 +80,7 @@
     <p>
         Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
     </p>
+    <br>
     <!-- Logo de l'ENC -->
     <div class="text-center">
         <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
@@ -88,4 +91,5 @@
     <p>
         Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git">dépôt GitHub de l'application</a> !
     </p>
+</div>
 {% endblock %}

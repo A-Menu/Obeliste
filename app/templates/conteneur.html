@@ -20,14 +20,20 @@
             .container .hero {
                 background-image: none;
             }
-            /* Pour faire en sorte que les pages aient des espaces en haut et en bas */
+            /* Pour faire en sorte que les pages aient des espaces en haut et en bas et justifier le texte */
             .container {
-                margin-top: 80px;
+                margin-top: 50px;
                 margin-bottom: 100px;
-            }
-            /* Pour justifier le contenu des pages */
-            .row {
                 text-align: justify;
+            }
+            /* Pour centrer le contenu des pages */
+            .centrer_contenu {
+                margin-left: 110px;
+                margin-right: 110px;
+            }
+            /* Pour centrer le contenu des pages */
+            .carte {
+                margin-left: 56px;
             }
 
             /* Pour centrer verticalement le logo dans la navbar */
@@ -393,14 +399,13 @@
                     </div>
                 {% endif %}
             {% endwith %}
-            <div class="row">
-                <div class="col">
+            <div class="row" >
+                <div class="col" >
                     <!-- Réceptacle pour les templates -->
                     {% block corps %}{% endblock %}
                 </div>
             </div>
         </div>
-
         <!-- Scripts pour utiliser le menu déroulant (la version de Bootstrap n'étant pas utilisable telle qu'indiquée dans la documentation) -->
         <!-- Source : https://stackoverflow.com/questions/46026899/bootstrap-4-dropdown-menu-not-working -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

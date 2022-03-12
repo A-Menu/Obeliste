@@ -11,6 +11,7 @@
         }
     </style>
 
+<div class="centrer_contenu">
     <h1>Index des commanditaires</h1>
     {% if resultats %}
         <p>{{resultats.total}} commanditaires sont présents dans la base :</p>
@@ -57,4 +58,5 @@
         <br>
         <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
     </div>
+</div>
 {% endblock %}

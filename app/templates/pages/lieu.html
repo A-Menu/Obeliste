@@ -3,6 +3,7 @@
 {% block titre %} | {{localisation.localisation_lieu}}{% endblock %}
 
 {% block corps %}
+<div class="centrer_contenu">
     <h1>{{localisation.localisation_lieu}}</h1>
     <h4>{{localisation.localisation_ville}}, {{localisation.localisation_pays}}</h4>
     <br>
@@ -17,7 +18,7 @@
     <br>
     <!-- Si on bénéficie de coordonnées géographiques, alors le lieu apparait sur une carte -->
     {% if localisation.localisation_latitude %}
-        <div id="map" style="width: 800px; height: 600px">
+        <div class="carte" id="map" style="width: 800px; height: 600px">
             <script type="text/javascript">
                 //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
                 //On crée une carte centrée sur le lieu. Pour se repérer plus facilement, on choisit un zoom de 14 pour Rome et le Vatican, et zoom plus éloigné (10) pour le reste de l'Italie et l'Egypte
@@ -79,4 +80,5 @@
         <br>
         <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
     </div>
+</div>
 {% endblock %}

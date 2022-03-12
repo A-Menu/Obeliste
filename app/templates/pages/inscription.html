@@ -3,6 +3,7 @@
 {% block titre %}| Inscription{%endblock%}
 
 {% block corps %}
+<div class="centrer_contenu">
     <h1>Inscription</h1>
     <p>Complétez le formulaire et cliquez sur "S'inscrire".</p>
     <form class="form" method="POST" action="{{url_for('inscription')}}">
@@ -36,4 +37,5 @@
             <a href="{{url_for('connexion')}}" class="btn btn-secondary">Déjà inscrit ? Se connecter</a>
         </div>
     </form>
+</div>
 {% endblock %}
