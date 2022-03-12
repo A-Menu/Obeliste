@@ -512,6 +512,7 @@ def localisation_delete(localisation_id):
 # This is the index route where we are going to
 # query on all our employee data
 @app.route('/elevations')
+@login_required
 def elevations():
     erige = Erige.query.all()
 

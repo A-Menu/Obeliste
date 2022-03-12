@@ -5,7 +5,9 @@
 {% block corps %}
 <div class="centrer_contenu">
     <h1>Inscription</h1>
+    <br>
     <p>Complétez le formulaire et cliquez sur "S'inscrire".</p>
+    <br>
     <form class="form" method="POST" action="{{url_for('inscription')}}">
         <div class="form-group row">
             <label for="register-login" class="col-sm-2 col-form-label">Login</label>
@@ -31,10 +33,11 @@
                 <input type="password" class="form-control" id="register-password" placeholder="Mot de passe d'au moins six caractères" name="motdepasse">
             </div>
         </div>
+        <br>
         <!-- Boutons -->
         <div>
-            <button type="submit" class="btn btn-info">S'inscrire</button>
-            <a href="{{url_for('connexion')}}" class="btn btn-secondary">Déjà inscrit ? Se connecter</a>
+            <button type="submit" class="btn btn-info btn-lg">S'inscrire</button>
+            <a href="{{url_for('connexion')}}" class="btn btn-secondary btn-lg">Déjà inscrit ? Se connecter</a>
         </div>
     </form>
 </div>
