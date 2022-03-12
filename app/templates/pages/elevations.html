@@ -1,0 +1,133 @@
+{% extends "conteneur.html" %}
+
+{% block titre %} | Gérer les élévations{% endblock %}
+
+{% block corps %}
+<!-- Source : https://www.youtube.com/watch?v=XTpLbBJTOM4 -->
+
+<div class="tableau">
+    <div>
+        <div class>
+            <div class>
+                <h2>Gérer les élévations d'obélisques <button type="button"  class="btn btn-success btn-lg float-right"
+                data-toggle="modal" data-target="#mymodal">Ajouter une élévation</button> </h2>
+                <br>
+
+                <br>
+                <table class="table table-hover table-bordered table-striped ">
+                    <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th>Id de l'obélisque</th>
+                        <th>Id de la personne</th>
+                        <th>Id du lieu</th>
+                        <th>Date d'élévation</th>
+                        <th>Localisation actuelle ?</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for erige in erige %}
+                        <tr class="text-center">
+                            <td class="align-middle">{{erige.erige_id_obelisque}}</td>
+                            <td class="align-middle">{{erige.erige_id_personne}}</td>
+                            <td class="align-middle">{{erige.erige_id_localisation}}</td>
+                            <td class="align-middle">{{erige.erige_date}}</td>
+                            <td class="align-middle">{{erige.erige_actuel}}</td>
+                            <td class="align-middle">
+                                <a href="/erige/{{erige.erige_id}}/update" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{erige.erige_id}}">Modifier</a>
+                                <a href="/erige/{{erige.erige_id}}/delete" class="btn btn-danger btn-xs" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette élévation ?')">Supprimer</a>
+                            </td>
+                        </tr>
+
+
+                        <!-- Modal Edit Employee-->
+                        <div id="modaledit{{erige.erige_id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Modifier une élévation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{url_for('erige_update', erige_id=erige.erige_id)}}" method="POST">
+                                            <div class="form-group">
+                                                <label>Id de l'obélisque</label>
+                                                <input type="text" class="form-control" name="erige_id_obelisque" value="{{erige.erige_id_obelisque}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Id de la personne</label>
+                                                <input type="text" class="form-control" name="erige_id_personne" value="{{erige.erige_id_personne}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Id du lieu</label>
+                                                <input type="text" class="form-control" name="erige_id_localisation" value="{{erige.erige_id_localisation}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Date d'élévation *</label>
+                                                <input type="text" class="form-control" name="erige_date" value="{{erige.erige_date}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Localisation actuelle de l'obélisque ? (0 pour non, 1 pour oui)</label>
+                                                <input type="number" class="form-control" name="erige_actuel" value="{{erige.erige_actuel}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="submit">Modifier</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Ajouter une élévation-->
+            <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Ajouter une élévation</h4>
+                            <br>
+                            <div class="modal-body">
+                                <form action="{{url_for('erige_add')}}" method="POST">
+                                    <div class="form-group">
+                                        <label>Id de l'obélisque</label>
+                                        <input type="text" class="form-control" name="erige_add_id_obelisque">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Id de la personne</label>
+                                        <input type="text" class="form-control" name="erige_add_id_personne">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Id du lieu</label>
+                                        <input type="text" class="form-control" name="erige_add_id_localisation">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <input type="text" class="form-control" name="erige_add_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Localisation actuelle de l'obélisque ? (0 pour non, 1 pour oui)</label>
+                                        <input type="number" class="form-control" name="erige_add_actuel">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Ajouter</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

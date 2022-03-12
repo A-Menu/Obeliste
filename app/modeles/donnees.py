@@ -318,12 +318,117 @@ class Erige(db.Model):
     erige_id_personne = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_date = db.Column(db.Text)
-    #On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (booléen, 0 = non, 1 = oui)
-    erige_actuel = db.Column(db.Boolean, default=0)
+    #On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (0 = non, 1 = oui)
+    erige_actuel = db.Column(db.Integer, default=0)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
     localisation = db.relationship("Localisation", back_populates="erige")
     authorships = db.relationship("Authorship", back_populates="erige")
+
+    @staticmethod
+    def erige_add(erige_add_id_obelisque, erige_add_id_personne, erige_add_id_localisation, erige_add_date, erige_add_actuel):
+        erreurs = []
+        if not erige_add_id_obelisque:
+            erreurs.append("Veuillez renseigner l'id de l'obélisque'")
+        if not erige_add_id_personne:
+            erreurs.append(
+                "Veuillez renseigner l'id de la personne'")
+        if not erige_add_id_localisation:
+            erreurs.append(
+                "Veuillez renseigner l'id du lieu'")
+        if not erige_add_date:
+            erreurs.append(
+                "Veuillez renseigner la date d'élévation")
+
+            # S'il y a au moins une erreur, afficher un message d'erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
+        ajoutable = Erige(erige_id_obelisque=erige_add_id_obelisque,
+                             erige_id_personne=erige_add_id_personne,
+                             erige_id_localisation=erige_add_id_localisation,
+                                 erige_date=erige_add_date,
+                                 erige_actuel=erige_add_actuel)
+
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        try:
+            db.session.add(ajoutable)
+            db.session.commit()
+            return True, ajoutable
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def erige_update(erige_id_obelisque, erige_id_personne, erige_id_localisation, erige_date, erige_actuel):
+        erreurs = []
+        if not erige_id_obelisque:
+            erreurs.append("Veuillez renseigner l'id de l'obélisque'")
+        if not erige_id_personne:
+            erreurs.append(
+                "Veuillez renseigner l'id de la personne'")
+        if not erige_id_localisation:
+            erreurs.append(
+                "Veuillez renseigner l'id du lieu'")
+        if not erige_date:
+            erreurs.append(
+                "Veuillez renseigner la date d'élévation")
+
+        # S'il y a au moins une erreur.
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        # On récupère une personne dans la base.
+        editable = Erige.query.get(erige_id)
+
+        # On vérifie que l'utilisateur-ice modifie au moins un champ.
+        if editable.erige_id_obelisque == erige_id_obelisque \
+                and editable.erige_id_personne == erige_id_personne \
+                and editable.erige_id_localisation == erige_id_localisation\
+                and editable.erige_date == erige_date\
+                and editable.erige_actuel == erige_actuel :
+            erreurs.append("No edit was submitted")
+
+        if len(erreurs) > 0:
+            return False, erreurs
+
+        else:
+            # Mise à jour du lieu
+            editable.erige_id_obelisque = erige_id_obelisque
+            editable.erige_id_personne = erige_id_personne
+            editable.erige_id_localisation = erige_id_localisation
+            editable.erige_date = erige_date
+            editable.erige_actuel = erige_actuel
+
+        try:
+            # On l'ajoute au transport vers la base de données.
+            db.session.add(editable)
+            # On envoie le paquet.
+            db.session.commit()
+
+            # On renvoie les informations du site.
+            return True, editable
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def erige_delete(erige_id):
+        """
+        Fonction qui permet de supprimer une élévation de la base.
+        :param erige_id: id de l'élévation' (int)
+        :return:
+        """
+        supprimable = Erige.query.get(erige_id)
+
+        try:
+            db.session.delete(supprimable)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
 
 #On crée une classe Authorship pour recenser les modifications des utilisateurs
 class Authorship(db.Model):

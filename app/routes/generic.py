@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, url_for
 
 from ..app import app, login, db
 from ..modeles.donnees import Obelisque, Personne, Erige, Localisation, Authorship
@@ -506,3 +506,88 @@ def localisation_delete(localisation_id):
             return redirect("/")
     else:
         return render_template("pages/lieu_form_delete.html", supprimable=supprimable)
+
+
+#Source : https://www.youtube.com/watch?v=XTpLbBJTOM4
+# This is the index route where we are going to
+# query on all our employee data
+@app.route('/elevations')
+def elevations():
+    erige = Erige.query.all()
+
+    return render_template("pages/elevations.html", erige=erige)
+
+
+#Ajouter une page Erige
+
+@app.route("/erige/add", methods=["GET", "POST"])
+@login_required
+def erige_add():
+
+    if request.method == "POST":
+        statut, informations = Erige.erige_add(
+        erige_add_id_obelisque = request.form.get("erige_add_id_obelisque", None),
+        erige_add_id_personne = request.form.get("erige_add_id_personne", None),
+        erige_add_id_localisation = request.form.get("erige_add_id_localisation", None),
+        erige_add_date=request.form.get("erige_add_date", None),
+        erige_add_actuel = request.form.get("erige_add_actuel", None)
+        )
+
+        if statut is True:
+            flash("Nouvelle élévation ajoutée à la base", "success")
+            return redirect(url_for('elevations'))
+        else:
+            flash("Echec : " + ", ".join(informations), "danger")
+            return redirect(url_for('elevations'))
+    else:
+        return redirect(url_for('elevations'))
+
+#Modifier une élévation
+
+@app.route("/erige/<int:erige_id>/update", methods=["GET", "POST"])
+@login_required
+def erige_update(erige_id):
+    editable = Erige.query.get_or_404(erige_id)
+
+    erreurs = []
+
+    if request.method == "POST":
+        if not request.form.get("erige_id_obelisque", "").strip():
+            erreurs.append("Insérez un id d'obélisque")
+        if not request.form.get("erige_id_personne", "").strip():
+            erreurs.append("Insérez un id de personne")
+        if not request.form.get("erige_id_localisation", "").strip():
+            erreurs.append("Insérez un id de lieu")
+        if not request.form.get("erige_date", "").strip():
+            erreurs.append("Insérez une date d'élévation")
+
+        if not erreurs:
+            print("Faire ma modification")
+            editable.erige_id_obelisque = request.form["erige_id_obelisque"]
+            editable.erige_id_personne = request.form["erige_id_personne"]
+            editable.erige_id_localisation = request.form["erige_id_localisation"]
+            editable.erige_date = request.form["erige_date"]
+            editable.erige_actuel = request.form["erige_actuel"]
+
+            db.session.add(editable)
+            db.session.add(Authorship(erige=editable, user=current_user))
+            db.session.commit()
+            flash("Elévation mise à jour avec succès", "success")
+        else :
+            flash("Echec", "danger")
+
+    return redirect(url_for('elevations'))
+
+
+#Supprimer une élévation
+
+@app.route("/erige/<int:erige_id>/delete", methods=["POST", "GET"])
+@login_required
+def erige_delete(erige_id):
+
+    supprimable = Erige.query.get(erige_id)
+    db.session.delete(supprimable)
+    db.session.commit()
+    flash("Elévation supprimée avec succès", "success")
+
+    return redirect(url_for('elevations'))
