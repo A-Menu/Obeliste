@@ -5,7 +5,7 @@
 {% block corps %}
 <!-- Source : https://www.youtube.com/watch?v=XTpLbBJTOM4 -->
 
-<div class="tableau">
+<div>
     <div>
         <div class>
             <div class>
@@ -28,11 +28,11 @@
                     <tbody>
                     {% for erige in erige %}
                         <tr class="text-center">
-                            <td class="align-middle">{{erige.erige_id_obelisque}}</td>
-                            <td class="align-middle">{{erige.erige_id_personne}}</td>
-                            <td class="align-middle">{{erige.erige_id_localisation}}</td>
+                            <td class="align-middle">{{erige.obelisque.obelisque_nom}}</td>
+                            <td class="align-middle">{{erige.personne.personne_nom}}</td>
+                            <td class="align-middle">{{erige.localisation.localisation_lieu}} ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</td>
                             <td class="align-middle">{{erige.erige_date}}</td>
-                            <td class="align-middle">{{erige.erige_actuel}}</td>
+                            <td class="align-middle">{% if erige.erige_actuel == 0 %}Non{% else %}Oui{% endif %}</td>
                             <td class="align-middle">
                                 <a href="/erige/{{erige.erige_id}}/update" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{erige.erige_id}}">Modifier</a>
                                 <a href="/erige/{{erige.erige_id}}/delete" class="btn btn-danger btn-xs" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette élévation ?')">Supprimer</a>
@@ -66,8 +66,15 @@
                                                 <input type="text" class="form-control" name="erige_date" value="{{erige.erige_date}}">
                                             </div>
                                             <div class="form-group">
-                                                <label>Localisation actuelle de l'obélisque ? (0 pour non, 1 pour oui)</label>
-                                                <input type="number" class="form-control" name="erige_actuel" value="{{erige.erige_actuel}}">
+                                                <label>Localisation actuelle de l'obélisque ? *</label>
+                                                <select name="erige_actuel">
+                                                    <option value="0">
+                                                        Non
+                                                    </option>
+                                                    <option value="1">
+                                                        Oui
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn-success" type="submit">Modifier</button>
@@ -111,8 +118,15 @@
                                         <input type="text" class="form-control" name="erige_add_date">
                                     </div>
                                     <div class="form-group">
-                                        <label>Localisation actuelle de l'obélisque ? (0 pour non, 1 pour oui)</label>
-                                        <input type="number" class="form-control" name="erige_add_actuel">
+                                        <label>Localisation actuelle de l'obélisque ? *</label>
+                                                <select name="erige_actuel">
+                                                    <option value="0">
+                                                        Non
+                                                    </option>
+                                                    <option value="1">
+                                                        Oui
+                                                    </option>
+                                                </select>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-success" type="submit">Ajouter</button>
