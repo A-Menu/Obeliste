@@ -15,6 +15,7 @@ Visant à gérer et visualiser une base de données relationnelle, elle a été 
 
 - Cloner ou enregistrer le dépôt GitHub à l'emplacement voulu
 - Se déplacer dans le dossier
+- Installer les prérequis Python : `sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv`
 - Créer un environnement virtuel : `virtualenv ~/.obeliste -p python3`
 - Activer l'environnement virtuel : `source ~/.obeliste/bin/activate`
 - Installer les dépendances requises : `pip install -r requirements.txt`
