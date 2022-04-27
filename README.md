@@ -7,7 +7,7 @@ Durant l'Antiquité, Rome ne comptait pas moins de quinze obélisques en son sei
 
 L'Obéliste est une application web réalisée sous Python à l'aide de Flask et SQLAlchemy.
 
-Visant à gérer et visualiser une base de données relationnelle, elle a été créée dans le cadre du cours d'Introduction au développement applicatif dispensé par M. Thibault Clérice au Master 2 ["Technologies numériques appliquées à l'histoire"](https://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire) de l'[École nationale des chartes](https://www.chartes.psl.eu/fr). 
+Visant à gérer et visualiser une base de données relationnelle, elle a été créée dans le cadre du [cours d'Introduction au développement applicatif](github.com/ponteineptique/cours-python) dispensé par M. Thibault Clérice au Master 2 ["Technologies numériques appliquées à l'histoire"](https://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire) de l'[École nationale des chartes](https://www.chartes.psl.eu/fr). 
 
 
 
