@@ -17,6 +17,6 @@ Visant à gérer et visualiser une base de données relationnelle, elle a été 
 - Se déplacer dans le dossier
 - Créer un environnement virtuel : `virtualenv ~/.obeliste -p python3`
 - Activer l'environnement virtuel : `source ~/.obeliste/bin/activate`
-- Installer les packages requis : `pip install -r requirements.txt`
+- Installer les dépendances requises : `pip install -r requirements.txt`
 - Lancer l'application : `python3 run.py`
 - Pour visualiser l'application, se rendre à l'adresse suivante : [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
