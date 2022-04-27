@@ -13,6 +13,8 @@ class Obelisque(db.Model):
     #L'obélisque est-il une commande égyptienne ou romaine ?
     obelisque_type_commande = db.Column(db.Text)
     obelisque_notice = db.Column(db.Text)
+    #On indique si l'obélisque présente une inscription latine (0 = non, 1 = oui)
+    obelisque_presence_inscription = db.Column(db.Integer, default=0)
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)
@@ -430,6 +432,8 @@ class Erige(db.Model):
             return False, [str(erreur)]
 
 
+
+
 #On crée une classe Authorship pour recenser les modifications des utilisateurs
 class Authorship(db.Model):
     __tablename__ = "authorship"
@@ -439,7 +443,11 @@ class Authorship(db.Model):
     authorship_localisation_id = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'), nullable=True)
     authorship_erige_id = db.Column(db.Integer, db.ForeignKey('erige.erige_id'), nullable=True)
     authorship_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    authorship_date = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
+    #Pour renseigner l'heure, on utilise les paramètres locaux
+    #Source : https://www.codegrepper.com/code-examples/python/python+datetime+local+timezone
+    now = datetime.datetime.now()
+    local_now = now.astimezone()
+    authorship_date = db.Column(db.DateTime, default=local_now, nullable=False)
     obelisque = db.relationship("Obelisque", back_populates="authorships")
     personne = db.relationship("Personne", back_populates="authorships")
     localisation = db.relationship("Localisation", back_populates="authorships")

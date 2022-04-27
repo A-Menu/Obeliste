@@ -23,9 +23,9 @@
         <br>
         <span>Cliquez sur l'image pour avoir une meilleure résolution</span>
     </div>
-    <br>
-    Brève notice à venir
-    <br>
+    <br><br>
+    {{obelisque.obelisque_notice}}
+    <br><br>
     <br>
     <dl>
         <dt>Matériau</dt><dd>{{obelisque.obelisque_materiau}}</dd>
@@ -80,7 +80,7 @@
     <br>
     <dl>
         <!-- Affichage des inscriptions latines et de leur traduction si elles existent -->
-        {% if obelisque.obelisque_inscription_latine %}
+        {% if obelisque.obelisque_presence_inscription == 1 %}
             <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
             <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
         {% endif %}

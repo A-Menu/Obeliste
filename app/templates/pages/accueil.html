@@ -11,15 +11,20 @@
     <h1>Bienvenue !</h1>
     <br>
     <p>
-        Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
-    </p>
-    <p>
-      Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
-    </p>
-    <p>
-        Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
+        Durant l'Antiquité, Rome ne compte pas moins de quinze obélisques en son sein <b>(1)</b>. <i><b>L'Obéliste</b></i> vous propose de découvrir d'élévation en élévation les déplacements des treize obélisques antiques encore présents dans la ville.
     </p>
     <br>
+    <p>
+        L'obélisque trouve son origine en Égypte, dans les carrières de granite de Syène, à Assouan. Monument sacré représentant les rayons du dieu-Soleil Rê, il est généralement érigé par paires à proximité des temples. Suite à la bataille d'Actium en 31 avant J.-C. et la conquête romaine de l'Égypte, les obélisques commencent à arriver à Rome. Les deux premiers entrent dans la cité vers 10 avant notre ère sous les ordres d'Auguste, premier empereur romain, tandis que le dernier obélisque à rejoindre Rome y fait son entrée en 358 sous Constance II <b>(2)</b>.
+    </p>
+    <br>
+    <p class="text-muted">
+        <b>1 : </b>En plus des treize obélisques présents dans la base, mentionnons également l'obélisque de Boboli, anciennement érigé au temple d'Isis (Iseum) de Rome et présent de nos jours dans le jardin du même nom à Florence, et les fragments de l'obélisque d'Urbino, probablement issus du même temple (Source : HOARE, Katharine, Understanding Egyptianizing Obelisks: Appropriation in Early Imperial Rome, Thesis for the degree of Doctor of Philosophy, University of Southampton, 2017).
+    </p>
+    <p class="text-muted">
+        <b>2 : </b>Source : <a href="https://www.youtube.com/watch?v=A9bR7zI88Nc">CIREVE (Centre Interdisciplinaire de Réalité Virtuelle), "L'installation d'un obélisque à Rome", Caen, vidéo publiée le 7 février 2020 sur YouTube dans le cadre des conférences des Nocturnes du Plan de Rome</a>.
+    </p>
+    <br><br>
     <div class="text-center">
         <a href="{{url_for('index_obelisques')}}" class="btn btn-info btn-lg">Découvrir tous les obélisques de Rome</a>
     </div>
@@ -34,7 +39,7 @@
         <script type="text/javascript">
             //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
             //On crée une carte centrée sur Rome
-            var macarte = L.map('map').setView([41.8969633792111, 12.481097397366385], 14);
+            var macarte = L.map('map').setView([41.8969633792111, 12.478200000366385], 14);
 
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                 //Crédits
@@ -72,24 +77,15 @@
     <h3>À propos</h3>
     <br>
     <p>
-        Lorem ipsum dolor sit amet. Qui exercitationem quis ut modi quaerat eum fugiat voluptate sed galisum temporibus. Ea asperiores dolore non temporibus voluptatibus sed ducimus esse ut corrupti sapiente id natus internos nam nobis deleniti. Est quia dolores qui officiis sunt non quasi laborum vel provident magnam a iste soluta.
+        L'Obéliste est une application web réalisée sous Python à l'aide de Flask et SQLAlchemy.
     </p>
     <p>
-      Aut repudiandae adipisci aut iste omnis qui rerum doloremque ut neque minima! Sit minima illum qui ratione temporibus est reprehenderit delectus est dolorem totam. Ut enim omnis ab delectus molestiae et Quis galisum aut corrupti facere non voluptas facere 33 eaque aliquam non impedit iure.
-    </p>
-    <p>
-        Et illo pariatur rem nisi rerum vel maiores ducimus sit omnis similique eos porro quibusdam ut eaque quia. Libero vero qui incidunt consequuntur est sapiente nobis et molestias velit aut dicta sint et quia veritatis est eveniet velit.
+      Visant à gérer et visualiser une base de données relationnelle, elle a été créée dans le cadre du cours d'Introduction au développement applicatif dispensé par M. Thibault Clérice au Master 2 <a href="https://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire">"Technologies numériques appliquées à l'histoire"</a> de l'École nationale des chartes.
     </p>
     <br>
     <!-- Logo de l'ENC -->
     <div class="text-center">
-        <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="Ecole nationale des chartes" height="40"/></a>
+        <a href="https://www.chartes.psl.eu/fr"><img src="{{url_for('static', filename='images/chartes.png')}}" alt="École nationale des chartes" height="40"/></a>
     </div>
-    <br>
-    <br>
-    <h3>Contact</h3>
-    <p>
-        Une question, une suggestion ? N'hésitez pas à ouvrir une <i>issue</i> sur le <a href="https://github.com/A-Menu/Obeliste.git">dépôt GitHub de l'application</a> !
-    </p>
 </div>
 {% endblock %}
