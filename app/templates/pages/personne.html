@@ -16,7 +16,11 @@
         <p>Cette personne a fait ériger les obélisques suivants :</p>
         <ul>
             {% for erige in erige %}
-                <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, <a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})</li>
+            <li><b>{{erige.erige_date}}</b> : <a
+                    href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>,
+                <a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a>
+                ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}})
+            </li>
             {% endfor %}
         </ul>
     </div>
@@ -26,10 +30,10 @@
     <div>
         <h6>Historique des modifications</h6>
         {% if personne.authorships %}
-            {% for modification in personne.authorships %}
-                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
-                <li><b>{{modification.user.user_nom}}</b> | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
-            {% endfor %}
+        {% for modification in personne.authorships %}
+        <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+        <li><b>{{modification.user.user_nom}}</b> | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+        {% endfor %}
         {% else %}
         <p>La page ne compte pas de modifications pour le moment</p>
         {% endif %}
@@ -38,8 +42,10 @@
     <br>
     <!-- Boutons -->
     <div align="center">
-        <a href="{{url_for('personne_update', personne_id=personne.personne_id)}}" class="btn btn-outline-danger">Modifier le commanditaire</a>
-        <a href="{{url_for('personne_delete', personne_id=personne.personne_id)}}" class="btn btn-danger">Supprimer le commanditaire</a>
+        <a href="{{url_for('personne_update', personne_id=personne.personne_id)}}" class="btn btn-outline-danger">Modifier
+            le commanditaire</a>
+        <a href="{{url_for('personne_delete', personne_id=personne.personne_id)}}" class="btn btn-danger">Supprimer le
+            commanditaire</a>
         <br>
         <br>
         <a href="{{url_for('personne_add')}}" class="btn btn-outline-danger">Ajouter un commanditaire</a>

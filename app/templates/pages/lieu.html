@@ -11,17 +11,22 @@
     <br>
     <div>
         <p>Ce lieu a accueilli les obélisques suivants :</p>
-            <ul>
+        <ul>
             {% for erige in erige %}
-                <li><b>{{erige.erige_date}}</b> : <a href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>, élevé par <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_fonction %}{{erige.personne.personne_nationalite}}{% endif %}</li>
+            <li><b>{{erige.erige_date}}</b> : <a
+                    href="{{url_for('obelisque', obelisque_id=erige.obelisque.obelisque_id)}}">{{erige.obelisque.obelisque_nom}}</a>,
+                élevé par <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{%
+                if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if
+                erige.personne.personne_fonction %}{{erige.personne.personne_nationalite}}{% endif %}
+            </li>
             {% endfor %}
-            </ul>
+        </ul>
     </div>
     <br>
     <!-- Si on bénéficie de coordonnées géographiques, alors le lieu apparait sur une carte -->
     {% if localisation.localisation_latitude %}
-        <div class="carte" id="map" style="width: 800px; height: 600px">
-            <script type="text/javascript">
+    <div class="carte" id="map" style="width: 800px; height: 600px">
+        <script type="text/javascript">
                 //Source : https://nouvelle-techno.fr/articles/pas-a-pas-inserer-une-carte-openstreetmap-sur-votre-site
                 //On crée une carte centrée sur le lieu. Pour se repérer plus facilement, on choisit un zoom de 14 pour Rome et le Vatican, et zoom plus éloigné (10) pour le reste de l'Italie et l'Egypte
                 var macarte = L.map('map').setView([{{localisation.localisation_latitude}}, {{localisation.localisation_longitude}}], {% if localisation.localisation_ville == "Rome" %}14{% elif localisation.localisation_ville == "Cité du Vatican" %}14{% else %}10{% endif %});
@@ -48,8 +53,9 @@
 
                 //Création d'un popup
                 var popup = marker.bindPopup("{{localisation.localisation_lieu}}");
-            </script>
-        </div>
+
+        </script>
+    </div>
     {% endif %}
     <br>
     <br>
@@ -57,10 +63,10 @@
     <div>
         <h6>Historique des modifications</h6>
         {% if localisation.authorships %}
-            {% for modification in localisation.authorships %}
-                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
-                <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
-            {% endfor %}
+        {% for modification in localisation.authorships %}
+        <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+        <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+        {% endfor %}
         {% else %}
         <span>La page ne compte pas de modifications pour le moment</span>
         {% endif %}
@@ -69,8 +75,10 @@
     <br>
     <!-- Boutons -->
     <div align="center">
-        <a href="{{url_for('localisation_update', localisation_id=localisation.localisation_id)}}" class="btn btn-outline-danger">Modifier le lieu</a>
-        <a href="{{url_for('localisation_delete', localisation_id=localisation.localisation_id)}}" class="btn btn-danger">Supprimer le lieu</a>
+        <a href="{{url_for('localisation_update', localisation_id=localisation.localisation_id)}}"
+           class="btn btn-outline-danger">Modifier le lieu</a>
+        <a href="{{url_for('localisation_delete', localisation_id=localisation.localisation_id)}}"
+           class="btn btn-danger">Supprimer le lieu</a>
         <br>
         <br>
         <a href="{{url_for('localisation_add')}}" class="btn btn-outline-danger">Ajouter un lieu</a>

@@ -4,36 +4,38 @@
 {% endblock %}
 
 {% block corps %}
-    <h1>Formulaire d'ajout de commanditaire</h1>
-    <br>
-    <form class="form" method="POST" action="{{url_for('personne_add')}}">
-        <div class="mb-3">
-            <label for="personne_add_nom" class="form-label"><b>Nom du commanditaire *</b></label>
-            <input type="text" class="form-control" id="personne_add_nom" name="personne_add_nom">
-        </div>
-
-        <div class="mb-3">
-            <label for="personne_add_fonction" class="form-label"><b>Fonctions du commanditaire *</b></label>
-            <input type="text" class="form-control" id="personne_add_fonction" name="personne_add_fonction" placeholder="Ex. : pharaon, empereur, pape..">
-        </div>
-
-        <div class="mb-3">
-            <label for="personne_add_nationalite" class="form-label"><b>Nationalité du commanditaire *</b></label>
-            <input type="text" class="form-control" id="personne_add_nationalite" name="personne_add_nationalite" placeholder="Ex. : égyptien, romain, italien..">
-        </div>
-
-        <br>
-        <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
-        <a href="{{url_for('accueil')}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
-    </form>
-    <br>
-    <br>
-
-    <div align="center">
-        <br>
-        <br>
-        <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>
-        <br>
-        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+<h1>Formulaire d'ajout de commanditaire</h1>
+<br>
+<form class="form" method="POST" action="{{url_for('personne_add')}}">
+    <div class="mb-3">
+        <label for="personne_add_nom" class="form-label"><b>Nom du commanditaire *</b></label>
+        <input type="text" class="form-control" id="personne_add_nom" name="personne_add_nom">
     </div>
+
+    <div class="mb-3">
+        <label for="personne_add_fonction" class="form-label"><b>Fonctions du commanditaire *</b></label>
+        <input type="text" class="form-control" id="personne_add_fonction" name="personne_add_fonction"
+               placeholder="Ex. : pharaon, empereur, pape..">
+    </div>
+
+    <div class="mb-3">
+        <label for="personne_add_nationalite" class="form-label"><b>Nationalité du commanditaire *</b></label>
+        <input type="text" class="form-control" id="personne_add_nationalite" name="personne_add_nationalite"
+               placeholder="Ex. : égyptien, romain, italien..">
+    </div>
+
+    <br>
+    <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
+    <a href="{{url_for('accueil')}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
+</form>
+<br>
+<br>
+
+<div align="center">
+    <br>
+    <br>
+    <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>
+    <br>
+    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}

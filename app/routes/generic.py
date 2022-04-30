@@ -8,35 +8,39 @@ from flask_login import login_user, current_user, logout_user, login_required
 # On importe or_ pour pouvoir filtrer des résultats sur de multiples éléments
 from sqlalchemy import or_
 
-#Page d'accueil
+
+# Page d'accueil
 @app.route("/")
 def accueil():
     erige = Erige.query.all()
     return render_template("pages/accueil.html", erige=erige)
 
-#Page redirigeant vers les ajouts de pages
+
+# Page redirigeant vers les ajouts de pages
 @app.route("/add")
 def add():
     return render_template("pages/add.html")
 
 
-#Routes vers les trois éléments principaux de la base
+# Routes vers les trois éléments principaux de la base
 
-#Les obélisques
+# Les obélisques
 @app.route("/obelisque/<int:obelisque_id>")
 def obelisque(obelisque_id):
     obelisque = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
     return render_template("pages/obelisque.html", obelisque=obelisque, erige=erige)
 
-#Les personnes (commanditaires)
+
+# Les personnes (commanditaires)
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
     personne = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_personne == personne_id).order_by(Erige.erige_date)
     return render_template("pages/personne.html", personne=personne, erige=erige)
 
-#Les localisations
+
+# Les localisations
 @app.route("/lieu/<int:localisation_id>")
 def localisation(localisation_id):
     localisation = Localisation.query.filter(Localisation.localisation_id == localisation_id).first_or_404()
@@ -44,9 +48,9 @@ def localisation(localisation_id):
     return render_template("pages/lieu.html", localisation=localisation, erige=erige)
 
 
-#Les pages d'index
+# Les pages d'index
 
-#L'index recensant l'intégralité des obélisques
+# L'index recensant l'intégralité des obélisques
 @app.route("/index_obelisques")
 def index_obelisques():
     page = request.args.get("page", 1)
@@ -57,7 +61,8 @@ def index_obelisques():
     resultats = Obelisque.query.order_by(Obelisque.obelisque_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_obelisques.html", resultats=resultats)
 
-#L'index des obélisques égyptiens
+
+# L'index des obélisques égyptiens
 @app.route("/index_obelisques_egyptiens")
 def index_obelisques_egyptiens():
     page = request.args.get("page", 1)
@@ -65,10 +70,12 @@ def index_obelisques_egyptiens():
         page = int(page)
     else:
         page = 1
-    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande =="Égyptienne").paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande == "Égyptienne").paginate(page=page,
+                                                                                                   per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_obelisques_egyptiens.html", resultats=resultats)
 
-#L'index des obélisques romains
+
+# L'index des obélisques romains
 @app.route("/index_obelisques_romains")
 def index_obelisques_romains():
     page = request.args.get("page", 1)
@@ -76,10 +83,12 @@ def index_obelisques_romains():
         page = int(page)
     else:
         page = 1
-    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande =="Romaine").paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    resultats = Obelisque.query.filter(Obelisque.obelisque_type_commande == "Romaine").paginate(page=page,
+                                                                                                per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_obelisques_romains.html", resultats=resultats)
 
-#L'index des personnes (commanditaires)
+
+# L'index des personnes (commanditaires)
 @app.route("/index_personnes")
 def index_personnes():
     page = request.args.get("page", 1)
@@ -90,7 +99,8 @@ def index_personnes():
     resultats = Personne.query.order_by(Personne.personne_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_personnes.html", resultats=resultats)
 
-#L'index des lieux (localisations)
+
+# L'index des lieux (localisations)
 @app.route("/index_lieux")
 def index_lieux():
     page = request.args.get("page", 1)
@@ -98,11 +108,12 @@ def index_lieux():
         page = int(page)
     else:
         page = 1
-    resultats = Localisation.query.order_by(Localisation.localisation_lieu).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+    resultats = Localisation.query.order_by(Localisation.localisation_lieu).paginate(page=page,
+                                                                                     per_page=RESULTATS_PAR_PAGE)
     return render_template("pages/index_lieux.html", resultats=resultats)
 
 
-#Faire une recherche plein texte sur la table Obelisque
+# Faire une recherche plein texte sur la table Obelisque
 @app.route("/recherche")
 def recherche():
     """ Route permettant la recherche plein-texte
@@ -117,18 +128,19 @@ def recherche():
 
     # On crée une liste vide de résultat (qui restera vide par défaut
     #   si on n'a pas de mot clé)
-    resultats =  []
+    resultats = []
 
     # On fait de même pour le titre de la page
     titre = "Recherche"
     if motclef:
         resultats = Obelisque.query.filter(or_(
-                Obelisque.obelisque_nom.like("%{}%".format(motclef)),
-                Obelisque.obelisque_materiau.like("%{}%".format(motclef)),
-                Obelisque.obelisque_type_commande.like("%{}%".format(motclef)),
-                Obelisque.obelisque_notice.like("%{}%".format(motclef)),
-                Obelisque.obelisque_inscription_latine.like("%{}%".format(motclef)),
-                Obelisque.obelisque_inscription_latine_traduite.like("%{}%".format(motclef)))).paginate(page=page, per_page=RESULTATS_PAR_PAGE)
+            Obelisque.obelisque_nom.like("%{}%".format(motclef)),
+            Obelisque.obelisque_materiau.like("%{}%".format(motclef)),
+            Obelisque.obelisque_type_commande.like("%{}%".format(motclef)),
+            Obelisque.obelisque_notice.like("%{}%".format(motclef)),
+            Obelisque.obelisque_inscription_latine.like("%{}%".format(motclef)),
+            Obelisque.obelisque_inscription_latine_traduite.like("%{}%".format(motclef)))).paginate(page=page,
+                                                                                                    per_page=RESULTATS_PAR_PAGE)
 
     return render_template(
         "pages/recherche.html",
@@ -140,7 +152,7 @@ def recherche():
 
 # Gestion des comptes utilisateurs
 
-#Création d'un compte : l'inscription
+# Création d'un compte : l'inscription
 @app.route("/register", methods=["GET", "POST"])
 def inscription():
     """ Route gérant les inscriptions
@@ -162,7 +174,8 @@ def inscription():
     else:
         return render_template("pages/inscription.html")
 
-#Connexion à un compte existant
+
+# Connexion à un compte existant
 @app.route("/connexion", methods=["POST", "GET"])
 def connexion():
     """ Route gérant les connexions
@@ -184,9 +197,12 @@ def connexion():
             flash("Les identifiants n'ont pas été reconnus", "error")
 
     return render_template("pages/connexion.html")
+
+
 login.login_view = 'connexion'
 
-#Déconnexion
+
+# Déconnexion
 @app.route("/deconnexion", methods=["POST", "GET"])
 def deconnexion():
     if current_user.is_authenticated is True:
@@ -197,37 +213,38 @@ def deconnexion():
 
 # Gérer les pages d'erreurs
 
-#Erreur 404
+# Erreur 404
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('erreurs/erreur_404.html'), 404
 
-#Erreur 500
+
+# Erreur 500
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('error/erreur_500.html'), 500
 
 
-#Ajouter, modifier ou supprimer une page
+# Ajouter, modifier ou supprimer une page
 
-#Ajouter une page
+# Ajouter une page
 
-#Ajouter une page obélisque
+# Ajouter une page obélisque
 
 @app.route("/obelisque/add", methods=["GET", "POST"])
 @login_required
 def obelisque_add():
-
     if request.method == "POST":
         statut, informations = Obelisque.obelisque_add(
-            obelisque_add_nom = request.form.get("obelisque_add_nom", None),
-            obelisque_add_hauteur = request.form.get("obelisque_add_hauteur", None),
-            obelisque_add_hauteur_avec_base = request.form.get("obelisque_add_hauteur_avec_base", None),
+            obelisque_add_nom=request.form.get("obelisque_add_nom", None),
+            obelisque_add_hauteur=request.form.get("obelisque_add_hauteur", None),
+            obelisque_add_hauteur_avec_base=request.form.get("obelisque_add_hauteur_avec_base", None),
             obelisque_add_materiau=request.form.get("obelisque_add_materiau", None),
             obelisque_add_type_commande=request.form.get("obelisque_add_type_commande", None),
             obelisque_add_notice=request.form.get("obelisque_add_notice", None),
             obelisque_add_inscription_latine=request.form.get("obelisque_add_inscription_latine", None),
-            obelisque_add_inscription_latine_traduite=request.form.get("obelisque_add_inscription_latine_traduite", None),
+            obelisque_add_inscription_latine_traduite=request.form.get("obelisque_add_inscription_latine_traduite",
+                                                                       None),
             obelisque_add_bibliographie=request.form.get("obelisque_add_bibliographie", None),
             obelisque_add_image_url=request.form.get("obelisque_add_image_url", None),
             obelisque_add_image_auteur=request.form.get("obelisque_add_image_auteur", None),
@@ -245,17 +262,16 @@ def obelisque_add():
         return render_template("pages/obelisque_form_add.html")
 
 
-#Ajouter une page personne
+# Ajouter une page personne
 
 @app.route("/personne/add", methods=["GET", "POST"])
 @login_required
 def personne_add():
-
     if request.method == "POST":
         statut, informations = Personne.personne_add(
-        personne_add_nom = request.form.get("personne_add_nom", None),
-        personne_add_fonction = request.form.get("personne_add_fonction", None),
-        personne_add_nationalite = request.form.get("personne_add_nationalite", None)
+            personne_add_nom=request.form.get("personne_add_nom", None),
+            personne_add_fonction=request.form.get("personne_add_fonction", None),
+            personne_add_nationalite=request.form.get("personne_add_nationalite", None)
         )
 
         if statut is True:
@@ -267,19 +283,19 @@ def personne_add():
     else:
         return render_template("pages/personne_form_add.html")
 
-#Ajouter une page lieu
+
+# Ajouter une page lieu
 
 @app.route("/lieu/add", methods=["GET", "POST"])
 @login_required
 def localisation_add():
-
     if request.method == "POST":
         statut, informations = Localisation.localisation_add(
-        localisation_add_lieu = request.form.get("localisation_add_lieu", None),
-        localisation_add_ville = request.form.get("localisation_add_ville", None),
-        localisation_add_pays = request.form.get("localisation_add_pays", None),
-        localisation_add_latitude=request.form.get("localisation_add_latitude", None),
-        localisation_add_longitude=request.form.get("localisation_add_longitude", None)
+            localisation_add_lieu=request.form.get("localisation_add_lieu", None),
+            localisation_add_ville=request.form.get("localisation_add_ville", None),
+            localisation_add_pays=request.form.get("localisation_add_pays", None),
+            localisation_add_latitude=request.form.get("localisation_add_latitude", None),
+            localisation_add_longitude=request.form.get("localisation_add_longitude", None)
         )
 
         if statut is True:
@@ -292,9 +308,9 @@ def localisation_add():
         return render_template("pages/lieu_form_add.html")
 
 
-#Modifier une page
+# Modifier une page
 
-#Modifier une page obélisque
+# Modifier une page obélisque
 
 @app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
 @login_required
@@ -363,7 +379,8 @@ def obelisque_update(obelisque_id):
         updated=updated
     )
 
-#Modifier une page personne
+
+# Modifier une page personne
 
 @app.route("/personne/<int:personne_id>/update", methods=["GET", "POST"])
 @login_required
@@ -398,7 +415,7 @@ def personne_update(personne_id):
     )
 
 
-#Modifier une page lieu
+# Modifier une page lieu
 
 @app.route("/lieu/<int:localisation_id>/update", methods=["GET", "POST"])
 @login_required
@@ -437,14 +454,13 @@ def localisation_update(localisation_id):
     )
 
 
-#Supprimer une page
+# Supprimer une page
 
-#Supprimer une page obélisque
+# Supprimer une page obélisque
 
 @app.route("/obelisque/<int:obelisque_id>/delete", methods=["POST", "GET"])
 @login_required
 def obelisque_delete(obelisque_id):
-
     supprimable = Obelisque.query.get(obelisque_id)
 
     if request.method == "POST":
@@ -462,12 +478,11 @@ def obelisque_delete(obelisque_id):
         return render_template("pages/obelisque_form_delete.html", supprimable=supprimable)
 
 
-#Supprimer une page personne
+# Supprimer une page personne
 
 @app.route("/personne/<int:personne_id>/delete", methods=["POST", "GET"])
 @login_required
 def personne_delete(personne_id):
-
     supprimable = Personne.query.get(personne_id)
 
     if request.method == "POST":
@@ -485,12 +500,11 @@ def personne_delete(personne_id):
         return render_template("pages/personne_form_delete.html", supprimable=supprimable)
 
 
-#Supprimer une page lieu
+# Supprimer une page lieu
 
 @app.route("/lieu/<int:localisation_id>/delete", methods=["POST", "GET"])
 @login_required
 def localisation_delete(localisation_id):
-
     supprimable = Localisation.query.get(localisation_id)
 
     if request.method == "POST":
@@ -508,8 +522,8 @@ def localisation_delete(localisation_id):
         return render_template("pages/lieu_form_delete.html", supprimable=supprimable)
 
 
-#La page pour la gestion des élévations
-#Source : https://www.youtube.com/watch?v=XTpLbBJTOM4
+# La page pour la gestion des élévations
+# Source : https://www.youtube.com/watch?v=XTpLbBJTOM4
 @app.route('/elevations')
 @login_required
 def elevations():
@@ -518,19 +532,18 @@ def elevations():
     return render_template("pages/elevations.html", erige=erige)
 
 
-#Ajouter une page Erige
+# Ajouter une page Erige
 
 @app.route("/erige/add", methods=["GET", "POST"])
 @login_required
 def erige_add():
-
     if request.method == "POST":
         statut, informations = Erige.erige_add(
-        erige_add_id_obelisque = request.form.get("erige_add_id_obelisque", None),
-        erige_add_id_personne = request.form.get("erige_add_id_personne", None),
-        erige_add_id_localisation = request.form.get("erige_add_id_localisation", None),
-        erige_add_date=request.form.get("erige_add_date", None),
-        erige_add_actuel = request.form.get("erige_add_actuel", None)
+            erige_add_id_obelisque=request.form.get("erige_add_id_obelisque", None),
+            erige_add_id_personne=request.form.get("erige_add_id_personne", None),
+            erige_add_id_localisation=request.form.get("erige_add_id_localisation", None),
+            erige_add_date=request.form.get("erige_add_date", None),
+            erige_add_actuel=request.form.get("erige_add_actuel", None)
         )
 
         if statut is True:
@@ -542,7 +555,8 @@ def erige_add():
     else:
         return redirect(url_for('elevations'))
 
-#Modifier une élévation
+
+# Modifier une élévation
 
 @app.route("/erige/<int:erige_id>/update", methods=["GET", "POST"])
 @login_required
@@ -573,18 +587,17 @@ def erige_update(erige_id):
             db.session.add(Authorship(erige=editable, user=current_user))
             db.session.commit()
             flash("Elévation mise à jour avec succès", "success")
-        else :
+        else:
             flash("Echec", "danger")
 
     return redirect(url_for('elevations'))
 
 
-#Supprimer une élévation
+# Supprimer une élévation
 
 @app.route("/erige/<int:erige_id>/delete", methods=["POST", "GET"])
 @login_required
 def erige_delete(erige_id):
-
     supprimable = Erige.query.get(erige_id)
     db.session.delete(supprimable)
     db.session.commit()

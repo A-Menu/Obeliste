@@ -3,54 +3,56 @@
 {% block titre %} | Les commanditaires{% endblock %}
 
 {% block corps %}
-    <!-- Effet loupe au survol des cartes -->
-    <style type="text/css">
+<!-- Effet loupe au survol des cartes -->
+<style type="text/css">
         .card:hover{
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
         }
-    </style>
+
+</style>
 
 <div class="centrer_contenu">
     <h1>Index des commanditaires</h1>
     {% if resultats %}
-        <p>{{resultats.total}} commanditaires sont présents dans la base :</p>
-        <!-- Insertion du conteneur à cartes -->
-        <div class="card-columns">
-            {% for personne in resultats.items %}
-                <!-- Insertion des cartes -->
-                <div class="card">
-                    <a href="{{url_for('personne', personne_id=personne.personne_id)}}">
-                    <div class="card-body">
-                        <h6 class="card-title">{{personne.personne_nom}}</h6>
-                        <p class="card-text">{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %} {% if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</p>
-                    </div>
-                    </a>
+    <p>{{resultats.total}} commanditaires sont présents dans la base :</p>
+    <!-- Insertion du conteneur à cartes -->
+    <div class="card-columns">
+        {% for personne in resultats.items %}
+        <!-- Insertion des cartes -->
+        <div class="card">
+            <a href="{{url_for('personne', personne_id=personne.personne_id)}}">
+                <div class="card-body">
+                    <h6 class="card-title">{{personne.personne_nom}}</h6>
+                    <p class="card-text">{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %} {%
+                        if personne.personne_fonction %}{{personne.personne_nationalite}}{% endif %}</p>
                 </div>
-            {% endfor %}
+            </a>
         </div>
-        <br>
-        <nav aria-label="research-pagination">
-            <ul class="pagination">
-                {%- for page in resultats.iter_pages() %}
-                    {% if page %}
-                        {% if page != resultats.page %}
-                            <li class="page-item">
-                                <a class="page-link" href="{{ url_for('index_personnes', page=page) }}">{{page}}</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item active disabled">
-                                <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
-                            </li>
-                        {% endif %}
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link">...</a>
-                        </li>
-                    {% endif %}
-                {%- endfor %}
-            </ul>
-        </nav>
+        {% endfor %}
+    </div>
+    <br>
+    <nav aria-label="research-pagination">
+        <ul class="pagination">
+            {%- for page in resultats.iter_pages() %}
+            {% if page %}
+            {% if page != resultats.page %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('index_personnes', page=page) }}">{{page}}</a>
+            </li>
+            {% else %}
+            <li class="page-item active disabled">
+                <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+            </li>
+            {% endif %}
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">...</a>
+            </li>
+            {% endif %}
+            {%- endfor %}
+        </ul>
+    </nav>
     {% endif %}
     <div align="center">
         <a href="{{url_for('personne_add')}}" class="btn btn-primary">Ajouter un commanditaire</a>

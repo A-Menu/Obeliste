@@ -1,50 +1,55 @@
 {% extends "conteneur.html" %}
 
 {% block titre %}
-    {%if personne %}| Modifier {{personne.personne_nom}} {% endif %}
+{%if personne %}| Modifier {{personne.personne_nom}} {% endif %}
 {% endblock %}
 
 {% block corps %}
-    <h1>Modification de commanditaire</h1>
-    <br>
-    {% if personne %}
-        <!-- Message affiché en cas d'envoi de modification -->
-        {% if updated %}
-            <div class="alert alert-success">
-                <p>Nous vous remercions pour votre contribution</p>
-                <p><a href="{{url_for('personne', personne_id=personne.personne_id)}}">Retour au commanditaire</a> | <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a></p>
-                <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
-            </div>
-        {% endif %}
-        <form method="POST">
-            <div class="mb-3">
-                <label for="personne_nom" class="form-label"><b>Nom du commanditaire</b></label>
-                <input type="text" name="personne_nom" class="form-control" id="personne_nom" value="{{personne.personne_nom}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="personne_fonction" class="form-label"><b>Fonctions du commanditaire</b></label>
-                <input type="text" name="personne_fonction" class="form-control" id="personne_fonction" value="{{personne.personne_fonction}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="personne_nationalite" class="form-label"><b>Nationalité du commanditaire</b></label>
-                <input type="text" name="personne_nationalite" class="form-control" id="personne_nationalite" value="{{personne.personne_nationalite}}"/>
-            </div>
-            <br>
-            <br>
-            <button class="btn btn-success btn-lg" type="submit">Modifier</button>
-            <a href="{{url_for('personne', personne_id=personne.personne_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
-        </form>
-        <br>
-        <br>
-    {% endif %}
-    <div align="center">
-        <a href="{{url_for('personne', personne_id=personne.personne_id)}}">Retour au commanditaire</a>
-        <br>
-        <br>
-        <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>
-        <br>
-        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+<h1>Modification de commanditaire</h1>
+<br>
+{% if personne %}
+<!-- Message affiché en cas d'envoi de modification -->
+{% if updated %}
+<div class="alert alert-success">
+    <p>Nous vous remercions pour votre contribution</p>
+    <p><a href="{{url_for('personne', personne_id=personne.personne_id)}}">Retour au commanditaire</a> | <a
+            href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a></p>
+    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+</div>
+{% endif %}
+<form method="POST">
+    <div class="mb-3">
+        <label for="personne_nom" class="form-label"><b>Nom du commanditaire</b></label>
+        <input type="text" name="personne_nom" class="form-control" id="personne_nom"
+               value="{{personne.personne_nom}}"/>
     </div>
+
+    <div class="mb-3">
+        <label for="personne_fonction" class="form-label"><b>Fonctions du commanditaire</b></label>
+        <input type="text" name="personne_fonction" class="form-control" id="personne_fonction"
+               value="{{personne.personne_fonction}}"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="personne_nationalite" class="form-label"><b>Nationalité du commanditaire</b></label>
+        <input type="text" name="personne_nationalite" class="form-control" id="personne_nationalite"
+               value="{{personne.personne_nationalite}}"/>
+    </div>
+    <br>
+    <br>
+    <button class="btn btn-success btn-lg" type="submit">Modifier</button>
+    <a href="{{url_for('personne', personne_id=personne.personne_id)}}"
+       class="btn btn-outline-secondary btn-lg">Annuler</a>
+</form>
+<br>
+<br>
+{% endif %}
+<div align="center">
+    <a href="{{url_for('personne', personne_id=personne.personne_id)}}">Retour au commanditaire</a>
+    <br>
+    <br>
+    <a href="{{url_for('index_personnes')}}">Retour à l'index des commanditaires</a>
+    <br>
+    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}

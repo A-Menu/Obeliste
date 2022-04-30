@@ -1,15 +1,17 @@
 # L'Obéliste
 
-Durant l'Antiquité, Rome ne comptait pas moins de quinze obélisques en son sein. ***L'Obéliste*** vous propose de découvrir d'élévation en élévation les déplacements des treize obélisques antiques encore présents dans la ville.
-
+Durant l'Antiquité, Rome ne comptait pas moins de quinze obélisques en son sein. ***L'Obéliste*** vous propose de
+découvrir d'élévation en élévation les déplacements des treize obélisques antiques encore présents dans la ville.
 
 ## À propos
 
 L'Obéliste est une application web réalisée sous Python à l'aide de Flask et SQLAlchemy.
 
-Visant à gérer et visualiser une base de données relationnelle, elle a été créée dans le cadre du [cours d'Introduction au développement applicatif](github.com/ponteineptique/cours-python) dispensé par M. Thibault Clérice au Master 2 ["Technologies numériques appliquées à l'histoire"](https://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire) de l'[École nationale des chartes](https://www.chartes.psl.eu/fr). 
-
-
+Visant à gérer et visualiser une base de données relationnelle, elle a été créée dans le cadre
+du [cours d'Introduction au développement applicatif](github.com/ponteineptique/cours-python) dispensé par M. Thibault
+Clérice au Master
+2 ["Technologies numériques appliquées à l'histoire"](https://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire)
+de l'[École nationale des chartes](https://www.chartes.psl.eu/fr).
 
 ## Installation Linux
 
@@ -17,7 +19,8 @@ Visant à gérer et visualiser une base de données relationnelle, elle a été 
 - Se déplacer dans le dossier
 - Installer les prérequis Python : `sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv`
 - Créer un environnement virtuel : `virtualenv ~/.obeliste -p python3`
-- Activer l'environnement virtuel : `source ~/.obeliste/bin/activate` (à activer à chaque fois que vous désirez ouvrir l'application)
+- Activer l'environnement virtuel : `source ~/.obeliste/bin/activate` (à activer à chaque fois que vous désirez ouvrir
+  l'application)
 - Installer les dépendances requises : `pip install -r requirements.txt`
 - Lancer l'application : `python3 run.py`
 - Pour visualiser l'application, se rendre à l'adresse suivante : [http://127.0.0.1:5000/](http://127.0.0.1:5000/)

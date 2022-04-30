@@ -1,60 +1,68 @@
 {% extends "conteneur.html" %}
 
 {% block titre %}
-    {%if localisation %}| Modifier {{localisation.localisation_lieu}} {% endif %}
+{%if localisation %}| Modifier {{localisation.localisation_lieu}} {% endif %}
 {% endblock %}
 
 {% block corps %}
-    <h1>Modification de lieu</h1>
-    <br>
-    {% if localisation %}
-        <!-- Message affiché en cas d'envoi de modification -->
-        {% if updated %}
-            <div class="alert alert-success">
-                <p>Nous vous remercions pour votre contribution</p>
-                <p><a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}">Retour au lieu</a> | <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a></p>
-                <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
-            </div>
-        {% endif %}
-        <form method="POST">
-            <div class="mb-3">
-                <label for="localisation_lieu" class="form-label"><b>Nom du lieu *</b></label>
-                <input type="text" name="localisation_lieu" class="form-control" id="localisation_lieu" value="{{localisation.localisation_lieu}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisation_ville" class="form-label"><b>Nom de la ville du lieu *</b></label>
-                <input type="text" name="localisation_ville" class="form-control" id="localisation_ville" value="{{localisation.localisation_ville}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisation_pays" class="form-label"><b>Nom du pays du lieu *</b></label>
-                <input type="text" name="localisation_pays" class="form-control" id="localisation_pays" value="{{localisation.localisation_pays}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisation_latitude" class="form-label"><b>Latitude du lieu (coordonnées décimales) *</b></label>
-                <input type="number" step="any" name="localisation_latitude" class="form-control" id="localisation_latitude" value="{{localisation.localisation_latitude}}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="localisation_longitude" class="form-label"><b>Longitude du lieu (coordonnées décimales) *</b></label>
-                <input type="number" step="any" name="localisation_longitude" class="form-control" id="localisation_longitude" value="{{localisation.localisation_longitude}}"/>
-            </div>
-            <br>
-            <br>
-            <button class="btn btn-success btn-lg" type="submit">Modifier</button>
-            <a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
-        </form>
-        <br>
-        <br>
-    {% endif %}
-    <div align="center">
-        <a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}">Retour au lieu</a>
-        <br>
-        <br>
-        <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
-        <br>
-        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+<h1>Modification de lieu</h1>
+<br>
+{% if localisation %}
+<!-- Message affiché en cas d'envoi de modification -->
+{% if updated %}
+<div class="alert alert-success">
+    <p>Nous vous remercions pour votre contribution</p>
+    <p><a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}">Retour au lieu</a> | <a
+            href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a></p>
+    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+</div>
+{% endif %}
+<form method="POST">
+    <div class="mb-3">
+        <label for="localisation_lieu" class="form-label"><b>Nom du lieu *</b></label>
+        <input type="text" name="localisation_lieu" class="form-control" id="localisation_lieu"
+               value="{{localisation.localisation_lieu}}"/>
     </div>
+
+    <div class="mb-3">
+        <label for="localisation_ville" class="form-label"><b>Nom de la ville du lieu *</b></label>
+        <input type="text" name="localisation_ville" class="form-control" id="localisation_ville"
+               value="{{localisation.localisation_ville}}"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="localisation_pays" class="form-label"><b>Nom du pays du lieu *</b></label>
+        <input type="text" name="localisation_pays" class="form-control" id="localisation_pays"
+               value="{{localisation.localisation_pays}}"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="localisation_latitude" class="form-label"><b>Latitude du lieu (coordonnées décimales) *</b></label>
+        <input type="number" step="any" name="localisation_latitude" class="form-control" id="localisation_latitude"
+               value="{{localisation.localisation_latitude}}"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="localisation_longitude" class="form-label"><b>Longitude du lieu (coordonnées décimales)
+            *</b></label>
+        <input type="number" step="any" name="localisation_longitude" class="form-control" id="localisation_longitude"
+               value="{{localisation.localisation_longitude}}"/>
+    </div>
+    <br>
+    <br>
+    <button class="btn btn-success btn-lg" type="submit">Modifier</button>
+    <a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}"
+       class="btn btn-outline-secondary btn-lg">Annuler</a>
+</form>
+<br>
+<br>
+{% endif %}
+<div align="center">
+    <a href="{{url_for('localisation', localisation_id=localisation.localisation_id)}}">Retour au lieu</a>
+    <br>
+    <br>
+    <a href="{{url_for('index_lieux')}}">Retour à l'index des lieux</a>
+    <br>
+    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}

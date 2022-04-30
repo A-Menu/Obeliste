@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-from .. app import db, login
+from ..app import db, login
 
 
 class User(UserMixin, db.Model):
@@ -98,7 +98,7 @@ class User(UserMixin, db.Model):
             }
         }
 
+
 @login.user_loader
 def trouver_utilisateur_via_id(identifiant):
     return User.query.get(int(identifiant))
-

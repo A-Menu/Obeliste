@@ -4,76 +4,88 @@
 {% endblock %}
 
 {% block corps %}
-    <h1>Formulaire d'ajout d'obélisque</h1>
-    <br>
-    <form class="form" method="POST" action="{{url_for('obelisque_add')}}">
-        <div class="mb-3">
-            <label for="obelisque_add_nom" class="form-label"><b>Nom de l'obélisque *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_nom" name="obelisque_add_nom">
-        </div>
-        <br>
-        <div class="mb-3">
-            <label for="obelisque_add_notice" class="form-label"><b>Notice de l'obélisque *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_notice" name="obelisque_add_notice" placeholder="Une brève notice descriptive">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_hauteur" class="form-label"><b>Hauteur de l'obélisque (en mètres) *</b></label>
-            <input type="number" step="any" class="form-control" id="obelisque_add_hauteur" name="obelisque_add_hauteur">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_hauteur_avec_base" class="form-label"><b>Hauteur totale du monument (en mètres) *</b></label>
-            <input type="number" step="any" class="form-control" id="obelisque_add_hauteur_avec_base" name="obelisque_add_hauteur_avec_base">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_materiau" class="form-label"><b>Matériau composant l'obélisque *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_materiau" name="obelisque_add_materiau" placeholder="Ex. : Granite">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_type_commande" class="form-label"><b>Type de commande *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_type_commande" name="obelisque_add_type_commande" placeholder="Ex. : Romaine, Égyptienne...">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_inscription_latine" class="form-label"><b>Transcription d'une éventuelle inscription latine</b></label>
-            <input type="text" class="form-control" id="obelisque_add_inscription_latine" name="obelisque_add_inscription_latine">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_inscription_latine_traduite" class="form-label"><b>Traduction d'une éventuelle inscription latine</b></label>
-            <input type="text" class="form-control" id="obelisque_add_inscription_latine_traduite" name="obelisque_add_inscription_latine_traduite">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_bibliographie" class="form-label"><b>Bibliographie utilisée pour rédiger la fiche *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_bibliographie" name="obelisque_add_bibliographie">
-        </div>
-        <br>
-        <div class="mb-3">
-            <label for="obelisque_add_image_url" class="form-label"><b>URL de l'image *</b></label>
-            <input type="url" class="form-control" id="obelisque_add_image_url" name="obelisque_add_image_url">
-        </div>
-         <div class="mb-3">
-            <label for="obelisque_add_image_auteur" class="form-label"><b>Ayant-droit de l'image *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_image_auteur" name="obelisque_add_image_auteur">
-        </div>
-        <div class="mb-3">
-            <label for="obelisque_add_image_licence" class="form-label"><b>Licence permettant la réutilisation de l'image *</b></label>
-            <input type="text" class="form-control" id="obelisque_add_image_licence" name="obelisque_add_image_licence" placeholder="Ex. : CC BY 2.0">
-        </div>
-         <div class="mb-3">
-            <label for="obelisque_add_image_licence_url" class="form-label"><b>URL de la licence *</b></label>
-            <input type="url" class="form-control" id="obelisque_add_image_licence_url" name="obelisque_add_image_licence_url" placeholder="Ex. : https://creativecommons.org/licenses/by/2.0/">
-        </div>
-        <br>
-        <br>
-        <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
-        <a href="{{url_for('accueil')}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
-    </form>
-    <br>
-    <br>
-
-    <div align="center">
-        <br>
-        <br>
-        <a href="{{url_for('index_obelisques')}}">Retour à l'index général des obélisques</a>
-        <br>
-        <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+<h1>Formulaire d'ajout d'obélisque</h1>
+<br>
+<form class="form" method="POST" action="{{url_for('obelisque_add')}}">
+    <div class="mb-3">
+        <label for="obelisque_add_nom" class="form-label"><b>Nom de l'obélisque *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_nom" name="obelisque_add_nom">
     </div>
+    <br>
+    <div class="mb-3">
+        <label for="obelisque_add_notice" class="form-label"><b>Notice de l'obélisque *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_notice" name="obelisque_add_notice"
+               placeholder="Une brève notice descriptive">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_hauteur" class="form-label"><b>Hauteur de l'obélisque (en mètres) *</b></label>
+        <input type="number" step="any" class="form-control" id="obelisque_add_hauteur" name="obelisque_add_hauteur">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_hauteur_avec_base" class="form-label"><b>Hauteur totale du monument (en mètres) *</b></label>
+        <input type="number" step="any" class="form-control" id="obelisque_add_hauteur_avec_base"
+               name="obelisque_add_hauteur_avec_base">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_materiau" class="form-label"><b>Matériau composant l'obélisque *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_materiau" name="obelisque_add_materiau"
+               placeholder="Ex. : Granite">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_type_commande" class="form-label"><b>Type de commande *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_type_commande" name="obelisque_add_type_commande"
+               placeholder="Ex. : Romaine, Égyptienne...">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_inscription_latine" class="form-label"><b>Transcription d'une éventuelle inscription
+            latine</b></label>
+        <input type="text" class="form-control" id="obelisque_add_inscription_latine"
+               name="obelisque_add_inscription_latine">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_inscription_latine_traduite" class="form-label"><b>Traduction d'une éventuelle
+            inscription latine</b></label>
+        <input type="text" class="form-control" id="obelisque_add_inscription_latine_traduite"
+               name="obelisque_add_inscription_latine_traduite">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_bibliographie" class="form-label"><b>Bibliographie utilisée pour rédiger la fiche
+            *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_bibliographie" name="obelisque_add_bibliographie">
+    </div>
+    <br>
+    <div class="mb-3">
+        <label for="obelisque_add_image_url" class="form-label"><b>URL de l'image *</b></label>
+        <input type="url" class="form-control" id="obelisque_add_image_url" name="obelisque_add_image_url">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_image_auteur" class="form-label"><b>Ayant-droit de l'image *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_image_auteur" name="obelisque_add_image_auteur">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_image_licence" class="form-label"><b>Licence permettant la réutilisation de l'image
+            *</b></label>
+        <input type="text" class="form-control" id="obelisque_add_image_licence" name="obelisque_add_image_licence"
+               placeholder="Ex. : CC BY 2.0">
+    </div>
+    <div class="mb-3">
+        <label for="obelisque_add_image_licence_url" class="form-label"><b>URL de la licence *</b></label>
+        <input type="url" class="form-control" id="obelisque_add_image_licence_url"
+               name="obelisque_add_image_licence_url" placeholder="Ex. : https://creativecommons.org/licenses/by/2.0/">
+    </div>
+    <br>
+    <br>
+    <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
+    <a href="{{url_for('accueil')}}" class="btn btn-outline-secondary btn-lg">Annuler</a>
+</form>
+<br>
+<br>
+
+<div align="center">
+    <br>
+    <br>
+    <a href="{{url_for('index_obelisques')}}">Retour à l'index général des obélisques</a>
+    <br>
+    <a href="{{url_for('accueil')}}">Retour à l'accueil</a>
+</div>
 {% endblock %}

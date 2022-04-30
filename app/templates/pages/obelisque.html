@@ -3,13 +3,14 @@
 {% block titre %} | {{obelisque.obelisque_nom}}{% endblock %}
 
 {% block corps %}
-    <!-- On définit la taille de l'image, on met la légende en italique, et on centre le tout -->
-    <style type="text/css">
+<!-- On définit la taille de l'image, on met la légende en italique, et on centre le tout -->
+<style type="text/css">
         .illustration  {
             text-align: center;
             font-style: italic;
         }
-    </style>
+
+</style>
 
 <div class="centrer_contenu">
     <h1>{{obelisque.obelisque_nom}}</h1>
@@ -17,7 +18,9 @@
     <br>
     <!-- Image et légende -->
     <div class="illustration">
-        <a href="{{obelisque.obelisque_image_url}}"><img src="{{obelisque.obelisque_image_url}}" height="550" alt="Illustration" title="Cliquez pour avoir une meilleure résolution"/></a>
+        <a href="{{obelisque.obelisque_image_url}}"><img src="{{obelisque.obelisque_image_url}}" height="550"
+                                                         alt="Illustration"
+                                                         title="Cliquez pour avoir une meilleure résolution"/></a>
         <br>
         <span>{{obelisque.obelisque_image_auteur}}, <a href="{{obelisque.obelisque_image_licence_url}}">{{obelisque.obelisque_image_licence}}</a></span>
         <br>
@@ -28,19 +31,28 @@
     <br><br>
     <br>
     <dl>
-        <dt>Matériau</dt><dd>{{obelisque.obelisque_materiau}}</dd>
-        <dt>Hauteur de l'obélisque (en mètres)</dt><dd>{{obelisque.obelisque_hauteur}}</dd>
-        <dt>Hauteur totale (en mètres)</dt><dd>{{obelisque.obelisque_hauteur_avec_base}}</dd>
-        <dt>Type de commande</dt><dd>{{obelisque.obelisque_type_commande}}</dd>
+        <dt>Matériau</dt>
+        <dd>{{obelisque.obelisque_materiau}}</dd>
+        <dt>Hauteur de l'obélisque (en mètres)</dt>
+        <dd>{{obelisque.obelisque_hauteur}}</dd>
+        <dt>Hauteur totale (en mètres)</dt>
+        <dd>{{obelisque.obelisque_hauteur_avec_base}}</dd>
+        <dt>Type de commande</dt>
+        <dd>{{obelisque.obelisque_type_commande}}</dd>
     </dl>
     <br>
     <dt>Élévations successives</dt>
     <br>
-    <ul >
+    <ul>
         {% for erige in erige %}
-            <li>
-                <b>{{erige.erige_date}} : </b><a href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a> ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{% if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
-            </li>
+        <li>
+            <b>{{erige.erige_date}} : </b><a
+                href="{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}">{{erige.localisation.localisation_lieu}}</a>
+            ({{erige.localisation.localisation_ville}}, {{erige.localisation.localisation_pays}}) | Commanditaire : <a
+                href="{{url_for('personne', personne_id=erige.personne.personne_id)}}">{{erige.personne.personne_nom}}</a>{%
+            if erige.personne.personne_fonction %}, {{erige.personne.personne_fonction}}{% endif %} {% if
+            erige.personne.personne_nationalite %}{{erige.personne.personne_nationalite}}{% endif %}
+        </li>
         {% endfor%}
     </ul>
     <div class="carte" id="map" style="width: 780px; height: 600px">
@@ -74,6 +86,7 @@
                     var popup = marker.bindPopup("<a href='{{url_for('localisation', localisation_id=erige.localisation.localisation_id)}}'>{{erige.localisation.localisation_lieu}}</a></br><i>{{erige.localisation.localisation_ville}}</i>");
                 {% endif %}
             {% endfor %}
+
         </script>
     </div>
     <br>
@@ -81,28 +94,31 @@
     <dl>
         <!-- Affichage des inscriptions latines et de leur traduction si elles existent (si leur valeur n'est pas NULL) -->
         {% if obelisque.obelisque_inscription_latine != None %}
-            <!-- Condition supplémentaire pour leur affichage : leur valeur doit être différente de "None", valeur automatiquement ajoutée si la case reste vide lors d'une modification -->
-            {% if obelisque.obelisque_inscription_latine != "None" %}
-                <!-- Leur valeur ne doit également pas être vide -->
-                {% if obelisque.obelisque_inscription_latine != "" %}
-                    <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
-                    <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
-                {% endif %}
-            {% endif %}
+        <!-- Condition supplémentaire pour leur affichage : leur valeur doit être différente de "None", valeur automatiquement ajoutée si la case reste vide lors d'une modification -->
+        {% if obelisque.obelisque_inscription_latine != "None" %}
+        <!-- Leur valeur ne doit également pas être vide -->
+        {% if obelisque.obelisque_inscription_latine != "" %}
+        <dt>Inscription(s) latine(s)</dt>
+        <dd>{{obelisque.obelisque_inscription_latine}}</dd>
+        <dt>Inscription(s) latine(s) traduite(s)</dt>
+        <dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
+        {% endif %}
+        {% endif %}
         {% endif %}
     </dl>
     <br>
-    <dt>Bibliographie</dt><dd>{{obelisque.obelisque_bibliographie}}</dd>
+    <dt>Bibliographie</dt>
+    <dd>{{obelisque.obelisque_bibliographie}}</dd>
     <br>
     <br>
     <!-- Historique des modifications -->
     <div>
         <h6>Historique des modifications</h6>
         {% if obelisque.authorships %}
-            {% for modification in obelisque.authorships %}
-                <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
-                <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
-            {% endfor %}
+        {% for modification in obelisque.authorships %}
+        <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
+        <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+        {% endfor %}
         {% else %}
         <span>La page ne compte pas de modifications pour le moment</span>
         {% endif %}
@@ -111,8 +127,10 @@
     <br>
     <!-- Boutons -->
     <div align="center">
-        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier l'obélisque</a>
-        <a href="{{url_for('obelisque_delete', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer l'obélisque</a>
+        <a href="{{url_for('obelisque_update', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-outline-danger">Modifier
+            l'obélisque</a>
+        <a href="{{url_for('obelisque_delete', obelisque_id=obelisque.obelisque_id)}}" class="btn btn-danger">Supprimer
+            l'obélisque</a>
         <br>
         <br>
         <a href="{{url_for('obelisque_add')}}" class="btn btn-outline-danger">Ajouter un obélisque</a>

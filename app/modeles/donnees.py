@@ -1,43 +1,47 @@
 import datetime
-from .. app import db
+from ..app import db
 
-#On crée une classe Obelisque
+
+# On crée une classe Obelisque
 class Obelisque(db.Model):
     obelisque_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     obelisque_nom = db.Column(db.Text)
-    #Hauteur de l'obélisque
+    # Hauteur de l'obélisque
     obelisque_hauteur = db.Column(db.Float)
-    #Hauteur totale
+    # Hauteur totale
     obelisque_hauteur_avec_base = db.Column(db.Float)
     obelisque_materiau = db.Column(db.Text)
-    #L'obélisque est-il une commande égyptienne ou romaine ?
+    # L'obélisque est-il une commande égyptienne ou romaine ?
     obelisque_type_commande = db.Column(db.Text)
     obelisque_notice = db.Column(db.Text)
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)
-    #URL de l'image
+    # URL de l'image
     obelisque_image_url = db.Column(db.Text)
-    #Crédits pour l'image
+    # Crédits pour l'image
     obelisque_image_auteur = db.Column(db.Text)
-    #Licence de l'image
+    # Licence de l'image
     obelisque_image_licence = db.Column(db.Text)
-    #Lien vers la licence
+    # Lien vers la licence
     obelisque_image_licence_url = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="obelisque")
     authorships = db.relationship("Authorship", back_populates="obelisque")
 
     @staticmethod
-    def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau, obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine, obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_url, obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
+    def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau,
+                      obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine,
+                      obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_url,
+                      obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
         erreurs = []
         if not obelisque_add_nom:
             erreurs.append("veuillez renseigner le nom de l'obélisque")
         if not obelisque_add_hauteur:
-            erreurs.append( "veuillez renseigner la hauteur de l'obélisque")
+            erreurs.append("veuillez renseigner la hauteur de l'obélisque")
         if not obelisque_add_hauteur_avec_base:
             erreurs.append("veuillez renseigner la hauteur totale du monument")
         if not obelisque_add_materiau:
-           erreurs.append("veuillez renseigner le matériau composant l'obélisque")
+            erreurs.append("veuillez renseigner le matériau composant l'obélisque")
         if not obelisque_add_type_commande:
             erreurs.append("veuillez renseigner le type de commande")
         if not obelisque_add_notice:
@@ -82,7 +86,6 @@ class Obelisque(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-
     @staticmethod
     def obelisque_delete(obelisque_id):
         """
@@ -101,7 +104,7 @@ class Obelisque(db.Model):
             return False, [str(erreur)]
 
 
-#On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
+# On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
 class Personne(db.Model):
     personne_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     personne_nom = db.Column(db.Text)
@@ -158,13 +161,13 @@ class Personne(db.Model):
             return False, [str(erreur)]
 
 
-#On crée une classe Localisation pour recenser les lieux où les obélisques ont été érigés
+# On crée une classe Localisation pour recenser les lieux où les obélisques ont été érigés
 class Localisation(db.Model):
     localisation_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
     localisation_lieu = db.Column(db.Text)
-    #Le terme de "ville" est à concevoir au sens large, il s'agit d'indiquer ici une référence plus précise que le pays, mais moins précise que le lieu exact.
-    #On y renseigne la ville si le lieu d'évélation en possède une, mais on y retrouve également des termes tels que "Voie Appienne" (donc une route)
-    #ou "Karnak" (un complexe)
+    # Le terme de "ville" est à concevoir au sens large, il s'agit d'indiquer ici une référence plus précise que le pays, mais moins précise que le lieu exact.
+    # On y renseigne la ville si le lieu d'évélation en possède une, mais on y retrouve également des termes tels que "Voie Appienne" (donc une route)
+    # ou "Karnak" (un complexe)
     localisation_ville = db.Column(db.Text)
     localisation_pays = db.Column(db.Text)
     localisation_longitude = db.Column(db.Float)
@@ -173,7 +176,8 @@ class Localisation(db.Model):
     authorships = db.relationship("Authorship", back_populates="localisation")
 
     @staticmethod
-    def localisation_add(localisation_add_lieu, localisation_add_ville, localisation_add_pays, localisation_add_latitude, localisation_add_longitude):
+    def localisation_add(localisation_add_lieu, localisation_add_ville, localisation_add_pays,
+                         localisation_add_latitude, localisation_add_longitude):
         erreurs = []
         if not localisation_add_lieu:
             erreurs.append("veuillez renseigner le nom du lieu")
@@ -196,8 +200,8 @@ class Localisation(db.Model):
 
             # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
         ajoutable = Localisation(localisation_lieu=localisation_add_lieu,
-                             localisation_ville=localisation_add_ville,
-                             localisation_pays=localisation_add_pays,
+                                 localisation_ville=localisation_add_ville,
+                                 localisation_pays=localisation_add_pays,
                                  localisation_latitude=localisation_add_latitude,
                                  localisation_longitude=localisation_add_longitude)
 
@@ -228,7 +232,7 @@ class Localisation(db.Model):
             return False, [str(erreur)]
 
 
-#On crée une classe Erige servant de table de relation reliant les trois tables précédentes
+# On crée une classe Erige servant de table de relation reliant les trois tables précédentes
 class Erige(db.Model):
     __tablename__ = "erige"
     erige_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
@@ -236,7 +240,7 @@ class Erige(db.Model):
     erige_id_personne = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_date = db.Column(db.Text)
-    #On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (0 = non, 1 = oui)
+    # On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (0 = non, 1 = oui)
     erige_actuel = db.Column(db.Integer, default=0)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
@@ -244,7 +248,8 @@ class Erige(db.Model):
     authorships = db.relationship("Authorship", back_populates="erige")
 
     @staticmethod
-    def erige_add(erige_add_id_obelisque, erige_add_id_personne, erige_add_id_localisation, erige_add_date, erige_add_actuel):
+    def erige_add(erige_add_id_obelisque, erige_add_id_personne, erige_add_id_localisation, erige_add_date,
+                  erige_add_actuel):
         erreurs = []
         if not erige_add_id_obelisque:
             erreurs.append("veuillez renseigner l'identifiant de l'obélisque'")
@@ -264,10 +269,10 @@ class Erige(db.Model):
 
             # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
         ajoutable = Erige(erige_id_obelisque=erige_add_id_obelisque,
-                             erige_id_personne=erige_add_id_personne,
-                             erige_id_localisation=erige_add_id_localisation,
-                                 erige_date=erige_add_date,
-                                 erige_actuel=erige_add_actuel)
+                          erige_id_personne=erige_add_id_personne,
+                          erige_id_localisation=erige_add_id_localisation,
+                          erige_date=erige_add_date,
+                          erige_actuel=erige_add_actuel)
 
         # Tentative d'ajout qui sera stoppée si une erreur apparaît.
         try:
@@ -296,9 +301,7 @@ class Erige(db.Model):
             return False, [str(erreur)]
 
 
-
-
-#On crée une classe Authorship pour recenser les modifications des utilisateurs
+# On crée une classe Authorship pour recenser les modifications des utilisateurs
 class Authorship(db.Model):
     __tablename__ = "authorship"
     authorship_id = db.Column(db.Integer, nullable=False, autoincrement=True, primary_key=True)
@@ -307,8 +310,8 @@ class Authorship(db.Model):
     authorship_localisation_id = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'), nullable=True)
     authorship_erige_id = db.Column(db.Integer, db.ForeignKey('erige.erige_id'), nullable=True)
     authorship_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    #Pour renseigner l'heure, on utilise les paramètres locaux
-    #Source : https://www.codegrepper.com/code-examples/python/python+datetime+local+timezone
+    # Pour renseigner l'heure, on utilise les paramètres locaux
+    # Source : https://www.codegrepper.com/code-examples/python/python+datetime+local+timezone
     now = datetime.datetime.now()
     local_now = now.astimezone()
     authorship_date = db.Column(db.DateTime, default=local_now, nullable=False)
