@@ -83,8 +83,11 @@
         {% if obelisque.obelisque_inscription_latine != None %}
             <!-- Condition supplémentaire pour leur affichage : leur valeur doit être différente de "None", valeur automatiquement ajoutée si la case reste vide lors d'une modification -->
             {% if obelisque.obelisque_inscription_latine != "None" %}
-            <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
-            <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
+                <!-- Leur valeur ne doit également pas être vide -->
+                {% if obelisque.obelisque_inscription_latine != "" %}
+                    <dt>Inscription(s) latine(s)</dt><dd>{{obelisque.obelisque_inscription_latine}}</dd>
+                    <dt>Inscription(s) latine(s) traduite(s)</dt><dd>{{obelisque.obelisque_inscription_latine_traduite}}</dd>
+                {% endif %}
             {% endif %}
         {% endif %}
     </dl>

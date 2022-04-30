@@ -208,8 +208,8 @@ class Localisation(db.Model):
     #ou "Karnak" (un complexe)
     localisation_ville = db.Column(db.Text)
     localisation_pays = db.Column(db.Text)
-    localisation_longitude = db.Column(db.Text)
-    localisation_latitude = db.Column(db.Text)
+    localisation_longitude = db.Column(db.Float)
+    localisation_latitude = db.Column(db.Float)
     erige = db.relationship("Erige", back_populates="localisation")
     authorships = db.relationship("Authorship", back_populates="localisation")
 
