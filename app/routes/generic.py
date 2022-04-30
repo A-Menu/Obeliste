@@ -508,9 +508,8 @@ def localisation_delete(localisation_id):
         return render_template("pages/lieu_form_delete.html", supprimable=supprimable)
 
 
+#La page pour la gestion des élévations
 #Source : https://www.youtube.com/watch?v=XTpLbBJTOM4
-# This is the index route where we are going to
-# query on all our employee data
 @app.route('/elevations')
 @login_required
 def elevations():

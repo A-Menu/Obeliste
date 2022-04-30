@@ -9,27 +9,27 @@
     <form class="form" method="POST" action="{{url_for('localisation_add')}}">
         <div class="mb-3">
             <label for="localisation_add_lieu" class="form-label"><b>Nom du lieu *</b></label>
-            <input type="text" class="form-control" id="localisation_add_lieu" name="localisation_add_lieu" placeholder="avec une majuscule">
+            <input type="text" class="form-control" id="localisation_add_lieu" name="localisation_add_lieu">
         </div>
 
         <div class="mb-3">
             <label for="localisation_add_ville" class="form-label"><b>Ville du lieu *</b></label>
-            <input type="text" class="form-control" id="localisation_add_ville" name="localisation_add_ville" placeholder="en minuscules">
+            <input type="text" class="form-control" id="localisation_add_ville" name="localisation_add_ville">
         </div>
 
         <div class="mb-3">
             <label for="localisation_add_pays" class="form-label"><b>Pays du lieu *</b></label>
-            <input type="text" class="form-control" id="localisation_add_pays" name="localisation_add_pays" placeholder="en minuscules">
+            <input type="text" class="form-control" id="localisation_add_pays" name="localisation_add_pays" >
         </div>
 
         <div class="mb-3">
             <label for="localisation_add_latitude" class="form-label"><b>Latitude (coordonnées décimales)</b></label>
-            <input type="text" class="form-control" id="localisation_add_latitude" name="localisation_add_latitude" placeholder="latitude décimale">
+            <input type="text" class="form-control" id="localisation_add_latitude" name="localisation_add_latitude" placeholder="Ex. : 41.9027">
         </div>
 
         <div class="mb-3">
             <label for="localisation_add_longitude" class="form-label"><b>Longitude (coordonnées décimales)</b></label>
-            <input type="text" class="form-control" id="localisation_add_longitude" name="localisation_add_longitude" placeholder="longitude décimale">
+            <input type="text" class="form-control" id="localisation_add_longitude" name="localisation_add_longitude" placeholder="Ex. : 12.477971">
         </div>
         <br>
         <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
