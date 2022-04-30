@@ -17,9 +17,9 @@
                 <table class="table table-hover table-bordered table-striped ">
                     <thead class="thead-dark">
                     <tr class="text-center">
-                        <th>Id de l'obélisque</th>
-                        <th>Id de la personne</th>
-                        <th>Id du lieu</th>
+                        <th>Nom de l'obélisque</th>
+                        <th>Nom du commanditaire</th>
+                        <th>Nom du lieu</th>
                         <th>Date d'élévation</th>
                         <th>Localisation actuelle ?</th>
                         <th>Actions</th>
@@ -40,7 +40,7 @@
                         </tr>
 
 
-                        <!-- Modal Edit Employee-->
+                        <!-- Modifier une élévation-->
                         <div id="modaledit{{erige.erige_id}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -50,15 +50,15 @@
                                     <div class="modal-body">
                                         <form action="{{url_for('erige_update', erige_id=erige.erige_id)}}" method="POST">
                                             <div class="form-group">
-                                                <label>Id de l'obélisque</label>
+                                                <label>Identifiant de l'obélisque</label>
                                                 <input type="text" class="form-control" name="erige_id_obelisque" value="{{erige.erige_id_obelisque}}">
                                             </div>
                                             <div class="form-group">
-                                                <label>Id de la personne</label>
+                                                <label>Identifiant du commanditaire</label>
                                                 <input type="text" class="form-control" name="erige_id_personne" value="{{erige.erige_id_personne}}">
                                             </div>
                                             <div class="form-group">
-                                                <label>Id du lieu</label>
+                                                <label>Identifiant du lieu</label>
                                                 <input type="text" class="form-control" name="erige_id_localisation" value="{{erige.erige_id_localisation}}">
                                             </div>
                                             <div class="form-group">
@@ -102,15 +102,15 @@
                             <div class="modal-body">
                                 <form action="{{url_for('erige_add')}}" method="POST">
                                     <div class="form-group">
-                                        <label>Id de l'obélisque</label>
+                                        <label>Identifiant de l'obélisque</label>
                                         <input type="text" class="form-control" name="erige_add_id_obelisque">
                                     </div>
                                     <div class="form-group">
-                                        <label>Id de la personne</label>
+                                        <label>Identifiant du commanditaire</label>
                                         <input type="text" class="form-control" name="erige_add_id_personne">
                                     </div>
                                     <div class="form-group">
-                                        <label>Id du lieu</label>
+                                        <label>Identifiant du lieu</label>
                                         <input type="text" class="form-control" name="erige_add_id_localisation">
                                     </div>
                                     <div class="form-group">
