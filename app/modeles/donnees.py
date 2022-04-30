@@ -13,8 +13,6 @@ class Obelisque(db.Model):
     #L'obélisque est-il une commande égyptienne ou romaine ?
     obelisque_type_commande = db.Column(db.Text)
     obelisque_notice = db.Column(db.Text)
-    #On indique si l'obélisque présente une inscription latine (0 = non, 1 = oui)
-    obelisque_presence_inscription = db.Column(db.Integer, default=0)
     obelisque_inscription_latine = db.Column(db.Text)
     obelisque_inscription_latine_traduite = db.Column(db.Text)
     obelisque_bibliographie = db.Column(db.Text)

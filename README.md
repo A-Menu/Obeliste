@@ -17,7 +17,7 @@ Visant à gérer et visualiser une base de données relationnelle, elle a été 
 - Se déplacer dans le dossier
 - Installer les prérequis Python : `sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv`
 - Créer un environnement virtuel : `virtualenv ~/.obeliste -p python3`
-- Activer l'environnement virtuel : `source ~/.obeliste/bin/activate`
+- Activer l'environnement virtuel : `source ~/.obeliste/bin/activate` (à activer à chaque fois que vous désirez ouvrir l'application)
 - Installer les dépendances requises : `pip install -r requirements.txt`
 - Lancer l'application : `python3 run.py`
 - Pour visualiser l'application, se rendre à l'adresse suivante : [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
