@@ -141,47 +141,6 @@ class Personne(db.Model):
             return False, [str(erreur)]
 
     @staticmethod
-    def personne_update(personne_nom, personne_fonction, personne_nationalite):
-        erreurs = []
-        if not personne_nom:
-            erreurs.append("veuillez renseigner le nom du commanditaire")
-        if not personne_nationalite:
-            erreurs.append("veuillez renseigner la nationalité du commanditaire")
-
-        # S'il y a au moins une erreur.
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        # On récupère une personne dans la base.
-        editable = Personne.query.get(personne_id)
-
-        # On vérifie que l'utilisateur-ice modifie au moins un champ.
-        if editable.personne_nom == personne_nom \
-                and editable.personne_fonction == personne_fonction \
-                and editable.personne_nationalite == personne_nationalite :
-            erreurs.append("No edit was submitted")
-
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        else:
-            # Mise à jour du site
-            editable.personne_nom = personne_nom
-            editable.personne_fonction = personne_fonction
-            editable.personne_nationalite = personne_nationalite
-
-        try:
-            # On l'ajoute au transport vers la base de données.
-            db.session.add(editable)
-            # On envoie le paquet.
-            db.session.commit()
-
-            # On renvoie les informations du site.
-            return True, editable
-        except Exception as erreur:
-            return False, [str(erreur)]
-
-    @staticmethod
     def personne_delete(personne_id):
         """
         Fonction qui permet de supprimer une personne de la base.
@@ -217,13 +176,19 @@ class Localisation(db.Model):
     def localisation_add(localisation_add_lieu, localisation_add_ville, localisation_add_pays, localisation_add_latitude, localisation_add_longitude):
         erreurs = []
         if not localisation_add_lieu:
-            erreurs.append("Veuillez renseigner le nom du lieu")
+            erreurs.append("veuillez renseigner le nom du lieu")
         if not localisation_add_ville:
             erreurs.append(
-                "Veuillez renseigner le nom de la ville")
+                "veuillez renseigner le nom de la ville")
         if not localisation_add_pays:
             erreurs.append(
-                "Veuillez renseigner le nom du pays")
+                "veuillez renseigner le nom du pays")
+        if not localisation_add_latitude:
+            erreurs.append(
+                "veuillez renseigner une latitude")
+        if not localisation_add_longitude:
+            erreurs.append(
+                "veuillez renseigner une longitude")
 
             # S'il y a au moins une erreur, afficher un message d'erreur.
         if len(erreurs) > 0:
@@ -242,53 +207,6 @@ class Localisation(db.Model):
             db.session.commit()
             return True, ajoutable
 
-        except Exception as erreur:
-            return False, [str(erreur)]
-
-    @staticmethod
-    def localisation_update(localisation_lieu, localisation_ville, localisation_pays, localisation_latitude, localisation_longitude):
-        erreurs = []
-        if not localisation_lieu:
-            erreurs.append("veuillez renseigner le nom du lieu")
-        if not localisation_ville:
-            erreurs.append("veuillez renseigner le nom de la ville où se trouve le lieu")
-        if not localisation_pays:
-            erreurs.append("veuillez renseigner le pays où se trouve le lieu")
-
-        # S'il y a au moins une erreur.
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        # On récupère une personne dans la base.
-        editable = Localisation.query.get(localisation_id)
-
-        # On vérifie que l'utilisateur-ice modifie au moins un champ.
-        if editable.localisation_lieu == localisation_lieu \
-                and editable.localisation_ville == localisation_ville \
-                and editable.localisation_pays == localisation_pays\
-                and editable.localisation_latitude == localisation_latitude\
-                and editable.localisation_longitude == localisation_longitude :
-            erreurs.append("No edit was submitted")
-
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        else:
-            # Mise à jour du lieu
-            editable.localisation_lieu = localisation_lieu
-            editable.localisation_ville = localisation_ville
-            editable.localisation_pays = localisation_pays
-            editable.localisation_latitude = localisation_latitude
-            editable.localisation_longitude = localisation_longitude
-
-        try:
-            # On l'ajoute au transport vers la base de données.
-            db.session.add(editable)
-            # On envoie le paquet.
-            db.session.commit()
-
-            # On renvoie les informations du site.
-            return True, editable
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -329,16 +247,16 @@ class Erige(db.Model):
     def erige_add(erige_add_id_obelisque, erige_add_id_personne, erige_add_id_localisation, erige_add_date, erige_add_actuel):
         erreurs = []
         if not erige_add_id_obelisque:
-            erreurs.append("Veuillez renseigner l'id de l'obélisque'")
+            erreurs.append("veuillez renseigner l'identifiant de l'obélisque'")
         if not erige_add_id_personne:
             erreurs.append(
-                "Veuillez renseigner l'id de la personne'")
+                "veuillez renseigner l'identifiant du commanditaire'")
         if not erige_add_id_localisation:
             erreurs.append(
-                "Veuillez renseigner l'id du lieu'")
+                "veuillez renseigner l'identifiant du lieu'")
         if not erige_add_date:
             erreurs.append(
-                "Veuillez renseigner la date d'élévation")
+                "veuillez renseigner la date d'élévation")
 
             # S'il y a au moins une erreur, afficher un message d'erreur.
         if len(erreurs) > 0:
@@ -357,58 +275,6 @@ class Erige(db.Model):
             db.session.commit()
             return True, ajoutable
 
-        except Exception as erreur:
-            return False, [str(erreur)]
-
-    @staticmethod
-    def erige_update(erige_id_obelisque, erige_id_personne, erige_id_localisation, erige_date, erige_actuel):
-        erreurs = []
-        if not erige_id_obelisque:
-            erreurs.append("Veuillez renseigner l'id de l'obélisque'")
-        if not erige_id_personne:
-            erreurs.append(
-                "Veuillez renseigner l'id de la personne'")
-        if not erige_id_localisation:
-            erreurs.append(
-                "Veuillez renseigner l'id du lieu'")
-        if not erige_date:
-            erreurs.append(
-                "Veuillez renseigner la date d'élévation")
-
-        # S'il y a au moins une erreur.
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        # On récupère une personne dans la base.
-        editable = Erige.query.get(erige_id)
-
-        # On vérifie que l'utilisateur-ice modifie au moins un champ.
-        if editable.erige_id_obelisque == erige_id_obelisque \
-                and editable.erige_id_personne == erige_id_personne \
-                and editable.erige_id_localisation == erige_id_localisation\
-                and editable.erige_date == erige_date\
-                and editable.erige_actuel == erige_actuel :
-            erreurs.append("No edit was submitted")
-
-        if len(erreurs) > 0:
-            return False, erreurs
-
-        else:
-            # Mise à jour du lieu
-            editable.erige_id_obelisque = erige_id_obelisque
-            editable.erige_id_personne = erige_id_personne
-            editable.erige_id_localisation = erige_id_localisation
-            editable.erige_date = erige_date
-            editable.erige_actuel = erige_actuel
-
-        try:
-            # On l'ajoute au transport vers la base de données.
-            db.session.add(editable)
-            # On envoie le paquet.
-            db.session.commit()
-
-            # On renvoie les informations du site.
-            return True, editable
         except Exception as erreur:
             return False, [str(erreur)]
 
