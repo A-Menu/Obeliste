@@ -39,12 +39,12 @@
                 margin-left: 110px;
                 margin-right: 110px;
             }
-            /* Pour centrer le contenu des pages */
+            /* Pour centrer la carte */
             .carte {
                 margin-left: 56px;
             }
 
-            /* Pour centrer verticalement le logo dans la navbar */
+            /* Pour centrer verticalement le logo Obeliste dans la navbar */
             .logo_top {
                 margin-bottom: 6px;
             }
@@ -108,43 +108,45 @@
             /* Source : https://www.w3schools.com/howto/howto_js_scroll_to_top.asp */
 
             #myBtn {
-                display: none; /* Hidden by default */
-                position: fixed; /* Fixed/sticky position */
-                bottom: 100px; /* Place the button 100px from the bottom */
-                right: 50px; /* Place the button 50px from the right */
-                z-index: 99; /* Make sure it does not overlap */
-                border: none; /* Remove borders */
-                outline: none; /* Remove outline */
-                background-color: #17a2b8; /* Set a background color */
-                color: white; /* Text color */
-                cursor: pointer; /* Add a mouse pointer on hover */
-                padding: 15px; /* Some padding */
-                border-radius: 10px; /* Rounded corners */
-                font-size: 18px; /* Increase font size */
+                display: none; /* Caché par défaut */
+                position: fixed; /* Position fixe */
+                bottom: 100px; /* Bouton localisé à 100 px du bas de la page */
+                right: 50px; /* Bouton localisé à 50 px de la droite de la page */
+                z-index: 99; /* Pour être sûr qu'il n'y ait pas de chevauchement */
+                border: none; /* On retire les contours */
+                outline: none; /* On retire les contours */
+                background-color: #17a2b8; /* On choisit la couleur du fond, ici la même que les "buttons-info" de Bootstrap */
+                color: white; /* On choisit la couleur du texte */
+                cursor: pointer; /* On affiche un pointer au survol de la souris */
+                padding: 15px; /* Du padding */
+                border-radius: 10px; /* On met des bords arrondis */
+                font-size: 18px; /* On augmente la taille de la police */
             }
             #myBtn:hover {
-               background-color: #138496; /* Add a dark background on hover */
+               background-color: #138496; /* La couleur s'assombrit au survol */
             }
 
     </style>
 </head>
 
 <body>
+<!-- On met en place la barre de navigation -->
 <nav class="navbar navbar-expand-md navbar-dark justify-content-between" style="background-color: #3B0E2E;">
     <a class="navbar-brand" href="{{ url_for('accueil') }}"><img class="logo_top"
                                                                  src="{{url_for('static', filename='images/obeliste_logo_light.png')}}"
                                                                  alt="L'Obéliste" height="25"/></a>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <!-- Menu déroulant -->
+            <!-- Les obélisques -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Les obélisques</a>
-
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <!-- Tous les obélisques -->
                     <li class="dropdown-item"><a href="{{url_for('index_obelisques')}}">Tous les obélisques</a></li>
                     <li class="dropdown-divider"></li>
+                    <!-- Les obélisques égyptiens -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="{{url_for('index_obelisques_egyptiens')}}">Les obélisques
                             égyptiens</a>
@@ -167,6 +169,7 @@
                                 Vatican</a></li>
                         </ul>
                     </li>
+                    <!-- Les obélisques romains -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="{{url_for('index_obelisques_romains')}}">Les obélisques
                             romains</a>
@@ -185,14 +188,14 @@
                     </li>
                 </ul>
             </li>
-
+            <!-- Les commanditaires -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Les commanditaires</a>
-
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     <li class="dropdown-item"><a href="{{url_for('index_personnes')}}">Tous les commanditaires</a></li>
                     <li class="dropdown-divider"></li>
+                    <!-- Par nationalité -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="#">Par nationalité</a>
                         <ul class="dropdown-menu">
@@ -262,6 +265,7 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Par fonctions -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="#">Par fonctions</a>
                         <ul class="dropdown-menu">
@@ -345,14 +349,14 @@
                     </li>
                 </ul>
             </li>
-
+            <!-- Les lieux -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Les lieux</a>
-
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                     <li class="dropdown-item"><a href="{{url_for('index_lieux')}}">Tous les lieux</a></li>
                     <li class="dropdown-divider"></li>
+                    <!-- Les lieux égyptiens -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="#">Égypte</a>
                         <ul class="dropdown-menu">
@@ -388,6 +392,7 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Les lieux italiens -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="#">Italie</a>
                         <ul class="dropdown-menu">
@@ -459,6 +464,7 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Les lieux du Vatican -->
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" href="#">Vatican</a>
                         <ul class="dropdown-menu">
@@ -474,8 +480,9 @@
                     </li>
                 </ul>
             </li>
+            <!-- Le menu général pour ajouter des entrées dans la base de données -->
             <li class="nav-item"><a class="nav-link" href="{{url_for('add')}}">Contribuer</a></li>
-            <!-- Section utilisateur -->
+            <!-- La section utilisateur -->
             {% if not current_user.is_authenticated %}
             <li class="nav-item utilisateur">
                 <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
@@ -519,14 +526,14 @@
 </div>
 <!-- Scripts pour utiliser le menu déroulant (la version de Bootstrap n'étant pas utilisable telle qu'indiquée dans la documentation) -->
 <!-- Source : https://stackoverflow.com/questions/46026899/bootstrap-4-dropdown-menu-not-working -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- jQuery en premier, puis Popper.js, et enfin Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
-<!-- Always remember to call the above files first before calling the bootstrap.min.js file -->
+<!-- On appelle bootstrap.min.js en dernier -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
@@ -539,10 +546,10 @@
 <!-- Code JavaScript pour le bouton 'haut de page' -->
 <!-- Source : https://www.w3schools.com/howto/howto_js_scroll_to_top.asp -->
 <script>
-        //Get the button:
+        // On sélectionne le bouton:
         mybutton = document.getElementById("myBtn");
 
-        // When the user scrolls down 20px from the top of the document, show the button
+        // Dès que l'utilisateur descend la page de 20 px, le bouton apparaît
         window.onscroll = function() {scrollFunction()};
 
         function scrollFunction() {
@@ -553,7 +560,7 @@
           }
         }
 
-        // When the user clicks on the button, scroll to the top of the document
+        // Quand l'utilisateur appuie sur le bouton, il est envoyé en haut de la page
         function topFunction() {
           document.body.scrollTop = 0; // For Safari
           document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

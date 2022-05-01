@@ -10,6 +10,8 @@
             font-style: italic;
         }
 
+
+
 </style>
 
 <div class="centrer_contenu">
@@ -115,10 +117,12 @@
     <div>
         <h6>Historique des modifications</h6>
         {% if obelisque.authorships %}
-        {% for modification in obelisque.authorships %}
-        <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM -->
-        <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
-        {% endfor %}
+        <ul>
+            {% for modification in obelisque.authorships %}
+            <!-- strftime permet de définir le format de la date (ici JJ/MM/AAAA, HH:MM) -->
+            <li>{{modification.user.user_nom}} | {{modification.authorship_date.strftime('%d/%m/%Y, %H:%M')}}</li>
+            {% endfor %}
+        </ul>
         {% else %}
         <span>La page ne compte pas de modifications pour le moment</span>
         {% endif %}

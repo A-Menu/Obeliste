@@ -28,12 +28,20 @@ class Obelisque(db.Model):
     erige = db.relationship("Erige", back_populates="obelisque")
     authorships = db.relationship("Authorship", back_populates="obelisque")
 
+    # Pour ajouter un obélisque :
     @staticmethod
     def obelisque_add(obelisque_add_nom, obelisque_add_hauteur, obelisque_add_hauteur_avec_base, obelisque_add_materiau,
                       obelisque_add_type_commande, obelisque_add_notice, obelisque_add_inscription_latine,
                       obelisque_add_inscription_latine_traduite, obelisque_add_bibliographie, obelisque_add_image_url,
                       obelisque_add_image_auteur, obelisque_add_image_licence, obelisque_add_image_licence_url):
+
+        """ Fonction permettant d'ajouter un obélisque à la base de données.
+            :param obelisque_add_*: données recueillies depuis le formulaire
+            :type obelisque_add_*: Text ou Float (obelisque_add_hauteur, obelisque_add_hauteur_avec_base)
+            :returns: ajout de l'entrée dans la table obelisque de la base de données """
+
         erreurs = []
+        # On définit des attributs obligatoires
         if not obelisque_add_nom:
             erreurs.append("veuillez renseigner le nom de l'obélisque")
         if not obelisque_add_hauteur:
@@ -61,7 +69,7 @@ class Obelisque(db.Model):
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Obelisque
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table obelisque
         ajoutable = Obelisque(obelisque_nom=obelisque_add_nom,
                               obelisque_hauteur=obelisque_add_hauteur,
                               obelisque_hauteur_avec_base=obelisque_add_hauteur_avec_base,
@@ -88,11 +96,12 @@ class Obelisque(db.Model):
 
     @staticmethod
     def obelisque_delete(obelisque_id):
-        """
-        Fonction qui permet de supprimer un obélisque de la base.
-        :param obelisque_id: id de l'obélisque (int)
-        :return:
-        """
+
+        """ Fonction permettant de supprimer un obélisque de la base de données.
+            :param obelisque_id: id de l'obélisque à supprimer
+            :type obelisque_id: integer
+            :returns: suppression de l'obélisque sélectionné de la table obelisque de la base de données """
+
         supprimable = Obelisque.query.get(obelisque_id)
 
         try:
@@ -115,7 +124,14 @@ class Personne(db.Model):
 
     @staticmethod
     def personne_add(personne_add_nom, personne_add_fonction, personne_add_nationalite):
+
+        """ Fonction permettant d'ajouter un commanditaire à la base de données.
+            :param personne_add_*: données recueillies depuis le formulaire
+            :type personne_add_*: Text
+            :returns: ajout de l'entrée dans la table personne de la base de données """
+
         erreurs = []
+        # On définit des attributs obligatoires
         if not personne_add_nom:
             erreurs.append("veuillez renseigner le nom du commanditaire")
         if not personne_add_fonction:
@@ -145,11 +161,12 @@ class Personne(db.Model):
 
     @staticmethod
     def personne_delete(personne_id):
-        """
-        Fonction qui permet de supprimer une personne de la base.
-        :param personne_id: id de la personne (int)
-        :return:
-        """
+
+        """ Fonction permettant de supprimer un commanditaire de la base de données.
+            :param personne_id: id du commanditaire à supprimer
+            :type personne_id: integer
+            :returns: suppression du commanditaire sélectionné de la table personne de la base de données """
+
         supprimable = Personne.query.get(personne_id)
 
         try:
@@ -178,7 +195,14 @@ class Localisation(db.Model):
     @staticmethod
     def localisation_add(localisation_add_lieu, localisation_add_ville, localisation_add_pays,
                          localisation_add_latitude, localisation_add_longitude):
+
+        """ Fonction permettant d'ajouter un lieu à la base de données.
+            :param localisation_add_*: données recueillies depuis le formulaire
+            :type localisation_add_*: Text ou Float (localisation_add_latitude et localisation_add_longitude)
+            :returns: ajout de l'entrée dans la table localisation de la base de données """
+
         erreurs = []
+        # On définit des attributs obligatoires
         if not localisation_add_lieu:
             erreurs.append("veuillez renseigner le nom du lieu")
         if not localisation_add_ville:
@@ -216,11 +240,12 @@ class Localisation(db.Model):
 
     @staticmethod
     def localisation_delete(localisation_id):
-        """
-        Fonction qui permet de supprimer une personne de la base.
-        :param personne_id: id de la personne (int)
-        :return:
-        """
+
+        """ Fonction permettant de supprimer un lieu de la base de données.
+            :param localisation_id: id du lieu à supprimer
+            :type localisation_id: integer
+            :returns: suppression du lieu sélectionné de la table localisation de la base de données """
+
         supprimable = Localisation.query.get(localisation_id)
 
         try:
@@ -250,7 +275,14 @@ class Erige(db.Model):
     @staticmethod
     def erige_add(erige_add_id_obelisque, erige_add_id_personne, erige_add_id_localisation, erige_add_date,
                   erige_add_actuel):
+
+        """ Fonction permettant d'ajouter une élévation à la base de données.
+            :param erige_add_*: données recueillies depuis le formulaire
+            :type erige_add_*: Text (erige_add_date) ou Integer
+            :returns: ajout de l'entrée dans la table erige de la base de données """
+
         erreurs = []
+        # On définit des attributs obligatoires
         if not erige_add_id_obelisque:
             erreurs.append("veuillez renseigner l'identifiant de l'obélisque'")
         if not erige_add_id_personne:
@@ -285,11 +317,12 @@ class Erige(db.Model):
 
     @staticmethod
     def erige_delete(erige_id):
-        """
-        Fonction qui permet de supprimer une élévation de la base.
-        :param erige_id: id de l'élévation' (int)
-        :return:
-        """
+
+        """ Fonction permettant de supprimer une élévation de la base de données.
+            :param erige_id: id de l'élévation à supprimer
+            :type erige_id: integer
+            :returns: suppression de l'élévation sélectionnée de la table erige de la base de données """
+
         supprimable = Erige.query.get(erige_id)
 
         try:

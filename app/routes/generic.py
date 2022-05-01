@@ -361,12 +361,6 @@ def obelisque_update(obelisque_id):
             editable.obelisque_image_licence = request.form["obelisque_image_licence"]
             editable.obelisque_image_licence_url = request.form["obelisque_image_licence_url"]
 
-            '''erige_editable.erige_id_obelisque = request.form["erige_id_obelisque"]
-            erige_editable.erige_id_personne = request.form["erige_id_personne"]
-            erige_editable.erige_id_localisation = request.form["erige_id_localisation"]
-            erige_editable.erige_date = request.form["erige_date"]
-            erige_editable.erige_actuel = request.form["erige_actuel"]'''
-
             db.session.add(editable)
             db.session.add(Authorship(obelisque=editable, user=current_user))
             db.session.commit()
@@ -532,7 +526,7 @@ def elevations():
     return render_template("pages/elevations.html", erige=erige)
 
 
-# Ajouter une page Erige
+# Ajouter une élévation
 
 @app.route("/erige/add", methods=["GET", "POST"])
 @login_required
