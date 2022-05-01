@@ -6,12 +6,12 @@
 <div class="centrer_contenu">
     <h1>{{personne.personne_nom}}</h1>
     <!-- On affiche l'occupation et la nationalité de la personne s'ils existent dans la base -->
-    <h4>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
+    <h2>{% if personne.personne_fonction %}{{personne.personne_fonction}}{% endif %}
         {% if personne.personne_nationalite %}{{personne.personne_nationalite}}{% endif %}
-    </h4>
+    </h2>
     <br>
-    <h5 class="text-muted">Identifiant : {{personne.personne_id}}</h5>
-    <br>
+    <h4 class="text-muted">Identifiant : {{personne.personne_id}}</h4>
+    <br><br>
     <div>
         <p>Cette personne a fait ériger les obélisques suivants :</p>
         <ul>

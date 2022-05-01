@@ -86,18 +86,6 @@ class User(UserMixin, db.Model):
         """
         return self.user_id
 
-    def to_jsonapi_dict(self):
-        """ It ressembles a little JSON API format but it is not completely compatible
-
-        :return:
-        """
-        return {
-            "type": "people",
-            "attributes": {
-                "name": self.user_nom
-            }
-        }
-
 
 @login.user_loader
 def trouver_utilisateur_via_id(identifiant):

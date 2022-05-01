@@ -241,7 +241,7 @@ class Erige(db.Model):
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
     erige_date = db.Column(db.Text)
     # On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (0 = non, 1 = oui)
-    erige_actuel = db.Column(db.Integer, default=0)
+    erige_actuel = db.Column(db.Integer)
     obelisque = db.relationship("Obelisque", back_populates="erige")
     personne = db.relationship("Personne", back_populates="erige")
     localisation = db.relationship("Localisation", back_populates="erige")

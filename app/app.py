@@ -26,4 +26,3 @@ db = SQLAlchemy(app)
 login = LoginManager(app)
 
 from .routes import generic
-from .routes import api

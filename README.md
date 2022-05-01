@@ -1,6 +1,6 @@
 # L'Obéliste
 
-Durant l'Antiquité, Rome ne comptait pas moins de quinze obélisques en son sein. ***L'Obéliste*** vous propose de
+Durant l'Antiquité, Rome compta au moins quinze obélisques en son sein ; ***l'Obéliste*** vous propose de
 découvrir d'élévation en élévation les déplacements des treize obélisques antiques encore présents dans la ville.
 
 ## À propos
@@ -17,7 +17,7 @@ de l'[École nationale des chartes](https://www.chartes.psl.eu/fr).
 
 - Cloner ou enregistrer le dépôt GitHub à l'emplacement voulu
 - Se déplacer dans le dossier
-- Installer les prérequis Python : `sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv`
+- Si besoin, installer les prérequis Python : `sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv`
 - Créer un environnement virtuel : `virtualenv ~/.obeliste -p python3`
 - Activer l'environnement virtuel : `source ~/.obeliste/bin/activate` (à activer à chaque fois que vous désirez ouvrir
   l'application)
