@@ -12,6 +12,9 @@ from sqlalchemy import or_
 # Page d'accueil
 @app.route("/")
 def accueil():
+    """ Route vers la page d'accueil de l'application.
+        :returns: template accueil.html """
+
     erige = Erige.query.all()
     return render_template("pages/accueil.html", erige=erige)
 
@@ -19,6 +22,9 @@ def accueil():
 # Page redirigeant vers les ajouts de pages
 @app.route("/add")
 def add():
+    """ Route vers la page Contribuer, permettant un accès rapide de l'intégralité des formulaires d'ajouts.
+        :returns: template add.html """
+
     return render_template("pages/add.html")
 
 
@@ -27,6 +33,11 @@ def add():
 # Les obélisques
 @app.route("/obelisque/<int:obelisque_id>")
 def obelisque(obelisque_id):
+    """ Route vers une page obélisque.
+        :param obelisque_id: identifiant de l'obélisque à afficher
+        :type obelisque_id: integer
+        :returns: template obelisque.html """
+
     obelisque = Obelisque.query.filter(Obelisque.obelisque_id == obelisque_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)
     return render_template("pages/obelisque.html", obelisque=obelisque, erige=erige)
@@ -35,6 +46,11 @@ def obelisque(obelisque_id):
 # Les personnes (commanditaires)
 @app.route("/personne/<int:personne_id>")
 def personne(personne_id):
+    """ Route vers une page commanditaire.
+        :param personne_id: identifiant du commanditaire à afficher
+        :type personne_id: integer
+        :returns: template personne.html """
+
     personne = Personne.query.filter(Personne.personne_id == personne_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_personne == personne_id).order_by(Erige.erige_date)
     return render_template("pages/personne.html", personne=personne, erige=erige)
@@ -43,6 +59,11 @@ def personne(personne_id):
 # Les localisations
 @app.route("/lieu/<int:localisation_id>")
 def localisation(localisation_id):
+    """ Route vers une page lieu.
+        :param localisation_id: identifiant du lieu à afficher
+        :type localisation_id: integer
+        :returns: template lieu.html """
+
     localisation = Localisation.query.filter(Localisation.localisation_id == localisation_id).first_or_404()
     erige = Erige.query.filter(Erige.erige_id_localisation == localisation_id).order_by(Erige.erige_date)
     return render_template("pages/lieu.html", localisation=localisation, erige=erige)
@@ -53,6 +74,9 @@ def localisation(localisation_id):
 # L'index recensant l'intégralité des obélisques
 @app.route("/index_obelisques")
 def index_obelisques():
+    """ Route vers l'index général des obélisques.
+        :returns: template index_obelisques.html """
+
     page = request.args.get("page", 1)
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -65,6 +89,9 @@ def index_obelisques():
 # L'index des obélisques égyptiens
 @app.route("/index_obelisques_egyptiens")
 def index_obelisques_egyptiens():
+    """ Route vers l'index des obélisques égyptiens.
+        :returns: template index_obelisques_egyptiens.html """
+
     page = request.args.get("page", 1)
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -78,6 +105,9 @@ def index_obelisques_egyptiens():
 # L'index des obélisques romains
 @app.route("/index_obelisques_romains")
 def index_obelisques_romains():
+    """ Route vers l'index des obélisques romains.
+        :returns: template index_obelisques_romains.html """
+
     page = request.args.get("page", 1)
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -91,6 +121,9 @@ def index_obelisques_romains():
 # L'index des personnes (commanditaires)
 @app.route("/index_personnes")
 def index_personnes():
+    """ Route vers l'index des commanditaires.
+        :returns: template index_personnes.html """
+
     page = request.args.get("page", 1)
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -103,6 +136,9 @@ def index_personnes():
 # L'index des lieux (localisations)
 @app.route("/index_lieux")
 def index_lieux():
+    """ Route vers l'index des lieux.
+        :returns: template index_lieux.html """
+
     page = request.args.get("page", 1)
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -113,11 +149,12 @@ def index_lieux():
     return render_template("pages/index_lieux.html", resultats=resultats)
 
 
-# Faire une recherche plein texte sur la table Obelisque
+# Faire une recherche plein texte sur les pages obelisque.html
 @app.route("/recherche")
 def recherche():
-    """ Route permettant la recherche plein-texte
-    """
+    """ Route pour la recherche plein texte sur les pages obelisque.html.
+        :returns: template recherche.html """
+
     motclef = request.args.get("keyword", None)
     page = request.args.get("page", 1)
 
@@ -155,8 +192,9 @@ def recherche():
 # Création d'un compte : l'inscription
 @app.route("/register", methods=["GET", "POST"])
 def inscription():
-    """ Route gérant les inscriptions
-    """
+    """ Route vers le formulaire d'inscription.
+        :returns: template inscription.html """
+
     # Si on est en POST, cela veut dire que le formulaire a été envoyé
     if request.method == "POST":
         statut, donnees = User.creer(
@@ -178,8 +216,9 @@ def inscription():
 # Connexion à un compte existant
 @app.route("/connexion", methods=["POST", "GET"])
 def connexion():
-    """ Route gérant les connexions
-    """
+    """ Route vers la page de connexion.
+        :returns: template connexion.html """
+
     if current_user.is_authenticated is True:
         flash("Vous êtes déjà connecté-e", "info")
         return redirect("/")
@@ -205,6 +244,9 @@ login.login_view = 'connexion'
 # Déconnexion
 @app.route("/deconnexion", methods=["POST", "GET"])
 def deconnexion():
+    """ Route de redirection après la déconnexion.
+        :returns: redirection vers l'accueil """
+
     if current_user.is_authenticated is True:
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
@@ -216,12 +258,18 @@ def deconnexion():
 # Erreur 404
 @app.errorhandler(404)
 def not_found_error(error):
+    """ Route en cas d'erreur 404.
+        :returns: template erreur_404.html """
+
     return render_template('erreurs/erreur_404.html'), 404
 
 
 # Erreur 500
 @app.errorhandler(500)
 def internal_error(error):
+    """ Route en cas d'erreur 500.
+        :returns: template erreur_500.html """
+
     return render_template('error/erreur_500.html'), 500
 
 
@@ -234,6 +282,9 @@ def internal_error(error):
 @app.route("/obelisque/add", methods=["GET", "POST"])
 @login_required
 def obelisque_add():
+    """ Route pour le formulaire d'ajout d'un obélisque.
+        :returns: template obelisque_form_add.html """
+
     if request.method == "POST":
         statut, informations = Obelisque.obelisque_add(
             obelisque_add_nom=request.form.get("obelisque_add_nom", None),
@@ -267,6 +318,9 @@ def obelisque_add():
 @app.route("/personne/add", methods=["GET", "POST"])
 @login_required
 def personne_add():
+    """ Route pour le formulaire d'ajout de commanditaire.
+        :returns: template personne_form_add.html """
+
     if request.method == "POST":
         statut, informations = Personne.personne_add(
             personne_add_nom=request.form.get("personne_add_nom", None),
@@ -289,6 +343,9 @@ def personne_add():
 @app.route("/lieu/add", methods=["GET", "POST"])
 @login_required
 def localisation_add():
+    """ Route pour le formulaire d'ajout de lieu.
+        :returns: template lieu_form_add.html """
+
     if request.method == "POST":
         statut, informations = Localisation.localisation_add(
             localisation_add_lieu=request.form.get("localisation_add_lieu", None),
@@ -315,8 +372,12 @@ def localisation_add():
 @app.route("/obelisque/<int:obelisque_id>/update", methods=["GET", "POST"])
 @login_required
 def obelisque_update(obelisque_id):
+    """ Route pour le formulaire de mise à jour d'un obélisque.
+        :param obelisque_id: identifiant de l'obélisque à modifier
+        :type obelisque_id: integer
+        :returns: template obelisque_form_update.html """
+
     editable = Obelisque.query.get_or_404(obelisque_id)
-    '''erige_editable = Erige.query.filter(Erige.erige_id_obelisque == obelisque_id)'''
 
     erreurs = []
     updated = False
@@ -379,6 +440,11 @@ def obelisque_update(obelisque_id):
 @app.route("/personne/<int:personne_id>/update", methods=["GET", "POST"])
 @login_required
 def personne_update(personne_id):
+    """ Route pour le formulaire de mise à jour d'un commanditaire.
+        :param personne_id: identifiant du commanditaire à modifier
+        :type personne_id: integer
+        :returns: template personne_form_update.html """
+
     editable = Personne.query.get_or_404(personne_id)
 
     erreurs = []
@@ -414,6 +480,11 @@ def personne_update(personne_id):
 @app.route("/lieu/<int:localisation_id>/update", methods=["GET", "POST"])
 @login_required
 def localisation_update(localisation_id):
+    """ Route pour le formulaire de mise à jour d'un lieu.
+        :param localisation_id: identifiant du lieu à modifier
+        :type localisation_id: integer
+        :returns: template lieu_form_update.html """
+
     editable = Localisation.query.get_or_404(localisation_id)
 
     erreurs = []
@@ -455,6 +526,11 @@ def localisation_update(localisation_id):
 @app.route("/obelisque/<int:obelisque_id>/delete", methods=["POST", "GET"])
 @login_required
 def obelisque_delete(obelisque_id):
+    """ Route pour le formulaire de suppression d'un obélisque.
+        :param obelisque_id: identifiant de l'obélisque à supprimer
+        :type obelisque_id: integer
+        :returns: template obelisque_form_delete.html en cas d'échec, retour à l'accueil en cas de réussite """
+
     supprimable = Obelisque.query.get(obelisque_id)
 
     if request.method == "POST":
@@ -477,6 +553,11 @@ def obelisque_delete(obelisque_id):
 @app.route("/personne/<int:personne_id>/delete", methods=["POST", "GET"])
 @login_required
 def personne_delete(personne_id):
+    """ Route pour le formulaire de suppression d'un commanditaire.
+        :param personne_id: identifiant du commanditaire à supprimer
+        :type personne_id: integer
+        :returns: template personne_form_delete.html en cas d'échec, retour vers l'accueil en cas de réussite """
+
     supprimable = Personne.query.get(personne_id)
 
     if request.method == "POST":
@@ -499,6 +580,11 @@ def personne_delete(personne_id):
 @app.route("/lieu/<int:localisation_id>/delete", methods=["POST", "GET"])
 @login_required
 def localisation_delete(localisation_id):
+    """ Route pour le formulaire de suppression d'un lieu.
+        :param localisation_id: identifiant du lieu à supprimer
+        :type localisation_id: integer
+        :returns: template localisation_form_delete.html en cas d'échec, retour vers l'accueil en cas de réussite """
+
     supprimable = Localisation.query.get(localisation_id)
 
     if request.method == "POST":
@@ -521,6 +607,9 @@ def localisation_delete(localisation_id):
 @app.route('/elevations')
 @login_required
 def elevations():
+    """ Route pour le tableau de gestion des élévations.
+        :returns: template elevations.html """
+
     erige = Erige.query.all()
 
     return render_template("pages/elevations.html", erige=erige)
@@ -531,6 +620,10 @@ def elevations():
 @app.route("/erige/add", methods=["GET", "POST"])
 @login_required
 def erige_add():
+    """ Route pour le formulaire d'ajout d'une élévation.
+        :returns: template elevations.html
+    """
+
     if request.method == "POST":
         statut, informations = Erige.erige_add(
             erige_add_id_obelisque=request.form.get("erige_add_id_obelisque", None),
@@ -555,6 +648,12 @@ def erige_add():
 @app.route("/erige/<int:erige_id>/update", methods=["GET", "POST"])
 @login_required
 def erige_update(erige_id):
+    """ Route pour le formulaire de modification d'une élévation.
+        :param erige_id: identifiant de l'élévation à modifier
+        :type erige_id: integer
+        :returns: template elevations.html
+        """
+
     editable = Erige.query.get_or_404(erige_id)
 
     erreurs = []
@@ -592,6 +691,12 @@ def erige_update(erige_id):
 @app.route("/erige/<int:erige_id>/delete", methods=["POST", "GET"])
 @login_required
 def erige_delete(erige_id):
+    """ Route pour le formulaire de suppression d'une élévation.
+        :param erige_id: identifiant de l'élévation à supprimer
+        :type erige_id: integer
+        :returns: template elevations.html
+        """
+
     supprimable = Erige.query.get(erige_id)
     db.session.delete(supprimable)
     db.session.commit()
