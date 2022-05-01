@@ -5,17 +5,23 @@ from ..app import db
 # On crée une classe Obelisque
 class Obelisque(db.Model):
     obelisque_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    # Le nom de l'obélisque
     obelisque_nom = db.Column(db.Text)
-    # Hauteur de l'obélisque
+    # Hauteur de l'obélisque à proprement parler
     obelisque_hauteur = db.Column(db.Float)
-    # Hauteur totale
+    # Hauteur totale du monument
     obelisque_hauteur_avec_base = db.Column(db.Float)
+    # Matériau composant l'obélisque
     obelisque_materiau = db.Column(db.Text)
     # L'obélisque est-il une commande égyptienne ou romaine ?
     obelisque_type_commande = db.Column(db.Text)
+    # Une brève description
     obelisque_notice = db.Column(db.Text)
+    # On transcrit les inscriptions latines présentes sur l'obélisque si elles existent
     obelisque_inscription_latine = db.Column(db.Text)
+    # On traduit les inscriptions latines présentes sur l'obélisque si elles existent
     obelisque_inscription_latine_traduite = db.Column(db.Text)
+    # Les sources utilisées pour rédiger la fiche
     obelisque_bibliographie = db.Column(db.Text)
     # URL de l'image
     obelisque_image_url = db.Column(db.Text)
@@ -41,7 +47,7 @@ class Obelisque(db.Model):
             :returns: ajout de l'entrée dans la table obelisque de la base de données """
 
         erreurs = []
-        # On définit des attributs obligatoires
+        # On définit des attributs obligatoires et les erreurs affichées si ceux-ci sont laissés vides
         if not obelisque_add_nom:
             erreurs.append("veuillez renseigner le nom de l'obélisque")
         if not obelisque_add_hauteur:
@@ -65,11 +71,11 @@ class Obelisque(db.Model):
         if not obelisque_add_image_licence_url:
             erreurs.append("veuillez renseigner l'URL de la licence")
 
-            # S'il y a au moins une erreur, afficher un message d'erreur.
+        # En cas d'erreur on affiche le message d'erreur associé
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table obelisque
+        # En l'absence d'erreurs, on récupère les données du futur nouvel enregistrement à partir du formulaire
         ajoutable = Obelisque(obelisque_nom=obelisque_add_nom,
                               obelisque_hauteur=obelisque_add_hauteur,
                               obelisque_hauteur_avec_base=obelisque_add_hauteur_avec_base,
@@ -85,12 +91,13 @@ class Obelisque(db.Model):
                               obelisque_image_licence_url=obelisque_add_image_licence_url,
                               )
 
-        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Si l'ajout fonctionne, on l'intègre à la base de données
         try:
             db.session.add(ajoutable)
             db.session.commit()
             return True, ajoutable
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -104,11 +111,13 @@ class Obelisque(db.Model):
 
         supprimable = Obelisque.query.get(obelisque_id)
 
+        # Si l'opération fonctionne, on supprime l'enregistrement de la base de données
         try:
             db.session.delete(supprimable)
             db.session.commit()
             return True
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -116,8 +125,11 @@ class Obelisque(db.Model):
 # On crée une classe Personne pour recenser ceux ayant fait ériger un obélisque
 class Personne(db.Model):
     personne_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    # Le nom du commanditaire
     personne_nom = db.Column(db.Text)
+    # Ses fonctions
     personne_fonction = db.Column(db.Text)
+    # Sa nationalité
     personne_nationalite = db.Column(db.Text)
     erige = db.relationship("Erige", back_populates="personne")
     authorships = db.relationship("Authorship", back_populates="personne")
@@ -131,7 +143,7 @@ class Personne(db.Model):
             :returns: ajout de l'entrée dans la table personne de la base de données """
 
         erreurs = []
-        # On définit des attributs obligatoires
+        # On définit des attributs obligatoires et les erreurs affichées si ceux-ci sont laissés vides
         if not personne_add_nom:
             erreurs.append("veuillez renseigner le nom du commanditaire")
         if not personne_add_fonction:
@@ -141,21 +153,22 @@ class Personne(db.Model):
             erreurs.append(
                 "veuillez renseigner la nationalité du commanditaire")
 
-            # S'il y a au moins une erreur, afficher un message d'erreur.
+        # En cas d'erreur on affiche le message d'erreur associé
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Personne
+        # En l'absence d'erreurs, on récupère les données du futur nouvel enregistrement à partir du formulaire
         ajoutable = Personne(personne_nom=personne_add_nom,
                              personne_fonction=personne_add_fonction,
                              personne_nationalite=personne_add_nationalite)
 
-        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Si l'ajout fonctionne, on l'intègre à la base de données
         try:
             db.session.add(ajoutable)
             db.session.commit()
             return True, ajoutable
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -169,11 +182,13 @@ class Personne(db.Model):
 
         supprimable = Personne.query.get(personne_id)
 
+        # Si l'opération fonctionne, on supprime l'enregistrement de la base de données
         try:
             db.session.delete(supprimable)
             db.session.commit()
             return True
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -181,13 +196,17 @@ class Personne(db.Model):
 # On crée une classe Localisation pour recenser les lieux où les obélisques ont été érigés
 class Localisation(db.Model):
     localisation_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    # Le lieu exact de l'élévation
     localisation_lieu = db.Column(db.Text)
     # Le terme de "ville" est à concevoir au sens large, il s'agit d'indiquer ici une référence plus précise que le pays, mais moins précise que le lieu exact.
     # On y renseigne la ville si le lieu d'évélation en possède une, mais on y retrouve également des termes tels que "Voie Appienne" (donc une route)
     # ou "Karnak" (un complexe)
     localisation_ville = db.Column(db.Text)
+    # Le pays du lieu de l'élévation
     localisation_pays = db.Column(db.Text)
+    # La longitude
     localisation_longitude = db.Column(db.Float)
+    # La latitude
     localisation_latitude = db.Column(db.Float)
     erige = db.relationship("Erige", back_populates="localisation")
     authorships = db.relationship("Authorship", back_populates="localisation")
@@ -202,7 +221,7 @@ class Localisation(db.Model):
             :returns: ajout de l'entrée dans la table localisation de la base de données """
 
         erreurs = []
-        # On définit des attributs obligatoires
+        # On définit des attributs obligatoires et les erreurs affichées si ceux-ci sont laissés vides
         if not localisation_add_lieu:
             erreurs.append("veuillez renseigner le nom du lieu")
         if not localisation_add_ville:
@@ -218,23 +237,24 @@ class Localisation(db.Model):
             erreurs.append(
                 "veuillez renseigner une longitude")
 
-            # S'il y a au moins une erreur, afficher un message d'erreur.
+        # En cas d'erreur on affiche le message d'erreur associé
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
+        # En l'absence d'erreurs, on récupère les données du futur nouvel enregistrement à partir du formulaire
         ajoutable = Localisation(localisation_lieu=localisation_add_lieu,
                                  localisation_ville=localisation_add_ville,
                                  localisation_pays=localisation_add_pays,
                                  localisation_latitude=localisation_add_latitude,
                                  localisation_longitude=localisation_add_longitude)
 
-        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Si l'ajout fonctionne, on l'intègre à la base de données
         try:
             db.session.add(ajoutable)
             db.session.commit()
             return True, ajoutable
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -248,22 +268,29 @@ class Localisation(db.Model):
 
         supprimable = Localisation.query.get(localisation_id)
 
+        # Si l'opération fonctionne, on supprime l'enregistrement de la base de données
         try:
             db.session.delete(supprimable)
             db.session.commit()
             return True
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
 
 # On crée une classe Erige servant de table de relation reliant les trois tables précédentes
+# Cette table recense les élévations d'obélisques
 class Erige(db.Model):
     __tablename__ = "erige"
     erige_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
+    # On récupère l'id de l'obélisque élevé
     erige_id_obelisque = db.Column(db.Integer, db.ForeignKey('obelisque.obelisque_id'))
+    # On récupère l'id du commanditaire ayant ordonné l'élévation
     erige_id_personne = db.Column(db.Integer, db.ForeignKey('personne.personne_id'))
+    # On récupère l'id du lieu où a été élevé l'obélisque
     erige_id_localisation = db.Column(db.Integer, db.ForeignKey('localisation.localisation_id'))
+    # On renseigne la date de l'élévation (au format Text, permettant aisément l'emploi de valeurs telles que "1279-1213 av. J.-C.")
     erige_date = db.Column(db.Text)
     # On indique si l'enregistrement correspond à la localisation actuelle de l'obélisque (0 = non, 1 = oui)
     erige_actuel = db.Column(db.Integer)
@@ -282,7 +309,7 @@ class Erige(db.Model):
             :returns: ajout de l'entrée dans la table erige de la base de données """
 
         erreurs = []
-        # On définit des attributs obligatoires
+        # On définit des attributs obligatoires et les erreurs affichées si ceux-ci sont laissés vides
         if not erige_add_id_obelisque:
             erreurs.append("veuillez renseigner l'identifiant de l'obélisque'")
         if not erige_add_id_personne:
@@ -295,23 +322,24 @@ class Erige(db.Model):
             erreurs.append(
                 "veuillez renseigner la date d'élévation")
 
-            # S'il y a au moins une erreur, afficher un message d'erreur.
+        # En cas d'erreur on affiche le message d'erreur associé
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Localisation
+        # En l'absence d'erreurs, on récupère les données du futur nouvel enregistrement à partir du formulaire
         ajoutable = Erige(erige_id_obelisque=erige_add_id_obelisque,
                           erige_id_personne=erige_add_id_personne,
                           erige_id_localisation=erige_add_id_localisation,
                           erige_date=erige_add_date,
                           erige_actuel=erige_add_actuel)
 
-        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Si l'ajout fonctionne, on l'intègre à la base de données
         try:
             db.session.add(ajoutable)
             db.session.commit()
             return True, ajoutable
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
@@ -325,11 +353,13 @@ class Erige(db.Model):
 
         supprimable = Erige.query.get(erige_id)
 
+        # Si l'opération fonctionne, on supprime l'enregistrement de la base de données
         try:
             db.session.delete(supprimable)
             db.session.commit()
             return True
 
+        # Sinon, on retourne une erreur
         except Exception as erreur:
             return False, [str(erreur)]
 
